@@ -9,12 +9,12 @@ plugins {
 
 android {
     namespace = "com.example.drugbank"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.drugbank"
         minSdk = 28
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
