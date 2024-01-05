@@ -1,8 +1,11 @@
-package com.example.drugbank
+package com.example.drugbank.ui.activity.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.drugbank.R
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
