@@ -114,4 +114,10 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+
+    <string name="search_nav">Search</string>
+    <string name="saved_nav">Saved</string>
+    <string name="record_nav">Record</string>
+    <string name="drugstore_nav">Drugstore</string>
+    <string name="setting_nav">Setting</string>
 </resources>

@@ -3,34 +3,46 @@ package com.example.drugbank.ui.activity.main
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.navigation.findNavController
 import com.example.drugbank.R
+import com.example.drugbank.databinding.ActivityMainBinding
+import com.example.healthcarecomp.base.BaseActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import me.ibrahimsn.lib.NiceBottomBar
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
+
+    private lateinit var binding:ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        var b  = findViewById<NiceBottomBar>(R.id.bottomBar)
-        b.setActiveItem(1)
-        b.setBadge(2)
-        b.removeBadge(2)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        b.onItemSelected = {
-            Toast.makeText(this, "Check Click", Toast.LENGTH_SHORT).show()
+        binding.let {
+            it.bottomBar.setActiveItem(0)
+            it.bottomBar.setBadge(2)
+        }
+
+        val navController = findNavController(R.id.nav_host_fragment_activity_main)
+
+        binding.bottomBar.let { bt ->
+            bt.onItemSelected  = {
+
+            }
 
         }
 
-        b.onItemReselected = {
-            Toast.makeText(this, "Check Click", Toast.LENGTH_SHORT).show()
+       // navController.navigate(R.id.savedFragment)
 
-        }
 
-        b.onItemLongClick = {
-            Toast.makeText(this, "Check Click", Toast.LENGTH_SHORT).show()
-        }
+
+
+
+
+
 
 
     }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_menu"
+    app:startDestination="@id/searchFragmentNav">
+
+    <fragment
+        android:id="@+id/searchFragmentNav"
+        android:name="com.example.drugbank.ui.search.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/recordFragmentnav"
+        android:name="com.example.drugbank.ui.record.RecordFragment"
+        android:label="fragment_record"
+        tools:layout="@layout/fragment_record" />
+    <fragment
+        android:id="@+id/savedFragmentNav"
+        android:name="com.example.drugbank.ui.saved.SavedFragment"
+        android:label="fragment_saved"
+        tools:layout="@layout/fragment_saved" />
+    <fragment
+        android:id="@+id/drugStoreFragmentNav"
+        android:name="com.example.drugbank.ui.drugstore.DrugStoreFragment"
+        android:label="fragment_drug_store"
+        tools:layout="@layout/fragment_drug_store" />
+    <fragment
+        android:id="@+id/settingFragmentNav"
+        android:name="com.example.drugbank.ui.setting.SettingFragment"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" />
+</navigation>
