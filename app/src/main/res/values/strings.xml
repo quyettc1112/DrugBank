@@ -1,3 +1,117 @@
 <resources>
     <string name="app_name">DrugBank</string>
+
+    <string name="account">Account</string>
+    <string name="servers">Servers</string>
+    <string name="search">Search</string>
+    <string name="billing">Billing</string>
+
+
+    <string name="default_notify_title">Message</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!-- Login Screen -->
+    <string name="login_phone_number_hint">PhoneNumber</string>
+    <string name="login_password_hint">Password</string>
+    <string name="login_forgot_password_text"><u>Forgot password?</u></string>
+    <string name="login_btn">Login</string>
+    <string name="login_with_text">Or, login with</string>
+    <string name="login_dont_have_account">Don\'t have an account?</string>
+    <string name="login_sign_up_btn">Sign Up</string>
+
+    <!-- Sign up Screen -->
+    <string name="sign_up_first_name_hint">First Name</string>
+    <string name="sign_up_last_name_hint">Last Name</string>
+    <string name="sign_up_phone_number_hint">Phone Number</string>
+    <string name="sign_up_password_hint">Password</string>
+    <string name="sign_up_doctor_code_hint">Doctor Code</string>
+    <string name="sign_up_btn">Register</string>
+    <string name="sign_up_with_text">Or, sign up with</string>
+    <string name="sign_up_have_account_text">Already have an account?</string>
+    <string name="sign_up_Login_btn">Login</string>
+
+    <string name="health_care">Health Care</string>
+
+
+    <string name="home_title">Home</string>
+    <string name="schedule_title">Schedule</string>
+    <string name="chat_title">Chat</string>
+    <string name="info_title">Info</string>
+
+    <string name="default_web_client_id">448679009081-b1mugi9il2et4advljg6a3vh1pkm0rhl.apps.googleusercontent.com</string>
+    <string name="sign_up_password_confirm_hint">Confirm password</string>
+    <string name="sign_up_email_hint">Email</string>
+    <string name="default_user_name">User</string>
+    <string name="team_name">-Ongtrumandroid-</string>
+    <string name="app_name_and_version">Health Care version 0.0.1</string>
+    <string name="dob_hint">dd/mm/yyy</string>
+
+    <!--    biometric authentication-->
+    <string name="biometric_authentication_title">Biometric Authentication</string>
+    <string name="biometric_authentication_subtitle">Log in using </string>
+    <!--    <string name="biometric_authentication_error">Authentication error: </string>-->
+    <!--    <string name="biometric_authentication_succeeded">Authentication succeeded!</string>-->
+    <!--    <string name="biometric_authentication_failed">Authentication failed</string>-->
+    <string name="biometric_support_unavailable">Biometric authentication is not available on this device</string>
+    <string name="biometric_currently_unavailable">Biometric authentication is currently unavailable</string>
+    <string name="biometric_enrollment_unavailable">Biometric enrollment is currently not available on this device</string>
+
+    <!--  services notification  -->
+    <string name="default_notification_channel_id">chanel id</string>
+    <string name="fcm_message">fcm_message</string>
+
+    <string name="open_nav">Open Navigation Drawer</string>
+    <string name="close_nav">Close Navigation Drawer</string>
+    <string name="for_patient">
+        "Chúng tôi lấy tiền của bạn \n\n \n\n"
+
+        "Material is the metaphor.\n\n"
+        "A material metaphor is the unifying theory of a rationalized space and a system of motion."
+        "The material is grounded in tactile reality, inspired by the study of paper and ink, yet "
+        "technologically advanced and open to imagination and magic.\n"
+        "Surfaces and edges of the material provide visual cues that are grounded in reality. The "
+        "use of familiar tactile attributes helps users quickly understand affordances. Yet the "
+        "flexibility of the material creates new affordances that supercede those in the physical "
+        "world, without breaking the rules of physics.\n"
+        "The fundamentals of light, surface, and movement are key to conveying how objects move, "
+        "interact, and exist in space and in relation to each other. Realistic lighting shows "
+        "seams, divides space, and indicates moving parts.\n\n"
+
+
+    </string>
+
+    <string name="role_of_healthbooking">
+        "Vai trò của chúng tôi là lấy tiền của bạn \n\n \n\n"
+
+        "Material is the metaphor.\n\n"
+        "A material metaphor is the unifying theory of a rationalized space and a system of motion."
+        "The material is grounded in tactile reality, inspired by the study of paper and ink, yet "
+        "technologically advanced and open to imagination and magic.\n"
+        "Surfaces and edges of the material provide visual cues that are grounded in reality. The "
+        "use of familiar tactile attributes helps users quickly understand affordances. Yet the "
+        "flexibility of the material creates new affordances that supercede those in the physical "
+        "world, without breaking the rules of physics.\n"
+        "The fundamentals of light, surface, and movement are key to conveying how objects move, "
+        "interact, and exist in space and in relation to each other. Realistic lighting shows "
+        "seams, divides space, and indicates moving parts.\n\n"
+
+
+    </string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="title_activity_test_ui">TestUi</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>

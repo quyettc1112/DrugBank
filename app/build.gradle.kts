@@ -127,4 +127,7 @@ dependencies {
 
     // Flexbox version
     implementation("com.google.android.flexbox:flexbox:3.0.0")
+
+    // Bottom av vavigation
+    implementation ("com.github.ibrahimsn98:NiceBottomBar:2.2")
 }

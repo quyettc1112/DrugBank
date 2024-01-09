@@ -1,5 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="primaryColor">#ff6c2f</color>
+    <color name="primaryLightColor">#ff9e5d</color>
+    <color name="primaryDarkColor">#c53a00</color>
+
+    <color name="primaryTextColor">#000000</color>
+    <color name="error_color">@android:color/holo_red_light</color>
+    <color name="light_text_color">#FFFFFFFF</color>
+    <color name="text_color">#333333</color>
+    <color name="hint_text_color">#B7B7B7</color>
+    <color name="regular_price_color">#cbcbcb</color>
+    <color name="inactive_text_color">#8D8D8D</color>
+    <color name="background_splash_color">#FF6C2F</color>
+
+    <color name="background_header_color">@color/primaryColor</color>
+
+    <color name="icon_color_bottom_normal">@color/primaryLightColor</color>
+    <color name="icon_color_bottom_selected">@color/primaryColor</color>
+
+    <color name="icon_color_normal">#B7B7B7</color>
+
+
+    <color name="process_bar_color">#B7B7B7</color>
+
+
+    <color name="item_userhom_bg">#2dc653</color>
+    <color name="red_light">#ED3E3E</color>
+
+    <color name="text_black_blue">#393557</color>
+    <color name="bg_gray">#F5F5F9</color>
+
+    <color name="card_recaycle">#fdfdff</color>
+    <color name="icon_bg_red_light">#F5BBBB</color>
+
+    <color name="i_blue">#4A86F7</color>
+    <color name="i_blue_light">#edf3fe</color>
+    <color name="i_blue_e8ebfa">#e8ebfa</color>
+    <color name="i_title">#35353D</color>
+    <color name="i_body">#6a7185</color>
+    <color name="i_stroke">#e9edf1</color>
+    <color name="i_bg">#f5f7fa</color>
+    <color name="i_gray">#ececec</color>
+
+    <color name="light_blue_400">#FF29B6F6</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="gray_400">#FFBDBDBD</color>
+    <color name="gray_600">#FF757575</color>
+
+    <color name="zxing_transparent">#00000000</color>
+
+
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="lavender">#8692f7</color>
 </resources>

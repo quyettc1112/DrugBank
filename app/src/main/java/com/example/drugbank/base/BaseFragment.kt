@@ -6,8 +6,8 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
-import com.example.healthcarecomp.R
-import com.example.healthcarecomp.data.model.User
+import com.example.drugbank.R
+
 
 
 open class BaseFragment(view: Int) : Fragment(view) {
