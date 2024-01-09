@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.navigation.findNavController
 import com.example.drugbank.R
+import com.example.drugbank.common.constant.Constant
 import com.example.drugbank.databinding.ActivityMainBinding
 import com.example.healthcarecomp.base.BaseActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -21,29 +22,20 @@ class MainActivity : BaseActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setUpBottomNavigation()
+
+    }
+
+    private fun setUpBottomNavigation() {
         binding.let {
             it.bottomBar.setActiveItem(0)
             it.bottomBar.setBadge(2)
         }
-
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
-
         binding.bottomBar.let { bt ->
-            bt.onItemSelected  = {
-
+            bt.onItemSelected = {
+                navController.navigate(Constant.getNavSeleted(it))
             }
-
         }
-
-       // navController.navigate(R.id.savedFragment)
-
-
-
-
-
-
-
-
-
     }
 }
