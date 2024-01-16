@@ -26,13 +26,23 @@ class MainActivity : BaseActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
+
         _mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
         _mainViewModel.setUpNav()
         _mainViewModel.currentNav.observe(this, Observer {currentId->
+            if (currentId != null) {
+                val navController = findNavController(R.id.nav_host_fragment_activity_main)
+                navController.navigate(Constant.getNavSeleted(currentId))
+            }
 
         })
 
+        binding.bottomBar.let { bt ->
+            bt.onItemSelected = {
+                _mainViewModel.ChangeNav(it)
+            }
+
+        }
 
 
        // setUpBottomNavigation()
