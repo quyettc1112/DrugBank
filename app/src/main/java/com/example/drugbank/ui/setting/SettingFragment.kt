@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.drugbank.R
+import com.example.drugbank.ui.activity.main.MainActivity
 
 class SettingFragment : Fragment() {
 
@@ -26,7 +27,9 @@ class SettingFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(SettingViewModel::class.java)
-        // TODO: Use the ViewModel
+
+        val activity = requireActivity() as MainActivity
+        activity.showLoginDialog()
     }
 
 }

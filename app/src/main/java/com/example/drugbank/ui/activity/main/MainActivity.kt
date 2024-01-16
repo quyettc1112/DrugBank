@@ -10,6 +10,7 @@ import androidx.navigation.findNavController
 import com.example.drugbank.R
 import com.example.drugbank.common.constant.Constant
 import com.example.drugbank.databinding.ActivityMainBinding
+import com.example.drugbank.databinding.DialogConfirmBinding
 import com.example.healthcarecomp.base.BaseActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,44 +27,39 @@ class MainActivity : BaseActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setUpBottomNavigation()
-//        _mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
-//        _mainViewModel.setUpNav()
-//        _mainViewModel.currentNav.observe(this, Observer {currentId->
-//            if (currentId != null) {
-//                val navController = findNavController(R.id.nav_host_fragment_activity_main)
-//                navController.navigate(Constant.getNavSeleted(currentId))
-//            }
-//
-//        })
-//
-//        binding.bottomBar.let { bt ->
-//            bt.onItemSelected = {
-//                _mainViewModel.ChangeNav(it)
-//            }
-//
-//
-//
-//        }
 
 
-       // setUpBottomNavigation()
+        setUpBottomNav()
 
     }
-    private fun setUpBottomNavigation() {
-        binding.let {
-            it.bottomBar.setActiveItem(0)
-            it.bottomBar.setBadge(2)
 
-        }
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        binding.bottomBar.let { bt ->
-            bt.onItemSelected = {
-                navController.navigate(Constant.getNavSeleted(it))
+    private fun setUpBottomNav() {
+        _mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        _mainViewModel.setUpNav()
+        _mainViewModel.currentNav.observe(this, Observer { currentId ->
+            if (currentId != null) {
+                val navController = findNavController(R.id.nav_host_fragment_activity_main)
+                navController.navigate(Constant.getNavSeleted(currentId))
             }
+        })
+        val a = 0;
+        binding.bottomBar.let { bt ->
+            // Todo Check người dùng đã đăng nhập chưa ở dây
+            bt.onItemSelected = {
+                if (a >1 ){
+                    _mainViewModel.ChangeNav(it)
 
+                } else showLoginDialog()
 
-
+            }
+            bt.setBadge(2)
         }
     }
+
+    fun showLoginDialog() {
+        showLoginDialog(this, this, 0)
+    }
+
+
+
 }
