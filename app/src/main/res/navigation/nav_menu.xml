@@ -14,12 +14,22 @@
         android:id="@+id/recordFragmentnav"
         android:name="com.example.drugbank.ui.record.RecordFragment"
         android:label="fragment_record"
-        tools:layout="@layout/fragment_record" />
+        tools:layout="@layout/fragment_record" >
+        <action
+            android:id="@+id/action_recordFragmentnav_to_loginFragment"
+            app:destination="@id/loginFragmentNav" />
+    </fragment>
     <fragment
         android:id="@+id/savedFragmentNav"
         android:name="com.example.drugbank.ui.saved.SavedFragment"
         android:label="fragment_saved"
-        tools:layout="@layout/fragment_saved" />
+        tools:layout="@layout/fragment_saved" >
+        <action
+            android:id="@+id/action_savedFragmentNav_to_loginFragment"
+            app:destination="@id/loginFragmentNav"
+
+            />
+    </fragment>
     <fragment
         android:id="@+id/drugStoreFragmentNav"
         android:name="com.example.drugbank.ui.drugstore.DrugStoreFragment"
@@ -29,5 +39,19 @@
         android:id="@+id/settingFragmentNav"
         android:name="com.example.drugbank.ui.setting.SettingFragment"
         android:label="fragment_setting"
-        tools:layout="@layout/fragment_setting" />
+        tools:layout="@layout/fragment_setting" >
+        <action
+            android:id="@+id/action_settingFragmentNav_to_loginFragment"
+            app:destination="@id/loginFragmentNav" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragmentNav"
+        android:name="com.example.drugbank.ui.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            app:launchSingleTop="true"
+            android:id="@+id/action_loginFragmentNav_to_searchFragmentNav"
+            app:destination="@id/searchFragmentNav" />
+    </fragment>
 </navigation>

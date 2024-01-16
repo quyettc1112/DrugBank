@@ -6,12 +6,11 @@
         android:title="@string/search_nav"
         android:icon="@drawable/ic_search_black_24dp"
         />
-
     <item
-        android:id="@+id/save"
-        android:title="@string/saved_nav"
-        android:icon="@drawable/ic_dns_black_24dp"
-       />
+        android:id="@+id/drugstores"
+        android:title="@string/drugstore_nav"
+        android:icon="@drawable/baseline_storefront_24" />
+
 
     <item
         android:id="@+id/record"
@@ -19,9 +18,11 @@
         android:icon="@drawable/ic_receipt_black_24dp" />
 
     <item
-        android:id="@+id/drugstores"
-        android:title="@string/drugstore_nav"
-        android:icon="@drawable/baseline_storefront_24" />
+        android:id="@+id/save"
+        android:title="@string/saved_nav"
+        android:icon="@drawable/ic_dns_black_24dp"
+        />
+
 
     <item
         android:id="@+id/setting"

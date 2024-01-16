@@ -25,7 +25,6 @@ class MainActivity : BaseActivity() {
         setUpBottomNavigation()
 
     }
-
     private fun setUpBottomNavigation() {
         binding.let {
             it.bottomBar.setActiveItem(0)
@@ -36,6 +35,8 @@ class MainActivity : BaseActivity() {
             bt.onItemSelected = {
                 navController.navigate(Constant.getNavSeleted(it))
             }
+
+
         }
     }
 }
