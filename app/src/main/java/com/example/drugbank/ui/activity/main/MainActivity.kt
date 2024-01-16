@@ -26,23 +26,25 @@ class MainActivity : BaseActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-        _mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
-        _mainViewModel.setUpNav()
-        _mainViewModel.currentNav.observe(this, Observer {currentId->
-            if (currentId != null) {
-                val navController = findNavController(R.id.nav_host_fragment_activity_main)
-                navController.navigate(Constant.getNavSeleted(currentId))
-            }
-
-        })
-
-        binding.bottomBar.let { bt ->
-            bt.onItemSelected = {
-                _mainViewModel.ChangeNav(it)
-            }
-
-        }
+        setUpBottomNavigation()
+//        _mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
+//        _mainViewModel.setUpNav()
+//        _mainViewModel.currentNav.observe(this, Observer {currentId->
+//            if (currentId != null) {
+//                val navController = findNavController(R.id.nav_host_fragment_activity_main)
+//                navController.navigate(Constant.getNavSeleted(currentId))
+//            }
+//
+//        })
+//
+//        binding.bottomBar.let { bt ->
+//            bt.onItemSelected = {
+//                _mainViewModel.ChangeNav(it)
+//            }
+//
+//
+//
+//        }
 
 
        // setUpBottomNavigation()
@@ -52,12 +54,14 @@ class MainActivity : BaseActivity() {
         binding.let {
             it.bottomBar.setActiveItem(0)
             it.bottomBar.setBadge(2)
+
         }
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         binding.bottomBar.let { bt ->
             bt.onItemSelected = {
                 navController.navigate(Constant.getNavSeleted(it))
             }
+
 
 
         }

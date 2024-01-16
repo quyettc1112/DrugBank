@@ -13,14 +13,17 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import com.example.drugbank.R
 import com.example.drugbank.common.screen.Screen
+import com.example.drugbank.databinding.ActivityMainBinding
 import com.example.drugbank.ui.activity.main.MainActivity
+import com.google.android.material.bottomappbar.BottomAppBar
+import me.ibrahimsn.lib.NiceBottomBar
 
 class SavedFragment : Fragment() {
 
     companion object {
         fun newInstance() = SavedFragment()
     }
-
+    private lateinit var binding:ActivityMainBinding
     private lateinit var viewModel: SavedViewModel
 
     override fun onCreateView(
@@ -47,6 +50,8 @@ class SavedFragment : Fragment() {
             val activity = requireActivity()
             val navController = activity.findNavController(R.id.nav_host_fragment_activity_main)
             navController.navigate(R.id.searchFragmentNav)
+            val bottomBar = activity.findViewById<NiceBottomBar>(R.id.bottomBar)
+            bottomBar.setActiveItem(0)
 
         }
 
