@@ -3,6 +3,9 @@ package com.example.drugbank.ui.activity.main
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.drugbank.R
 import com.example.drugbank.common.constant.Constant
@@ -16,13 +19,23 @@ import me.ibrahimsn.lib.NiceBottomBar
 class MainActivity : BaseActivity() {
 
     private lateinit var binding:ActivityMainBinding
+    private lateinit var _mainViewModel: MainViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setUpBottomNavigation()
+        val navController = findNavController(R.id.nav_host_fragment_activity_main)
+        _mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        _mainViewModel.setUpNav()
+        _mainViewModel.currentNav.observe(this, Observer {currentId->
+
+        })
+
+
+
+       // setUpBottomNavigation()
 
     }
     private fun setUpBottomNavigation() {
