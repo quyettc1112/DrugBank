@@ -46,11 +46,9 @@ class MainActivity : BaseActivity() {
         binding.bottomBar.let { bt ->
             // Todo Check người dùng đã đăng nhập chưa ở dây
             bt.onItemSelected = {
-                if (a >1 ){
+                if (it <= 1) {
                     _mainViewModel.ChangeNav(it)
-
                 } else showLoginDialog()
-
             }
             bt.setBadge(2)
         }
