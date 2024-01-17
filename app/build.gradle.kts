@@ -38,6 +38,7 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures{
+        dataBinding = true
         viewBinding = true
     }
 
@@ -62,6 +63,7 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation("androidx.databinding:databinding-runtime:8.2.1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
