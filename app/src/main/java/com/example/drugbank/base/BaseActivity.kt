@@ -5,12 +5,14 @@ import android.app.Dialog
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.graphics.Rect
 import android.graphics.drawable.ColorDrawable
 import android.util.Log
 import android.view.Gravity
 import android.view.MotionEvent
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -22,6 +24,7 @@ import com.example.drugbank.base.dialog.ConfirmDialog
 import com.example.drugbank.base.dialog.ErrorDialog
 import com.example.drugbank.common.constant.Constant
 import com.example.drugbank.common.screen.Screen
+import com.example.drugbank.ui.activity.auth.login.LoginActivity
 import me.ibrahimsn.lib.NiceBottomBar
 
 
@@ -173,6 +176,19 @@ open class BaseActivity : AppCompatActivity() {
                 myDialog.dismiss()
             }
         }
+
+        // trường hợp bấm login
+        myDialog.findViewById<Button>(R.id.btn_Login).let {
+            it.setOnClickListener {
+                val intent = Intent(context, LoginActivity::class.java)
+                startActivity(intent)
+                myDialog.dismiss()
+                finish()
+
+            }
+        }
+
+
 
 
     }
