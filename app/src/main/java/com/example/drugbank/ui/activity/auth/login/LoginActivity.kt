@@ -22,12 +22,25 @@ class LoginActivity : BaseActivity() {
         _binding = ActivityLoginBinding.inflate(layoutInflater)
          setContentView(_binding.root)
 
+        openRegisterActivity()
+        onBackLickIcon()
+        onBackHandle()
+    }
+
+    private fun onBackLickIcon() {
+        _binding.customToolbar.onStartIconClick = {
+            val intent = Intent(this@LoginActivity, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+    }
+
+    private fun openRegisterActivity() {
         _binding.btnRegister.setOnClickListener {
-           // Toast.makeText(this, "Check Click", Toast.LENGTH_SHORT).show()
+            // Toast.makeText(this, "Check Click", Toast.LENGTH_SHORT).show()
             var intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
-        onBackHandle()
     }
 
     private fun onBackHandle() {
