@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <LinearLayout
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+
+        android:orientation="horizontal"
+        android:background="@drawable/background_recycle_user_m"
+        android:layout_width="match_parent"
+        android:padding="8dp"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivUserAvatar"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/avatar_1"
+            app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full"/>
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="250dp"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_userName"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
+                android:layout_width="wrap_content"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:text="Trần Cương Quyết"
+                android:maxWidth="220dp"
+                android:layout_height="wrap_content">
+            </TextView>
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="11dp"
+                android:maxLines="1"
+                android:maxEms="25"
+                android:text="Nhân viên kỹ thuật"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

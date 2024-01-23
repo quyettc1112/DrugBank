@@ -27,7 +27,31 @@ class Constant {
             myHashMap[LOGIN_NAV_ID] = R.id.loginFragmentNav
             return myHashMap[selected] ?: -1
         }
+        fun getUserList():  ArrayList<tempUser>{
+            val itemList = ArrayList<tempUser>()
+            var user1 =tempUser(R.drawable.avatar_1, "Trần Cương Quyết")
+            var user2 =tempUser(R.drawable.avatar_1, "Trần Cương Quyết")
+            var user3 =tempUser(R.drawable.avatar_1, "Trần Cương Quyết")
+            var user4 =tempUser(R.drawable.avatar_1, "Trần Cương Quyết")
+            itemList.add(user1)
+            itemList.add(user2)
+            itemList.add(user3)
+            itemList.add(user4)
+
+            return itemList
+        }
+
+
+
     }
+
+    class   tempUser(
+        val imageIcon: Int,
+        val nameIcon: String,
+        val actionId:Int? = null
+
+    )
+
 
     sealed class MEDICAL() {
         enum class INT(val range: IntRange, val dimension: String){
