@@ -31,14 +31,14 @@ class LoginActivity : BaseActivity() {
         _binding.btnSignUp.setOnClickListener {
             onSignUpClick()
         }
-        _binding.btnCheckSecure.setOnClickListener {
-            onCheckSecureClick()
-        }
+//        _binding.btnCheckSecure.setOnClickListener {
+//            onCheckSecureClick()
+//        }
         //onSignUpClcik()
 
-        openRegisterActivity()
-        onBackLickIcon()
-        onBackHandle()
+        //openRegisterActivity()
+        //onBackLickIcon()
+        //onBackHandle()
     }
 
     private fun onSignUpClick() {
@@ -57,6 +57,7 @@ class LoginActivity : BaseActivity() {
                             _Token = Token(accessToken, refreshToken)
 
                             Toast.makeText(this@LoginActivity, _Token.accessToken, Toast.LENGTH_SHORT).show()
+                            IntentToHomePage()
                         } else {
                             Toast.makeText(this@LoginActivity, "Không có gì cả", Toast.LENGTH_SHORT).show()
                         }
@@ -95,15 +96,22 @@ class LoginActivity : BaseActivity() {
 
     }
 
+    private fun IntentToHomePage() {
+        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+        startActivity(intent)
+        finish()
 
-
-    private fun onBackLickIcon() {
-        _binding.customToolbar.onStartIconClick = {
-            val intent = Intent(this@LoginActivity, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
     }
+
+
+
+//    private fun onBackLickIcon() {
+//        _binding.customToolbar.onStartIconClick = {
+//            val intent = Intent(this@LoginActivity, MainActivity::class.java)
+//            startActivity(intent)
+//            finish()
+//        }
+//    }
 
     private fun openRegisterActivity() {
         _binding.btnRegister.setOnClickListener {
