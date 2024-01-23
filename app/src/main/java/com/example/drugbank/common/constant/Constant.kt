@@ -29,14 +29,14 @@ class Constant {
         }
         fun getUserList():  ArrayList<tempUser>{
             val itemList = ArrayList<tempUser>()
-            var user1 =tempUser(R.drawable.avatar_1, "Trần Cương Quyết")
-            var user2 =tempUser(R.drawable.avatar_1, "Trần Cương Quyết")
-            var user3 =tempUser(R.drawable.avatar_1, "Trần Cương Quyết")
+            var user1 =tempUser(R.drawable.anh_2, "Trần Cương Quyết")
+            var user2 =tempUser(R.drawable.anh_3, "Trần Cương Quyết")
+            var user3 =tempUser(R.drawable.anh_4, "Trần Cương Quyết")
             var user4 =tempUser(R.drawable.avatar_1, "Trần Cương Quyết")
             itemList.add(user1)
             itemList.add(user2)
             itemList.add(user3)
-            itemList.add(user4)
+            //itemList.add(user4)
 
             return itemList
         }
