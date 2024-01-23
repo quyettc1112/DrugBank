@@ -108,6 +108,8 @@ dependencies {
     implementation("androidx.room:room-paging:$room_version")
     implementation("com.google.android.gms:play-services-tasks:18.0.2")
 
+    // Circle Image
+    implementation("de.hdodenhof:circleimageview:3.1.0")
 
     // =================== Google Services ===========================
     // Gson Version
