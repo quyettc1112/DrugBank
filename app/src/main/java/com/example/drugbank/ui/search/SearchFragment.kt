@@ -10,9 +10,6 @@ import com.example.drugbank.R
 
 class SearchFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = SearchFragment()
-    }
 
     private lateinit var viewModel: SearchViewModel
 

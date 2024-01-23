@@ -28,8 +28,8 @@ class SettingFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(SettingViewModel::class.java)
 
-        val activity = requireActivity() as MainActivity
-        activity.showLoginDialog()
+//        val activity = requireActivity() as MainActivity
+//        activity.showLoginDialog()
     }
 
 }

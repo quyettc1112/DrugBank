@@ -27,8 +27,8 @@ class RecordFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(RecordViewModel::class.java)
-        val activity = requireActivity() as MainActivity
-        activity.showLoginDialog()
+//        val activity = requireActivity() as MainActivity
+//        activity.showLoginDialog()
     }
 
 }
