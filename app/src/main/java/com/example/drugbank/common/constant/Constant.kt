@@ -10,12 +10,9 @@ class Constant {
         const val RECORD_NAV_ID = 2;
         const val DRUGSTORE_NAV_ID = 1;
         const val SETTING_NAV_ID = 4;
-
         const val LOGIN_NAV_ID = 99;
-
         const val DEFAULT_ERROR_MESSAGE: String = "An error occurred"
         const val DOCTOR_SECURITY_DOCTOR = "123"
-
 
         fun getNavSeleted(selected: Int): Int {
             val myHashMap = HashMap<Int, Int>()
@@ -37,12 +34,8 @@ class Constant {
             itemList.add(user2)
             itemList.add(user3)
             //itemList.add(user4)
-
             return itemList
         }
-
-
-
     }
 
     class   tempUser(
@@ -51,8 +44,6 @@ class Constant {
         val actionId:Int? = null
 
     )
-
-
     sealed class MEDICAL() {
         enum class INT(val range: IntRange, val dimension: String){
             HEARTH_RATE(40..200, "bpm"),
