@@ -7,8 +7,8 @@
 
     <LinearLayout
         android:layout_marginTop="16dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
         android:orientation="horizontal"
         android:background="@drawable/background_recycle_user_m"
         android:layout_width="match_parent"
@@ -21,17 +21,17 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:id="@+id/ivUserAvatar"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
             android:src="@drawable/avatar_1"
             app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full"
 
             />
 
         <LinearLayout
-            android:layout_width="145dp"
+            android:layout_width="155dp"
             android:layout_height="match_parent"
-
+            android:gravity="center"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:orientation="vertical">
@@ -40,11 +40,11 @@
                 android:id="@+id/tv_userName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+
                 android:maxWidth="200dp"
                 android:layout_gravity="center"
                 android:text="Trần Cương Quyết"
-                android:textSize="15dp"
+                android:textSize="12dp"
                 android:textStyle="bold">
 
             </TextView>
@@ -59,26 +59,25 @@
                 android:maxLines="1"
                 android:layout_gravity="center"
                 android:text="quyettc@gmail.com"
-                android:textSize="12dp">
+                android:textSize="10dp">
 
             </TextView>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:gravity="center|top"
+            android:gravity="center"
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="match_parent">
             <TextView
-                android:layout_marginTop="5dp"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:text="Role"
-                android:textSize="16dp"
+                android:textSize="12dp"
                 android:textStyle="bold">
 
             </TextView>
@@ -86,14 +85,13 @@
             <TextView
                 android:gravity="center"
                 android:id="@+id/tv_role"
-                android:layout_width="70dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxWidth="70dp"
                 android:layout_marginTop="5dp"
                 android:maxEms="25"
                 android:maxLines="1"
-                android:textSize="12dp"
-
+                android:textSize="9dp"
                 android:text="Nhân Viên">
 
             </TextView>
@@ -103,23 +101,34 @@
 
         <ImageView
             android:id="@+id/im_Btnsetting"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="10dp"
             android:layout_gravity="center"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:src="@drawable/baseline_settings_24">
 
         </ImageView>
 
-
         <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_gravity="right"
+                android:layout_width="17dp"
+                android:background="@drawable/background_buttonside_user_m"
+                android:layout_height="match_parent">
 
-            android:layout_width="17dp"
-            android:background="@drawable/background_buttonside_user_m"
-            android:layout_height="match_parent"
-            >
+            </ImageView>
+
 
         </LinearLayout>
+
+
+
+
+
 
 
     </LinearLayout>
