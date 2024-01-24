@@ -71,9 +71,7 @@
             android:layout_height="50dp"
             android:layout_marginEnd="10dp"
             app:boxBackgroundColor="@color/white"
-
-
-
+            app:startIconDrawable="@drawable/baseline_perm_contact_calendar_24"
             >
 
             <AutoCompleteTextView
@@ -98,6 +96,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="170dp"
             android:layout_height="60dp"
+            app:startIconDrawable="@drawable/baseline_transgender_24"
             android:layout_marginStart="10dp"
 
            >

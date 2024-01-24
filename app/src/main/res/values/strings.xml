@@ -127,7 +127,7 @@
     <string-array name="RoleName">
         <item>USER</item>
         <item>ADMIN</item>
-        <item>SUPERADMIN</item>
+        <item>SUPER ADMIN</item>
     </string-array>
 
 
