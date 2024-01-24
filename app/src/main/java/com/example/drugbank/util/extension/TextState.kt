@@ -1,4 +1,4 @@
-package com.example.healthcarecomp.util.extension
+package com.example.drugbank.util.extension
 
 import android.content.Context
 import android.text.Editable
