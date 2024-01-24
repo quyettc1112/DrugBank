@@ -120,4 +120,20 @@
     <string name="record_nav">Record</string>
     <string name="drugstore_nav">Drugstore</string>
     <string name="setting_nav">Setting</string>
+
+
+
+    <!--    Combobox-->
+    <string-array name="RoleName">
+        <item>USER</item>
+        <item>ADMIN</item>
+        <item>SUPERADMIN</item>
+    </string-array>
+
+
+    <string-array name="Gender">
+        <item>All</item>
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
 </resources>

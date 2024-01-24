@@ -58,30 +58,61 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:weightSum="2"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_height="45dp">
+        android:gravity="center_horizontal"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputLayout
+            android:hint="Role"
             android:id="@+id/tip_rolename"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginEnd="16dp"
-            android:layout_weight="1"
-            android:background="@drawable/background_combobox">
+            android:layout_width="170dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="10dp"
+            app:boxBackgroundColor="@color/white"
+
+
+
+            >
+
+            <AutoCompleteTextView
+
+                android:id="@+id/atc_roleListCombo"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:inputType="none"
+                android:padding="0dp"
+                android:text="USER"
+                android:textSize="14dp"
+                android:textStyle="bold">
+
+            </AutoCompleteTextView>
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            app:boxBackgroundColor="@color/white"
+            android:hint="Gender"
             android:id="@+id/tip_gender"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:layout_marginStart="16dp"
-            android:background="@drawable/background_combobox">
+            android:layout_width="170dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="10dp"
+
+           >
+            <AutoCompleteTextView
+                android:id="@+id/atc_genderList"
+                android:inputType="none"
+                android:text="All"
+                android:padding="0dp"
+                android:textStyle="bold"
+                android:textSize="14dp"
+
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+            </AutoCompleteTextView>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -91,8 +122,8 @@
     <Switch
         android:layout_gravity="right"
         android:id="@+id/sw_Active"
-        android:layout_marginEnd="20dp"
-        android:padding="10dp"
+        android:layout_marginEnd="35dp"
+        android:padding="8dp"
         android:layout_marginTop="5dp"
         android:layout_width="120dp"
         android:background="@drawable/background_combobox"

@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
@@ -40,10 +41,29 @@ class SavedFragment : Fragment() {
     ): View? {
         _binding = FragmentSavedBinding.inflate(inflater, container, false)
 
-        val UserAdapter = UserAdapter(Constant.getUserList())
-        _binding.rclListUser.adapter = UserAdapter
 
         return _binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setUpListt()
+        setUpComboBox()
+    }
+
+    private fun setUpListt() {
+        val UserAdapter = UserAdapter(Constant.getUserList())
+        _binding.rclListUser.adapter = UserAdapter
+    }
+
+    private fun setUpComboBox() {
+        val rolelist = resources.getStringArray(R.array.RoleName)
+        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_menu, rolelist)
+        _binding.atcRoleListCombo.setAdapter(arrayAdapter)
+
+        val genderList = resources.getStringArray(R.array.Gender)
+        val arrayApderGender = ArrayAdapter(requireContext(), R.layout.dropdown_menu, genderList)
+        _binding.atcGenderList.setAdapter(arrayApderGender)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
