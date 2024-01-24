@@ -9,8 +9,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
 import com.example.drugbank.databinding.CustomSearchBarBinding
-import com.example.healthcarecomp.util.extension.hindSoftKeyboard
-import com.example.healthcarecomp.util.extension.showSoftKeyboard
+import com.example.drugbank.util.extension.hindSoftKeyboard
+import com.example.drugbank.util.extension.showSoftKeyboard
 
 
 class CustomSearchBar(context: Context, attributeSet: AttributeSet) :
