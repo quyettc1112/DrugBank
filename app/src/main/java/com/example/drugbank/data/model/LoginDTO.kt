@@ -1,8 +1,6 @@
 package com.example.drugbank.data.model
 
-import android.text.Editable
-
-data class LoginDAO(
+data class LoginDTO(
     var email: String,
     val password: String
 )

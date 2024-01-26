@@ -6,7 +6,8 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import com.example.drugbank.common.BaseAPI.RetrofitClient
-import com.example.drugbank.data.model.LoginDAO
+import com.example.drugbank.common.Token.TokenManager
+import com.example.drugbank.data.model.LoginDTO
 import com.example.drugbank.data.model.Token
 import com.example.drugbank.databinding.ActivityLoginBinding
 import com.example.drugbank.ui.activity.auth.register.RegisterActivity
@@ -34,8 +35,7 @@ class LoginActivity : BaseActivity() {
 //        _binding.btnCheckSecure.setOnClickListener {
 //            onCheckSecureClick()
 //        }
-        //onSignUpClcik()
-
+        //onSignUpClick()
         //openRegisterActivity()
         //onBackLickIcon()
         //onBackHandle()
@@ -46,8 +46,8 @@ class LoginActivity : BaseActivity() {
         val password = _binding.etPassword.text.toString()
 
         if (!Strings.isNullOrEmpty(userName) && !Strings.isNullOrEmpty(password)){
-            val loginDAO = LoginDAO(userName, password);
-            RetrofitClient.instance.login(loginDAO).enqueue(object : Callback<Token> {
+            val loginDTO = LoginDTO(userName, password);
+            RetrofitClient.instance.login(loginDTO).enqueue(object : Callback<Token> {
                 override fun onResponse(call: Call<Token>, response: Response<Token>) {
                     if (response.isSuccessful) {
                         val tokenData = response.body()
@@ -55,8 +55,9 @@ class LoginActivity : BaseActivity() {
                             val accessToken = tokenData.accessToken
                             val refreshToken = tokenData.refreshToken
                             _Token = Token(accessToken, refreshToken)
-
                             Toast.makeText(this@LoginActivity, _Token.accessToken, Toast.LENGTH_SHORT).show()
+                            val tokenManager = TokenManager(this@LoginActivity)
+                            tokenManager.saveAccessToken(_Token.accessToken)
                             IntentToHomePage()
                         } else {
                             Toast.makeText(this@LoginActivity, "Không có gì cả", Toast.LENGTH_SHORT).show()
@@ -102,8 +103,6 @@ class LoginActivity : BaseActivity() {
         finish()
 
     }
-
-
 
 //    private fun onBackLickIcon() {
 //        _binding.customToolbar.onStartIconClick = {

@@ -1,8 +1,7 @@
 package com.example.drugbank.common.BaseAPI
 
-import com.example.drugbank.common.constant.Constant
-import com.example.drugbank.data.api.LoginAPI
-import com.google.api.core.ApiService
+import com.example.drugbank.data.api.LoginAPIService
+import com.example.drugbank.data.api.UserAPIService
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -22,25 +21,38 @@ object RetrofitClient{
         .build()
 
     val gson = GsonBuilder().setLenient().create()
-    val instance: LoginAPI by lazy {
+    val instance: LoginAPIService by lazy {
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .addConverterFactory(ScalarsConverterFactory.create())
             .client(client)
             .build()
-        retrofit.create(LoginAPI::class.java)
+        retrofit.create(LoginAPIService::class.java)
     }
 
-    val instance_Test: LoginAPI by lazy {
+    val instance_Test: LoginAPIService by lazy {
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
            // .addConverterFactory(GsonConverterFactory.create(gson))
             .addConverterFactory(ScalarsConverterFactory.create())
             .client(client)
             .build()
-        retrofit.create(LoginAPI::class.java)
+        retrofit.create(LoginAPIService::class.java)
     }
+
+    val instance_User: UserAPIService by lazy {
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .client(client)
+            .build()
+        retrofit.create(UserAPIService::class.java)
+    }
+
+
+
+
 
 
 }
