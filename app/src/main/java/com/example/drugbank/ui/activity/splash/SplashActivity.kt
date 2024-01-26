@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import com.example.drugbank.R
+import com.example.drugbank.ui.activity.auth.login.LoginActivity
 import com.example.drugbank.ui.activity.main.MainActivity
 
 class SplashActivity : AppCompatActivity() {
@@ -25,7 +26,7 @@ class SplashActivity : AppCompatActivity() {
 
     // Intent on Main Activity
     private fun openAuthActivity() {
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
         finish()
     }
