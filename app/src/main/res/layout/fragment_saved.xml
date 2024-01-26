@@ -82,7 +82,7 @@
                 android:inputType="none"
                 android:padding="0dp"
                 android:text="USER"
-                android:textSize="14dp"
+                android:textSize="13dp"
                 android:textStyle="bold">
 
             </AutoCompleteTextView>
@@ -106,7 +106,7 @@
                 android:text="All"
                 android:padding="0dp"
                 android:textStyle="bold"
-                android:textSize="14dp"
+                android:textSize="13dp"
 
                 android:layout_width="match_parent"
                 android:layout_height="40dp">
@@ -117,32 +117,86 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center_horizontal"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_height="wrap_content">
 
-    <Switch
-        android:layout_gravity="right"
-        android:id="@+id/sw_Active"
-        android:layout_marginEnd="35dp"
-        android:padding="8dp"
-        android:layout_marginTop="5dp"
-        android:layout_width="120dp"
-        android:background="@drawable/background_combobox"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:checked="true"
-        android:text="Active">
-    </Switch>
+        <com.google.android.material.textfield.TextInputLayout
+            android:hint="Sort By"
+            android:id="@+id/tip_sortName"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="170dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="10dp"
+            app:boxBackgroundColor="@color/white"
+            app:startIconDrawable="@drawable/baseline_sort_by_alpha_24"
+            >
+
+            <AutoCompleteTextView
+
+                android:id="@+id/atc_sortListCombo"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:inputType="none"
+                android:padding="0dp"
+                android:text="ID"
+                android:textSize="13dp"
+                android:textStyle="bold">
+
+            </AutoCompleteTextView>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            app:boxBackgroundColor="@color/white"
+            android:hint="Active"
+            android:id="@+id/tip_activeName"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="170dp"
+            android:layout_height="60dp"
+            app:startIconDrawable="@drawable/baseline_check_circle_outline_24"
+            android:layout_marginStart="10dp"
+
+            >
+
+            <AutoCompleteTextView
+                android:id="@+id/atc_ActiveList"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:inputType="none"
+                android:padding="0dp"
+                android:text="All"
+                android:textSize="13dp"
+                android:textStyle="bold">
+
+            </AutoCompleteTextView>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+
+
+
+
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcl_listUser"
         android:layout_width="match_parent"
-        android:layout_height="450dp"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/base_recycle_user"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+        android:layout_marginBottom="16dp"
+        tools:listitem="@layout/base_recycle_user">
 
     </androidx.recyclerview.widget.RecyclerView>
+
+
 
 </LinearLayout>
 

@@ -1,7 +1,7 @@
 package com.example.drugbank.common.BaseAPI
 
 import com.example.drugbank.data.api.LoginAPIService
-import com.example.drugbank.data.api.UserAPIService
+import com.example.drugbank.repository.UserAPIService
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
