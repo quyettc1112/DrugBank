@@ -1,8 +1,7 @@
 package com.example.drugbank.di
 
 import com.example.drugbank.common.BaseAPI.BaseAPI
-import com.example.drugbank.data.api.UserAPIService
-import com.example.drugbank.repository.UserAPIRepository
+import com.example.drugbank.repository.UserAPIService
 import com.google.firebase.BuildConfig
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -15,7 +14,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.converter.scalars.ScalarsConverterFactory
 import javax.inject.Singleton
 
 @Module
