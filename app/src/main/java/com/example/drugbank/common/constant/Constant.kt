@@ -13,6 +13,9 @@ class Constant {
         const val LOGIN_NAV_ID = 99;
         const val DEFAULT_ERROR_MESSAGE: String = "An error occurred"
         const val DOCTOR_SECURITY_DOCTOR = "123"
+        const val TOKEN_USER = "TOKEN_USER"
+        const val ACCESS_TOKEN = "ACCESS_TOKEN"
+        const val REFESH_TOEKN = "REFESH_TOKEN"
 
         fun getNavSeleted(selected: Int): Int {
             val myHashMap = HashMap<Int, Int>()
@@ -38,7 +41,7 @@ class Constant {
         }
     }
 
-    class   tempUser(
+    class  tempUser(
         val imageIcon: Int,
         val nameIcon: String,
         val actionId:Int? = null

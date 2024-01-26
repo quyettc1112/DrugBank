@@ -141,4 +141,9 @@ dependencies {
 
     // Bottom av vavigation
     implementation ("com.github.ibrahimsn98:NiceBottomBar:2.2")
+
+
+    // Paging for android
+    implementation("androidx.paging:paging-common-ktx:3.2.1")
+    implementation("androidx.paging:paging-runtime-ktx:3.2.1")
 }
