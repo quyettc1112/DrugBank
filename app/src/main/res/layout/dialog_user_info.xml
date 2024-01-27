@@ -274,12 +274,11 @@
                     app:startIconDrawable="@drawable/baseline_perm_contact_calendar_24">
 
                     <AutoCompleteTextView
-                        android:id="@+id/atc_roleListCombo"
+                        android:id="@+id/atc_roleListCombo_info"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:inputType="none"
                         android:padding="0dp"
-                        android:text="USER"
                         android:textSize="13dp"
                         android:textStyle="bold">
 
@@ -325,7 +324,6 @@
                         android:enabled="false"
                         android:inputType="none"
                         android:padding="0dp"
-                        android:text="All"
                         android:textSize="13dp"
                         android:textStyle="bold">
 

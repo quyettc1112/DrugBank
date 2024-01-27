@@ -135,7 +135,7 @@ class SavedFragment : Fragment() {
 
         val male = dialogBinding.findViewById<RadioButton>(R.id.rdo_btn_male)
         val female = dialogBinding.findViewById<RadioButton>(R.id.rdo_btn_female)
-        male.isChecked = user.gender.equals("Male")
+        male.isChecked = user.gender == 0
         female.isChecked = !male.isChecked
 
 
@@ -148,32 +148,28 @@ class SavedFragment : Fragment() {
         ivUserAvatar.setImageResource(avatarResId)
 
 
-        val rolename = dialogBinding.findViewById<AutoCompleteTextView>(R.id.atc_roleListCombo)
+        val rolename = dialogBinding.findViewById<AutoCompleteTextView>(R.id.atc_roleListCombo_info)
         val activeName = dialogBinding.findViewById<AutoCompleteTextView>(R.id.atc_ActiveList)
 
         val rolelist = resources.getStringArray(R.array.RoleName)
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_menu, rolelist)
         rolename.setAdapter(arrayAdapter)
-        for (i in 0 until rolelist.size) {
-            // So sánh đoạn string bạn truyền vào với từng đoạn string trong adapter
-            if (user.roleName == rolelist[i]) {
-                // Đặt vị trí của bộ chọn xuống thành đoạn string khớp
-                rolename.setSelection(i)
-                break
-            }
-        }
+        rolename.setText(user.roleName)
+        if (user.roleName =="SUPERADMIN") {
+            rolename.setText("SUPER ADMIN")
+        } else rolename.setText(user.roleName)
+//        for (i in 0 until rolelist.size) {
+//            // So sánh đoạn string bạn truyền vào với từng đoạn string trong adapter
+//            if (user.roleName == rolelist[i]) {
+//                // Đặt vị trí của bộ chọn xuống thành đoạn string khớp
+//                rolename.setSelection(i)
+//                break
+//            }
+//        }
 
         val activeList = resources.getStringArray(R.array.Active)
         val arrayApderActive = ArrayAdapter(requireContext(), R.layout.dropdown_menu, activeList)
         activeName.setAdapter(arrayApderActive)
-        for (i in 0 until activeList.size) {
-            // So sánh đoạn string bạn truyền vào với từng đoạn string trong adapter
-            if (user.isActive == activeList[i]) {
-                // Đặt vị trí của bộ chọn xuống thành đoạn string khớp
-                activeName.setSelection(i)
-                break
-            }
-        }
 
 
 
