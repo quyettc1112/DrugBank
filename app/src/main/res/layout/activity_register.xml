@@ -15,14 +15,15 @@
         <com.example.drugbank.base.customView.CustomToolbar
             android:id="@+id/customToolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/white"
             android:title="Register"
-            app:layout_constraintBottom_toTopOf="parent"
-            app:showEndIcon="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:showEndIcon="false"
             app:showShadow="true"
-            app:showStartIcon="true"
-            tools:layout_editor_absoluteX="0dp">
+            app:showStartIcon="false"
+            app:showStartText="false"
+            tools:layout_editor_absoluteX="0dp"></com.example.drugbank.base.customView.CustomToolbar>
 
             <LinearLayout
                 android:orientation="vertical"
@@ -254,7 +255,7 @@
 
 
             </LinearLayout>
-        </com.example.drugbank.base.customView.CustomToolbar>
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
