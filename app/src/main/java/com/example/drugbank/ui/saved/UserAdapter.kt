@@ -28,13 +28,11 @@ class UserAdapter(): RecyclerView.Adapter<UserAdapter.MainViewHolder>()
             itemBinding.tvUserName.text = user.fullname
             itemBinding.tvRole.text = user.roleName
             itemBinding.tvEmail.text = user.email
-            if (user.gender == 0) {
-                itemBinding.backgroundGender.setBackgroundResource(R.drawable.background_male)
-                itemBinding.ivUserAvatar.setImageResource(R.drawable.anh_2)
-            } else {
-                itemBinding.backgroundGender.setBackgroundResource(R.drawable.background_female)
-                itemBinding.ivUserAvatar.setImageResource(R.drawable.anh_3)
-            }
+            val backgroundResId = if (user.gender == 0) R.drawable.background_male else R.drawable.background_female
+            val avatarResId = if (user.gender == 0) R.drawable.anh_2 else R.drawable.anh_3
+
+            itemBinding.backgroundGender.setBackgroundResource(backgroundResId)
+            itemBinding.ivUserAvatar.setImageResource(avatarResId)
 
             if (user.isActive.equals("Deactivate")) {
                 itemBinding.ivUserAvatar.setImageResource(R.drawable.baseline_block_24)
@@ -47,8 +45,6 @@ class UserAdapter(): RecyclerView.Adapter<UserAdapter.MainViewHolder>()
 //                .into(itemBinding.ivUserAvatar)
 
         }
-
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
@@ -96,7 +92,6 @@ class UserAdapter(): RecyclerView.Adapter<UserAdapter.MainViewHolder>()
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
             val position = viewHolder.adapterPosition
-
         }
     }
 
