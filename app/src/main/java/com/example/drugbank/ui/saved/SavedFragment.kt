@@ -1,5 +1,7 @@
 package com.example.drugbank.ui.saved
 
+import android.app.Dialog
+import android.graphics.drawable.ColorDrawable
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,18 +9,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.EditText
+import android.widget.RadioButton
 import android.widget.SearchView
 import android.widget.SearchView.*
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.drugbank.R
 import com.example.drugbank.common.BaseAPI.RetrofitClient
+import com.example.drugbank.common.Resource.Screen
 import com.example.drugbank.common.Token.TokenManager
 import com.example.drugbank.data.model.User
 import com.example.drugbank.databinding.FragmentSavedBinding
 import com.example.drugbank.respone.UserListResponse
+import com.google.android.material.imageview.ShapeableImageView
+import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
+import de.hdodenhof.circleimageview.CircleImageView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -96,7 +106,6 @@ class SavedFragment : Fragment() {
                     println("Error: ${response.code()}")
                 }
             }
-
             override fun onFailure(call: Call<UserListResponse>, t: Throwable) {
                 println("Failed to make API call: ${t.message}")
             }
@@ -105,8 +114,75 @@ class SavedFragment : Fragment() {
 
     private fun onItemClickAdapter() {
         _userAdapter.onItemClick = {
-            Toast.makeText(requireContext(), "Click", Toast.LENGTH_SHORT).show()
+            showUserInfoDialog(it)
         }
+
+    }
+
+    private fun showUserInfoDialog(user: User) {
+        val dialogBinding = layoutInflater.inflate(R.layout.dialog_user_info, null)
+        val myDialog = Dialog(requireContext())
+
+
+        val username = dialogBinding.findViewById<TextView>(R.id.tv_userName)
+        val id   = dialogBinding.findViewById<TextView>(R.id.tv_id)
+        val etEmail = dialogBinding.findViewById<TextInputEditText>(R.id.etEmail_userInfo)
+        val et_fullname = dialogBinding.findViewById<TextInputEditText>(R.id.et_fullname)
+        val et_dateofbirth = dialogBinding.findViewById<EditText>(R.id.et_dateofbirth)
+        val ivUserAvatar = dialogBinding.findViewById<CircleImageView>(R.id.ivUserAvatar)
+
+
+
+        val male = dialogBinding.findViewById<RadioButton>(R.id.rdo_btn_male)
+        val female = dialogBinding.findViewById<RadioButton>(R.id.rdo_btn_female)
+        male.isChecked = user.gender.equals("Male")
+        female.isChecked = !male.isChecked
+
+
+        username.text = user.username
+        id.text ="ID: "+ user.id.toString()
+        etEmail.setText(user.email)
+        et_fullname.setText(user.fullname)
+        et_dateofbirth.setText(user.dayOfBirth)
+        val avatarResId = if (user.gender == 0) R.drawable.anh_2 else R.drawable.anh_3
+        ivUserAvatar.setImageResource(avatarResId)
+
+
+        val rolename = dialogBinding.findViewById<AutoCompleteTextView>(R.id.atc_roleListCombo)
+        val activeName = dialogBinding.findViewById<AutoCompleteTextView>(R.id.atc_ActiveList)
+
+        val rolelist = resources.getStringArray(R.array.RoleName)
+        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_menu, rolelist)
+        rolename.setAdapter(arrayAdapter)
+        for (i in 0 until rolelist.size) {
+            // So sánh đoạn string bạn truyền vào với từng đoạn string trong adapter
+            if (user.roleName == rolelist[i]) {
+                // Đặt vị trí của bộ chọn xuống thành đoạn string khớp
+                rolename.setSelection(i)
+                break
+            }
+        }
+
+        val activeList = resources.getStringArray(R.array.Active)
+        val arrayApderActive = ArrayAdapter(requireContext(), R.layout.dropdown_menu, activeList)
+        activeName.setAdapter(arrayApderActive)
+        for (i in 0 until activeList.size) {
+            // So sánh đoạn string bạn truyền vào với từng đoạn string trong adapter
+            if (user.isActive == activeList[i]) {
+                // Đặt vị trí của bộ chọn xuống thành đoạn string khớp
+                activeName.setSelection(i)
+                break
+            }
+        }
+
+
+
+        myDialog.setContentView(dialogBinding)
+        myDialog.setCancelable(true)
+        myDialog.window?.setLayout(Screen.width, Screen.height)
+       // myDialog.window?.setBackgroundDrawable(ColorDrawable(requireContext().getColor(R.color.zxing_transparent)))
+        myDialog.show()
+
 
     }
 
@@ -132,9 +208,9 @@ class SavedFragment : Fragment() {
                         }
                         // Submit the filtered list to the adapter
                         _userAdapter.differ.submitList(filteredList)
-                    } else {
-                        // If the query is empty, reset the list to its original state
-                        _userAdapter.differ.submitList(originalList) // Assuming you have the original list stored
+                    }
+                    if (newText?.length == 0) {
+                        CallUserList()
                     }
                     return true
                 }
