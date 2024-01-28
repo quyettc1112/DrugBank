@@ -72,8 +72,9 @@ class SavedFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _userAdapter = UserAdapter()
         tokenManager = TokenManager(requireContext())
+        _userAdapter = UserAdapter(requireContext(), userRepository, tokenManager.getAccessToken().toString(), this@SavedFragment)
+
         onItemClickAdapter()
         searchViewOnQuery()
         val itemTouchHelper = ItemTouchHelper(_userAdapter.getSimpleCallBack())
@@ -81,7 +82,7 @@ class SavedFragment : Fragment() {
         CallUserList()
     }
 
-    private fun CallUserList() {
+    public fun CallUserList() {
         RetrofitClient.instance_User.getPageableUser(
             "Bearer ${tokenManager.getAccessToken()}",
             pageNo = 0,
@@ -180,6 +181,10 @@ class SavedFragment : Fragment() {
         myDialog.show()
 
         onButtonClickDialog(dialogBinding, et_fullname, etEmail, et_dateofbirth, male, myDialog)
+
+        myDialog.setOnDismissListener {
+            CallUserList()
+        }
 
 
     }
