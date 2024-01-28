@@ -36,4 +36,21 @@ class UserRepository @Inject constructor(
         userRequestDTO: UpdateUserRequestDTO
     ) = apiService.updateUser(authorization, email, userRequestDTO)
 
+
+    fun deactivateUser(
+        authorization: String,
+        email: String
+    )
+    = apiService.deactivateUser(
+        authorization = authorization,
+        email =  email)
+
+    fun activateUser(
+        authorization: String,
+        email: String
+    ) = apiService.ActivateUser(
+        authorization = authorization,
+        email = email)
+
+
 }

@@ -33,6 +33,23 @@ interface UserAPIService {
         @Body updateUserRequest: UpdateUserRequestDTO
     ) : Call<UserListResponse.User>
 
+    @POST("user/deactivate-user")
+    fun deactivateUser(
+        @Header("Authorization") authorization: String,
+        @Query("email") email: String
+    ): Call<UserListResponse.User>
+
+
+    @POST("user/active-user")
+    fun ActivateUser(
+        @Header("Authorization") authorization: String,
+        @Query("email") email: String
+    ): Call<UserListResponse.User>
+
+
+
+    
+
 
 
 }
