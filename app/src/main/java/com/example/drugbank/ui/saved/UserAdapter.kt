@@ -2,25 +2,46 @@ package com.example.drugbank.ui.saved
 
 import android.content.Context
 import android.os.Parcel
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.drugbank.R
+import com.example.drugbank.base.dialog.ConfirmDialog
+import com.example.drugbank.base.dialog.ErrorDialog
 import com.example.drugbank.common.constant.Constant
 import com.example.drugbank.data.model.User
 import com.example.drugbank.databinding.BaseRecycleUserBinding
+import com.example.drugbank.repository.UserRepository
+import com.example.drugbank.respone.UserListResponse
 import com.google.android.gms.drive.query.Filter
 import com.google.android.gms.drive.query.internal.zzj
 import com.squareup.picasso.Picasso
+import de.hdodenhof.circleimageview.CircleImageView
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import kotlin.coroutines.coroutineContext
 
-class UserAdapter(): RecyclerView.Adapter<UserAdapter.MainViewHolder>()
+class UserAdapter(context: Context, userRepository: UserRepository, token: String, fragment: SavedFragment): RecyclerView.Adapter<UserAdapter.MainViewHolder>()
 {
     var onItemClick: ((User) -> Unit)? = null
+    val context: Context = context
+    val userRepository:UserRepository = userRepository
+    val token: String = token
+    val fragment:SavedFragment = fragment
     inner class MainViewHolder(val itemBinding: BaseRecycleUserBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
 
@@ -67,6 +88,100 @@ class UserAdapter(): RecyclerView.Adapter<UserAdapter.MainViewHolder>()
         holder.itemView.setOnClickListener {
             onItemClick?.invoke(Item)
         }
+
+        holder.itemView.findViewById<ImageView>(R.id.im_Btnsetting).setOnClickListener {
+            showActiveDialog(Item)
+        }
+    }
+
+    private fun showActiveDialog(user: User) {
+        val inflater = LayoutInflater.from(context)
+        val dialogView: View = inflater.inflate(R.layout.dialog_active_user, null)
+        val builder = AlertDialog.Builder(context)
+        builder.setView(dialogView)
+        val dialog = builder.create()
+
+        val ivUserAvatar = dialogView.findViewById<CircleImageView>(R.id.ivUserAvatar)
+        val tv_userName = dialogView.findViewById<TextView>(R.id.tv_userName)
+        val btnOK = dialogView.findViewById<AppCompatButton>(R.id.btnOK)
+        val activeName = dialogView.findViewById<AutoCompleteTextView>(R.id.atc_ActiveList)
+        val activeList = context.resources.getStringArray(R.array.Active_user_adapter)
+        val arrayApderActive = ArrayAdapter(context, R.layout.dropdown_menu, activeList)
+        activeName.setAdapter(arrayApderActive)
+
+        if (user.isActive.equals("Deactivate")) {
+            activeName.setHint("Deactivate")
+        } else activeName.setHint("Active")
+
+
+
+
+        val avatarResId = if (user.gender == 0) R.drawable.anh_2 else R.drawable.anh_3
+        ivUserAvatar.setImageResource(avatarResId)
+
+        tv_userName.text = user.fullname
+        //activeName.setText(user.isActive.toString())
+
+
+        activeName.setOnItemClickListener { _, _, position, _ ->
+            if (activeList[position] == "Active") {
+                btnOK.setOnClickListener {
+                    userRepository.activateUser(
+                        authorization =  "Bearer ${token}",
+                        email = user.email
+                    ).enqueue(object : Callback<UserListResponse.User> {
+                        override fun onResponse(
+                            call: Call<UserListResponse.User>,
+                            response: Response<UserListResponse.User>
+                        ) {
+                            fragment.CallUserList()
+                            dialog.dismiss()
+                        }
+                        override fun onFailure(call: Call<UserListResponse.User>, t: Throwable) {
+                            dialog.dismiss()
+                            val errorDialog = ErrorDialog(
+                                context = context,
+                                errorContent = t.message.toString(),
+                                textButton = "Try Again"
+                            )
+                            errorDialog.show()
+                        }
+                    })
+
+
+                }
+            }
+            if (activeList[position] == "Deactivate") {
+                btnOK.setOnClickListener {
+                    userRepository.deactivateUser(
+                        authorization =  "Bearer ${token}",
+                        email = user.email
+                    ).enqueue(object : Callback<UserListResponse.User> {
+                        override fun onResponse(
+                            call: Call<UserListResponse.User>,
+                            response: Response<UserListResponse.User>
+                        ) {
+                            fragment.CallUserList()
+                            dialog.dismiss()
+                        }
+                        override fun onFailure(call: Call<UserListResponse.User>, t: Throwable) {
+                            dialog.dismiss()
+                            val errorDialog = ErrorDialog(
+                                context = context,
+                                errorContent = t.message.toString(),
+                                textButton = "Try Again"
+                            )
+                            errorDialog.show()
+                        }
+                    })
+                }
+
+            }
+
+        }
+
+        dialog.show()
+
     }
     private val differCallBack = object : DiffUtil.ItemCallback<User>() {
         override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
@@ -92,6 +207,7 @@ class UserAdapter(): RecyclerView.Adapter<UserAdapter.MainViewHolder>()
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
             val position = viewHolder.adapterPosition
+
         }
     }
 
