@@ -1,4 +1,4 @@
-package com.example.drugbank.data.api
+package com.example.drugbank.repository
 
 import com.example.drugbank.data.model.LoginDTO
 import com.example.drugbank.data.model.Token

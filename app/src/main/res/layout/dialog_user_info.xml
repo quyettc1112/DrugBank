@@ -341,11 +341,29 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_back"
+                android:layout_width="150dp"
+                android:layout_height="37dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/background_back_notify"
+                android:backgroundTintMode="src_over"
+                android:padding="0dp"
+                android:text="Back"
+                android:textColor="@color/red_light"
+                android:textStyle="bold">
+
+            </androidx.appcompat.widget.AppCompatButton>
+
+
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_save"
                 android:layout_width="150dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
+                android:layout_marginStart="16dp"
                 android:background="@drawable/background_button_login_notify"
                 android:backgroundTintMode="src_over"
                 android:padding="0dp"
