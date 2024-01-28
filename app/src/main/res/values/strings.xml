@@ -142,4 +142,10 @@
         <item>Active</item>
         <item>Deactivate</item>
     </string-array>
+
+
+    <string-array name="Active_user_adapter">
+        <item>Active</item>
+        <item>Deactivate</item>
+    </string-array>
 </resources>
