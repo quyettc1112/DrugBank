@@ -86,7 +86,7 @@ class SavedFragment : Fragment() {
         RetrofitClient.instance_User.getPageableUser(
             "Bearer ${tokenManager.getAccessToken()}",
             pageNo = 0,
-            pageSize = 15,
+            pageSize = 20,
             sortField = "id",
             sortOrder = "asc",
             roleName = _viewModel.selectedRole.value,
@@ -183,7 +183,7 @@ class SavedFragment : Fragment() {
         onButtonClickDialog(dialogBinding, et_fullname, etEmail, et_dateofbirth, male, myDialog)
 
         myDialog.setOnDismissListener {
-            CallUserList()
+
         }
 
 
