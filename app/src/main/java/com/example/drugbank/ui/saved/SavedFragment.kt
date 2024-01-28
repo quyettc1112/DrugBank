@@ -16,14 +16,20 @@ import android.widget.SearchView
 import android.widget.SearchView.*
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.drugbank.R
+import com.example.drugbank.base.dialog.ConfirmDialog
+import com.example.drugbank.base.dialog.ErrorDialog
 import com.example.drugbank.common.BaseAPI.RetrofitClient
 import com.example.drugbank.common.Resource.Screen
 import com.example.drugbank.common.Token.TokenManager
+import com.example.drugbank.common.Validator.Validator
+import com.example.drugbank.data.dto.UpdateUserRequestDTO
 import com.example.drugbank.data.model.User
 import com.example.drugbank.databinding.FragmentSavedBinding
+import com.example.drugbank.repository.UserRepository
 import com.example.drugbank.respone.UserListResponse
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.textfield.TextInputEditText
@@ -32,6 +38,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.Calendar
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -42,6 +49,10 @@ class SavedFragment : Fragment() {
     private lateinit var _userAdapter: UserAdapter
 
     lateinit var _viewModel: SavedViewModel
+    lateinit var  tokenManager: TokenManager
+
+    @Inject
+    lateinit var userRepository: UserRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,8 +73,8 @@ class SavedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _userAdapter = UserAdapter()
+        tokenManager = TokenManager(requireContext())
         onItemClickAdapter()
-        val OgirginList = _userAdapter.differ.currentList
         searchViewOnQuery()
         val itemTouchHelper = ItemTouchHelper(_userAdapter.getSimpleCallBack())
         itemTouchHelper.attachToRecyclerView(_binding.rclListUser)
@@ -71,7 +82,6 @@ class SavedFragment : Fragment() {
     }
 
     private fun CallUserList() {
-        val tokenManager = TokenManager(requireContext())
         RetrofitClient.instance_User.getPageableUser(
             "Bearer ${tokenManager.getAccessToken()}",
             pageNo = 0,
@@ -110,6 +120,7 @@ class SavedFragment : Fragment() {
                 println("Failed to make API call: ${t.message}")
             }
         })
+
     }
 
     private fun onItemClickAdapter() {
@@ -131,13 +142,10 @@ class SavedFragment : Fragment() {
         val et_dateofbirth = dialogBinding.findViewById<EditText>(R.id.et_dateofbirth)
         val ivUserAvatar = dialogBinding.findViewById<CircleImageView>(R.id.ivUserAvatar)
 
-
-
         val male = dialogBinding.findViewById<RadioButton>(R.id.rdo_btn_male)
         val female = dialogBinding.findViewById<RadioButton>(R.id.rdo_btn_female)
         male.isChecked = user.gender == 0
         female.isChecked = !male.isChecked
-
 
         username.text = user.username
         id.text ="ID: "+ user.id.toString()
@@ -146,7 +154,6 @@ class SavedFragment : Fragment() {
         et_dateofbirth.setText(user.dayOfBirth)
         val avatarResId = if (user.gender == 0) R.drawable.anh_2 else R.drawable.anh_3
         ivUserAvatar.setImageResource(avatarResId)
-
 
         val rolename = dialogBinding.findViewById<AutoCompleteTextView>(R.id.atc_roleListCombo_info)
         val activeName = dialogBinding.findViewById<AutoCompleteTextView>(R.id.atc_ActiveList)
@@ -158,18 +165,11 @@ class SavedFragment : Fragment() {
         if (user.roleName =="SUPERADMIN") {
             rolename.setText("SUPER ADMIN")
         } else rolename.setText(user.roleName)
-//        for (i in 0 until rolelist.size) {
-//            // So sánh đoạn string bạn truyền vào với từng đoạn string trong adapter
-//            if (user.roleName == rolelist[i]) {
-//                // Đặt vị trí của bộ chọn xuống thành đoạn string khớp
-//                rolename.setSelection(i)
-//                break
-//            }
-//        }
 
         val activeList = resources.getStringArray(R.array.Active)
         val arrayApderActive = ArrayAdapter(requireContext(), R.layout.dropdown_menu, activeList)
         activeName.setAdapter(arrayApderActive)
+        activeName.setText(user.isActive)
 
 
 
@@ -179,6 +179,81 @@ class SavedFragment : Fragment() {
        // myDialog.window?.setBackgroundDrawable(ColorDrawable(requireContext().getColor(R.color.zxing_transparent)))
         myDialog.show()
 
+        onButtonClickDialog(dialogBinding, et_fullname, etEmail, et_dateofbirth, male, myDialog)
+
+
+    }
+
+    private fun onButtonClickDialog(
+        dialogBinding: View,
+        et_fullname: TextInputEditText,
+        etEmail: TextInputEditText,
+        et_dateofbirth: EditText,
+        male: RadioButton,
+        myDialog: Dialog
+    ) {
+        val btn_save = dialogBinding.findViewById<AppCompatButton>(R.id.btn_save)
+        val btn_back = dialogBinding.findViewById<AppCompatButton>(R.id.btn_back)
+        btn_save.setOnClickListener {
+            if (!et_fullname.text.toString().isNullOrEmpty()) {
+                val confirmDialog = ConfirmDialog(
+                    requireContext(),
+                    object : ConfirmDialog.ConfirmCallback {
+                        override fun negativeAction() {}
+                        override fun positiveAction() {
+                            CallUpdateUser(
+                                email = etEmail.text.toString(),
+                                UpdateUserRequestDTO(
+                                    et_fullname.text.toString(), et_dateofbirth.text.toString(),
+                                    gender = if (male.isChecked) 0 else 1
+                                )
+                            )
+                            myDialog.dismiss()
+                        }
+                    },
+                    title = "Confirm",
+                    message = "Save User Info",
+                    positiveButtonTitle = "Yes",
+                    negativeButtonTitle = "No"
+                )
+                confirmDialog.show()
+            } else {
+                val errorDialog = ErrorDialog(
+                    context = requireContext(),
+                    errorContent = "Error Null Input",
+                    textButton = "Back"
+                )
+                // Show the ConfirmDialog
+                errorDialog.show()
+
+            }
+        }
+
+        btn_back.setOnClickListener {
+            myDialog.dismiss()
+        }
+    }
+    private fun CallUpdateUser(
+        email: String,
+        updateUserRequestDTO: UpdateUserRequestDTO
+    ) {
+
+        userRepository.UpdateUserInfo(
+            "Bearer ${tokenManager.getAccessToken()}",
+            email = email,
+            updateUserRequestDTO
+            ).enqueue(object : Callback<UserListResponse.User> {
+            override fun onResponse(
+                call: Call<UserListResponse.User>,
+                response: Response<UserListResponse.User>
+            ) {
+                CallUserList()
+            }
+
+            override fun onFailure(call: Call<UserListResponse.User>, t: Throwable) {
+                Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
+            }
+        })
 
     }
 
@@ -187,22 +262,16 @@ class SavedFragment : Fragment() {
         searchView.clearFocus()
         searchView.setOnQueryTextListener(object :  androidx.appcompat.widget.SearchView.OnQueryTextListener
             {
-                val originalList = _viewModel.userList.value ?: emptyList()
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     return false
                 }
-
                 override fun onQueryTextChange(newText: String?): Boolean {
                     if (!newText.isNullOrBlank()) {
-                        // Access the current list from the adapter's differ
                         val currentList = _userAdapter.differ.currentList
-
-                        // Filter the list based on the new query
                         val filteredList = currentList.filter { item ->
                             // Replace this with your actual filtering logic
                             item.fullname.contains(newText, ignoreCase = true)
                         }
-                        // Submit the filtered list to the adapter
                         _userAdapter.differ.submitList(filteredList)
                     }
                     if (newText?.length == 0) {
@@ -210,7 +279,6 @@ class SavedFragment : Fragment() {
                     }
                     return true
                 }
-
             })
     }
     private fun setUpComboBoxWithViewmodel() {
@@ -256,6 +324,11 @@ class SavedFragment : Fragment() {
 
 
     }
+
+
+
+
+
 
 
 
