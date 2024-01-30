@@ -16,11 +16,13 @@
     android:layout_height="wrap_content">
 
     <com.example.drugbank.base.customView.CustomToolbar
+        android:id="@+id/toolblarCustome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:title="User Management"
-        app:showEndIcon="false"
+        app:endIcon="@drawable/baseline_person_add_24"
+        app:showEndIcon="true"
         app:showShadow="true"
         app:showStartText="false"
         app:showStartIcon="false"
@@ -53,8 +55,11 @@
 
     </com.google.android.material.card.MaterialCardView>
     <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="1dp">
+        android:layout_height="wrap_content">
+
 
     </LinearLayout>
 

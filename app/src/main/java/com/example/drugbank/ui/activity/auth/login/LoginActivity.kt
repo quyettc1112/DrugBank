@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import com.example.drugbank.base.dialog.ErrorDialog
 import com.example.drugbank.common.BaseAPI.RetrofitClient
 import com.example.drugbank.common.Token.TokenManager
 import com.example.drugbank.data.model.LoginDTO
@@ -62,12 +63,18 @@ class LoginActivity : BaseActivity() {
                         } else {
                             Toast.makeText(this@LoginActivity, "Không có gì cả", Toast.LENGTH_SHORT).show()
                         }
-                    } else {
-                        // Xử lý lỗi
+                    }
+                    if (response.code() == 404) {
+                        val error = ErrorDialog(
+                            context = this@LoginActivity,
+                            errorContent = response.errorBody()!!.string(),
+                            textButton = "Back"
+                        )
+                        error.show()
                     }
                 }
                 override fun onFailure(call: Call<Token>, t: Throwable) {
-                    Log.d("Bug", t.toString())
+                    Toast.makeText(this@LoginActivity, t.message.toString(), Toast.LENGTH_SHORT).show()
                 }
             }
             )
