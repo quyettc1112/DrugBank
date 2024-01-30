@@ -2,6 +2,7 @@ package com.example.drugbank.repository
 
 
 
+import com.example.drugbank.data.dto.AddUserRequestDTO
 import com.example.drugbank.data.dto.UpdateUserRequestDTO
 import com.example.drugbank.data.model.User
 import com.example.drugbank.respone.UserListResponse
@@ -46,6 +47,12 @@ interface UserAPIService {
         @Query("email") email: String
     ): Call<UserListResponse.User>
 
+
+    @POST("auth/register")
+    fun registerUser(
+        @Header("Authorization") authorization: String,
+        @Body user: AddUserRequestDTO
+    ): Call<UserListResponse.User>
 
 
     
