@@ -24,11 +24,10 @@
         android:name="com.example.drugbank.ui.saved.SavedFragment"
         android:label="fragment_saved"
         tools:layout="@layout/fragment_saved" >
-        <action
-            android:id="@+id/action_savedFragmentNav_to_loginFragment"
-            app:destination="@id/loginFragmentNav"
 
-            />
+        <action
+            android:id="@+id/action_savedFragmentNav_to_registerFragment"
+            app:destination="@id/registerFragment" />
     </fragment>
     <fragment
         android:id="@+id/drugStoreFragmentNav"
@@ -54,4 +53,14 @@
             android:id="@+id/action_loginFragmentNav_to_searchFragmentNav"
             app:destination="@id/searchFragmentNav" />
     </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.drugbank.ui.register.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/activity_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_savedFragmentNav"
+            app:destination="@id/savedFragmentNav" />
+    </fragment>
+
 </navigation>
