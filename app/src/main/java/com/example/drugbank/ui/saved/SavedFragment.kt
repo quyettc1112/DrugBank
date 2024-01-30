@@ -19,6 +19,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.drugbank.R
 import com.example.drugbank.base.dialog.ConfirmDialog
@@ -27,6 +28,7 @@ import com.example.drugbank.common.BaseAPI.RetrofitClient
 import com.example.drugbank.common.Resource.Screen
 import com.example.drugbank.common.Token.TokenManager
 import com.example.drugbank.common.Validator.Validator
+import com.example.drugbank.common.constant.Constant
 import com.example.drugbank.data.dto.UpdateUserRequestDTO
 import com.example.drugbank.data.model.User
 import com.example.drugbank.databinding.FragmentSavedBinding
@@ -191,8 +193,6 @@ class SavedFragment : Fragment() {
         myDialog.show()
 
         onButtonClickDialog(dialogBinding, et_fullname, etEmail, et_dateofbirth, male, myDialog)
-
-
     }
 
     private fun onButtonClickDialog(
@@ -239,7 +239,6 @@ class SavedFragment : Fragment() {
 
             }
         }
-
         btn_back.setOnClickListener {
             myDialog.dismiss()
         }
@@ -248,7 +247,6 @@ class SavedFragment : Fragment() {
         email: String,
         updateUserRequestDTO: UpdateUserRequestDTO
     ) {
-
         userRepository.UpdateUserInfo(
             "Bearer ${tokenManager.getAccessToken()}",
             email = email,
@@ -336,6 +334,9 @@ class SavedFragment : Fragment() {
 
 
     private fun onAddNewClick() {
+//        val navController = requireActivity().findNavController(R.id.nav_host_fragment_activity_main)
+//        navController.navigate(R.id.registerFragment)
+
         _binding.toolblarCustome.onEndIconClick = {
             val dialogBinding = layoutInflater.inflate(R.layout.activity_register, null)
             val myDialog = Dialog(requireContext())
@@ -345,18 +346,17 @@ class SavedFragment : Fragment() {
             val etPassword = dialogBinding.findViewById<TextInputEditText>(R.id.etPassword)
             val etConfirmPassword = dialogBinding.findViewById<TextInputEditText>(R.id.etConfirmPassword)
             val btn_dob = dialogBinding.findViewById<AppCompatButton>(R.id.btn_dob)
+            val btn_register = dialogBinding.findViewById<AppCompatButton>(R.id.btn_register)
 
             val atc_roleListCombo_info = dialogBinding.findViewById<AutoCompleteTextView>(R.id.atc_roleListCombo_info)
             val atc_ActiveList = dialogBinding.findViewById<AutoCompleteTextView>(R.id.atc_ActiveList)
 
-
             // Settup Gender
+            val currentGender = 0;
             val male = dialogBinding.findViewById<RadioButton>(R.id.rdo_btn_male)
             val female = dialogBinding.findViewById<RadioButton>(R.id.rdo_btn_female)
             male.isChecked = true
             female.isChecked = !male.isChecked
-
-
 
             /// Setp Day og Birth
             _viewModel.dob.observe(viewLifecycleOwner, Observer { dobValue ->
@@ -401,6 +401,34 @@ class SavedFragment : Fragment() {
 
 
 
+            btn_register.setOnClickListener {
+                if (
+                    !etUsername.text.isNullOrEmpty() &&
+                    !etEmail.text.isNullOrEmpty() &&
+                    !etPassword.text.isNullOrEmpty()&&
+                    !etConfirmPassword.text.isNullOrEmpty()&&
+                    !currentActive.isNullOrEmpty() &&
+                    currentGender != null &&
+                    !currentRole.isNullOrEmpty()
+                ) {
+                    Toast.makeText(requireContext(), "OK", Toast.LENGTH_SHORT).show()
+
+                } else {
+                    val errorDialog = ErrorDialog(
+                        errorContent = "Must fill all value",
+                        textButton = "Back",
+                        context = requireContext()
+                    )
+                    errorDialog.show()
+
+
+                }
+
+            }
+
+
+
+
             myDialog.setContentView(dialogBinding)
             myDialog.setCancelable(true)
             myDialog.window?.setLayout(Screen.width, Screen.height)
@@ -412,6 +440,8 @@ class SavedFragment : Fragment() {
 
 
     }
+
+
 
 
 }
