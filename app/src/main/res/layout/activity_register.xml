@@ -6,57 +6,56 @@
     android:layout_height="match_parent"
     tools:context=".ui.activity.auth.register.RegisterActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="16dp">
 
-        <com.example.drugbank.base.customView.CustomToolbar
-            android:id="@+id/customToolbar"
+    <ScrollView
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:fillViewport="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:title="Register"
+            android:layout_height="match_parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:showEndIcon="false"
-            app:showShadow="true"
-            app:showStartIcon="false"
-            app:showStartText="false"
-            tools:layout_editor_absoluteX="0dp"></com.example.drugbank.base.customView.CustomToolbar>
+            tools:layout_editor_absoluteX="16dp">
+
+            <com.example.drugbank.base.customView.CustomToolbar
+                android:id="@+id/customToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:title="Register"
+                app:layout_constraintTop_toTopOf="parent"
+                app:showEndIcon="false"
+                app:showShadow="true"
+                app:showStartIcon="false"
+                app:showStartText="false"
+                tools:layout_editor_absoluteX="0dp"></com.example.drugbank.base.customView.CustomToolbar>
 
             <LinearLayout
-                android:orientation="vertical"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="50dp"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_marginTop="56dp"
+                android:orientation="vertical"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteX="16dp">
 
-                <TextView
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Register"
-                    android:textStyle="bold"
-                    android:textSize="25dp">
-                </TextView>
+
 
                 <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_marginTop="16dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:layout_marginStart="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
                         android:text="Username">
 
                     </TextView>
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -66,7 +65,7 @@
                         app:startIconDrawable="@drawable/baseline_person_24">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etLoginPhoneNumber"
+                            android:id="@+id/etUsername"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="text"
@@ -77,18 +76,19 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_marginTop="16dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:layout_marginStart="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
                         android:text="Email">
 
                     </TextView>
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -109,18 +109,19 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_marginTop="16dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:layout_marginStart="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
                         android:text="Password">
 
                     </TextView>
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -142,89 +143,57 @@
 
 
                 <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_marginTop="16dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical">
+
                     <TextView
-                        android:layout_marginStart="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Password strength">
-                    </TextView>
+                        android:layout_marginStart="5dp"
+                        android:text="Password strength"></TextView>
 
                     <ProgressBar
                         android:id="@+id/pg_passwordStrenght"
+                        style="@android:style/Widget.ProgressBar.Horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="7dp"
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="150dp"
-                        style="@android:style/Widget.ProgressBar.Horizontal"
-                        android:layout_width="match_parent"
-                        android:progress="50"
                         android:max="100"
-                        android:progressTint="@color/i_blue"
-                        android:layout_height="7dp">
+                        android:progress="50"
+                        android:progressTint="@color/i_blue">
 
                     </ProgressBar>
                 </LinearLayout>
 
 
                 <LinearLayout
-                android:orientation="vertical"
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_marginStart="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Confirm Password">
-
-                </TextView>
-                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:hint="Input Confirm Password"
-                    app:hintTextAppearance="@style/TextAppearance.Material3.BodyLarge"
-                    app:startIconDrawable="@drawable/baseline_lock_person_24">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/etConfirmPassword"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:singleLine="false"
-                        android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_marginTop="16dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:layout_marginStart="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="User Type">
+                        android:layout_marginStart="5dp"
+                        android:text="Confirm Password">
 
                     </TextView>
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:hint="Input User Type"
+                        android:hint="Input Confirm Password"
                         app:hintTextAppearance="@style/TextAppearance.Material3.BodyLarge"
-                        app:startIconDrawable="@drawable/baseline_person_add_alt_1_24">
+                        app:startIconDrawable="@drawable/baseline_lock_person_24">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/userType"
+                            android:id="@+id/etConfirmPassword"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="text"
@@ -233,6 +202,188 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+
+                            android:text="DOB">
+
+                        </TextView>
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btn_dob"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="match_parent"
+                            android:text="MMM dd yyyy"
+                            android:layout_height="50dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/background_btn_dob">
+
+                        </androidx.appcompat.widget.AppCompatButton>
+
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="Gender">
+
+                        </TextView>
+
+                        <RadioGroup
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <RadioButton
+                                android:id="@+id/rdo_btn_male"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checked="true"
+                                android:text="Male"></RadioButton>
+
+
+                            <RadioButton
+                                android:id="@+id/rdo_btn_female"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Female"></RadioButton>
+                        </RadioGroup>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:padding="0dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+
+                            android:text="Role Name">
+
+                        </TextView>
+
+
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+
+                            android:id="@+id/tip_rolename"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginEnd="10dp"
+                            android:enabled="true"
+                            app:boxBackgroundColor="@color/white"
+                            app:startIconDrawable="@drawable/baseline_perm_contact_calendar_24">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/atc_roleListCombo_info"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:inputType="none"
+                                android:padding="0dp"
+                                android:textSize="13dp"
+                                android:textStyle="bold">
+
+                            </AutoCompleteTextView>
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+
+                            android:text="Active">
+
+                        </TextView>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:enabled="true"
+                            android:id="@+id/tip_activeName"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:layout_marginStart="10dp"
+                            app:boxBackgroundColor="@color/white"
+                            app:startIconDrawable="@drawable/baseline_check_circle_outline_24"
+
+                            >
+
+                            <AutoCompleteTextView
+                                android:id="@+id/atc_ActiveList"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:enabled="true"
+                                android:inputType="none"
+                                android:padding="0dp"
+                                android:textSize="13dp"
+                                android:textStyle="bold">
+
+                            </AutoCompleteTextView>
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_register"
@@ -250,13 +401,12 @@
                 </androidx.appcompat.widget.AppCompatButton>
 
 
-
-
-
-
             </LinearLayout>
 
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
