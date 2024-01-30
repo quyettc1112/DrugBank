@@ -8,9 +8,14 @@ import com.example.drugbank.data.model.User
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Calendar
 import javax.inject.Inject
 @HiltViewModel
 class SavedViewModel @Inject constructor() : ViewModel() {
+
+    private var calendar = Calendar.getInstance()
+    private val dateFormat = SimpleDateFormat("MMM dd yyyy")
 
     val selectedRole = MutableLiveData<String>()
     val selectedGender = MutableLiveData<Int?>()
@@ -18,15 +23,26 @@ class SavedViewModel @Inject constructor() : ViewModel() {
 
     val userList = MutableLiveData<List<User>>()
 
+
+    val dob = MutableLiveData<String>()
+
     init {
         selectedRole.value = "USER"
         selectedGender.value = null
         selectedActive.value = null
+        dob.value = dateFormat.format(calendar.time)
     }
 
     fun getUserList(userListCurrent: List<User>) = viewModelScope.launch{
         userList.postValue(userListCurrent)
     }
+
+    fun updateDOBValue(calendar: Calendar) {
+        dob.value = dateFormat.format(calendar.time)
+
+    }
+
+
 
 
 

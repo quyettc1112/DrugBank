@@ -1,5 +1,6 @@
 package com.example.drugbank.ui.saved
 
+import android.app.DatePickerDialog
 import android.app.Dialog
 import android.graphics.drawable.ColorDrawable
 import androidx.lifecycle.ViewModelProvider
@@ -33,11 +34,13 @@ import com.example.drugbank.repository.UserRepository
 import com.example.drugbank.respone.UserListResponse
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
 import de.hdodenhof.circleimageview.CircleImageView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
 import java.util.Calendar
 import javax.inject.Inject
 
@@ -51,6 +54,12 @@ class SavedFragment : Fragment() {
     lateinit var _viewModel: SavedViewModel
     lateinit var  tokenManager: TokenManager
 
+    private var currentTime = Calendar.getInstance()
+    private var calendar = Calendar.getInstance()
+
+    private val dateFormat = SimpleDateFormat("MMM dd yyyy")
+
+
     @Inject
     lateinit var userRepository: UserRepository
 
@@ -60,6 +69,7 @@ class SavedFragment : Fragment() {
     ): View? {
         _binding = FragmentSavedBinding.inflate(inflater, container, false)
         _viewModel = ViewModelProvider(this).get(SavedViewModel::class.java)
+        onAddNewClick()
         setUpComboBoxWithViewmodel()
 
         return _binding.root
@@ -181,10 +191,6 @@ class SavedFragment : Fragment() {
         myDialog.show()
 
         onButtonClickDialog(dialogBinding, et_fullname, etEmail, et_dateofbirth, male, myDialog)
-
-        myDialog.setOnDismissListener {
-
-        }
 
 
     }
@@ -326,17 +332,86 @@ class SavedFragment : Fragment() {
             }
             CallUserList()
         }
-
-
     }
 
 
+    private fun onAddNewClick() {
+        _binding.toolblarCustome.onEndIconClick = {
+            val dialogBinding = layoutInflater.inflate(R.layout.activity_register, null)
+            val myDialog = Dialog(requireContext())
+
+            val etEmail = dialogBinding.findViewById<TextInputEditText>(R.id.etEmail)
+            val etUsername = dialogBinding.findViewById<TextInputEditText>(R.id.etUsername)
+            val etPassword = dialogBinding.findViewById<TextInputEditText>(R.id.etPassword)
+            val etConfirmPassword = dialogBinding.findViewById<TextInputEditText>(R.id.etConfirmPassword)
+            val btn_dob = dialogBinding.findViewById<AppCompatButton>(R.id.btn_dob)
+
+            val atc_roleListCombo_info = dialogBinding.findViewById<AutoCompleteTextView>(R.id.atc_roleListCombo_info)
+            val atc_ActiveList = dialogBinding.findViewById<AutoCompleteTextView>(R.id.atc_ActiveList)
+
+
+            // Settup Gender
+            val male = dialogBinding.findViewById<RadioButton>(R.id.rdo_btn_male)
+            val female = dialogBinding.findViewById<RadioButton>(R.id.rdo_btn_female)
+            male.isChecked = true
+            female.isChecked = !male.isChecked
+
+
+
+            /// Setp Day og Birth
+            _viewModel.dob.observe(viewLifecycleOwner, Observer { dobValue ->
+                btn_dob.setText(dobValue)
+            })
+            btn_dob.setOnClickListener { input ->
+                val datePickerDialog = DatePickerDialog(
+                    requireContext(),
+                    { _, year, month, dayOfMonth ->
+                        calendar.set(year, month, dayOfMonth)
+                        _viewModel.updateDOBValue(calendar)
+                    },
+                    Calendar.getInstance().get(Calendar.YEAR),
+                    Calendar.getInstance().get(Calendar.MONTH),
+                    Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+                )
+                datePickerDialog.setOnCancelListener { }
+                datePickerDialog.setOnDismissListener {}
+
+                datePickerDialog.datePicker.maxDate = System.currentTimeMillis() - 1000
+                datePickerDialog.show()
+            }
+
+
+            // Settup Role
+            var currentRole = ""
+            val rolelist = resources.getStringArray(R.array.RoleName)
+            val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_menu, rolelist)
+            atc_roleListCombo_info.setAdapter(arrayAdapter)
+            atc_roleListCombo_info.setOnItemClickListener {  _, _, position, _ ->
+                currentRole = rolelist[position]
+            }
+
+            // Setup Active
+            var currentActive = ""
+            val activeList = resources.getStringArray(R.array.Active_user_adapter)
+            val arrayApderActive = ArrayAdapter(requireContext(), R.layout.dropdown_menu, activeList)
+            atc_ActiveList.setAdapter(arrayApderActive)
+            atc_ActiveList.setOnItemClickListener { parent, view, position, id ->
+                currentActive = activeList[position]
+            }
+
+
+
+            myDialog.setContentView(dialogBinding)
+            myDialog.setCancelable(true)
+            myDialog.window?.setLayout(Screen.width, Screen.height)
+            myDialog.show()
+
+        }
 
 
 
 
-
-
+    }
 
 
 }
