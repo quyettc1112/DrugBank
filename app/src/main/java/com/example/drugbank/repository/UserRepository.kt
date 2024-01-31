@@ -54,10 +54,8 @@ class UserRepository @Inject constructor(
 
 
     fun addUser(
-        authorization: String,
         addUserRequestDTO: AddUserRequestDTO
     ) = apiService.registerUser(
-        authorization = authorization,
         user = addUserRequestDTO
     )
 
