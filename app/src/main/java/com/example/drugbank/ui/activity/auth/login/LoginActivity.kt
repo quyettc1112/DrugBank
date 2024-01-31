@@ -94,7 +94,7 @@ class LoginActivity : BaseActivity() {
                     }
                 }
                 else {
-                   Toast.makeText(this@LoginActivity, response.message(), Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@LoginActivity, response.message(), Toast.LENGTH_LONG).show()
                 }
             }
             override fun onFailure(call: Call<String>, t: Throwable) {

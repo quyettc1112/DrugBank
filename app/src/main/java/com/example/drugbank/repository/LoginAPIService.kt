@@ -1,5 +1,6 @@
 package com.example.drugbank.repository
 
+import com.example.drugbank.data.dto.AddUserRequestDTO
 import com.example.drugbank.data.model.LoginDTO
 import com.example.drugbank.data.model.Token
 import retrofit2.Call
@@ -16,5 +17,8 @@ interface LoginAPIService {
 
     @GET("api/secure")
     fun getSecureData(@Header("Authorization") authorization: String): Call<String>
+
+    @POST("auth/register")
+    fun registerUser(@Body userRequestDTO: AddUserRequestDTO): Call<String>
 
 }
