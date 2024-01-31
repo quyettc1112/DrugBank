@@ -12,6 +12,7 @@
         android:layout_marginEnd="10dp"
         android:fillViewport="true"
         android:layout_width="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_height="wrap_content">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -118,6 +119,38 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
+                        android:text="Full Name">
+
+                    </TextView>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:hint="Input full name"
+                        app:hintTextAppearance="@style/TextAppearance.Material3.BodyLarge"
+                        app:startIconDrawable="@drawable/baseline_lock_person_24">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etFullname"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:singleLine="false"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
                         android:text="Password">
 
                     </TextView>
@@ -142,66 +175,9 @@
                 </LinearLayout>
 
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:text="Password strength"></TextView>
-
-                    <ProgressBar
-                        android:id="@+id/pg_passwordStrenght"
-                        style="@android:style/Widget.ProgressBar.Horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="7dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="150dp"
-                        android:max="100"
-                        android:progress="50"
-                        android:progressTint="@color/i_blue">
-
-                    </ProgressBar>
-                </LinearLayout>
 
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:text="Confirm Password">
-
-                    </TextView>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:hint="Input Confirm Password"
-                        app:hintTextAppearance="@style/TextAppearance.Material3.BodyLarge"
-                        app:startIconDrawable="@drawable/baseline_lock_person_24">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etConfirmPassword"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="text"
-                            android:singleLine="false"
-                            android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                </LinearLayout>
 
 
                 <LinearLayout
