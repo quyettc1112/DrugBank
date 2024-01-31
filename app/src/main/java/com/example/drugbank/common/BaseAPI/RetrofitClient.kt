@@ -34,8 +34,8 @@ object RetrofitClient{
     val instance_Test: LoginAPIService by lazy {
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
-           // .addConverterFactory(GsonConverterFactory.create(gson))
-            .addConverterFactory(ScalarsConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            //.addConverterFactory(ScalarsConverterFactory.create())
             .client(client)
             .build()
         retrofit.create(LoginAPIService::class.java)

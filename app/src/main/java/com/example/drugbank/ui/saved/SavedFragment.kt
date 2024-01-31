@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.graphics.drawable.ColorDrawable
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -24,11 +25,13 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.drugbank.R
 import com.example.drugbank.base.dialog.ConfirmDialog
 import com.example.drugbank.base.dialog.ErrorDialog
+import com.example.drugbank.base.dialog.NotifyDialog
 import com.example.drugbank.common.BaseAPI.RetrofitClient
 import com.example.drugbank.common.Resource.Screen
 import com.example.drugbank.common.Token.TokenManager
 import com.example.drugbank.common.Validator.Validator
 import com.example.drugbank.common.constant.Constant
+import com.example.drugbank.data.dto.AddUserRequestDTO
 import com.example.drugbank.data.dto.UpdateUserRequestDTO
 import com.example.drugbank.data.model.User
 import com.example.drugbank.databinding.FragmentSavedBinding
@@ -328,7 +331,7 @@ class SavedFragment : Fragment() {
             if (activeList[position] == "ALL") {
                 _viewModel.selectedActive.value = null
             }
-            CallUserList()
+          //  CallUserList()
         }
     }
 
@@ -344,9 +347,10 @@ class SavedFragment : Fragment() {
             val etEmail = dialogBinding.findViewById<TextInputEditText>(R.id.etEmail)
             val etUsername = dialogBinding.findViewById<TextInputEditText>(R.id.etUsername)
             val etPassword = dialogBinding.findViewById<TextInputEditText>(R.id.etPassword)
-            val etConfirmPassword = dialogBinding.findViewById<TextInputEditText>(R.id.etConfirmPassword)
+            val etFullname = dialogBinding.findViewById<TextInputEditText>(R.id.etFullname)
             val btn_dob = dialogBinding.findViewById<AppCompatButton>(R.id.btn_dob)
             val btn_register = dialogBinding.findViewById<AppCompatButton>(R.id.btn_register)
+            val btn_back = dialogBinding.findViewById<AppCompatButton>(R.id.btn_back)
 
             val atc_roleListCombo_info = dialogBinding.findViewById<AutoCompleteTextView>(R.id.atc_roleListCombo_info)
             val atc_ActiveList = dialogBinding.findViewById<AutoCompleteTextView>(R.id.atc_ActiveList)
@@ -366,8 +370,13 @@ class SavedFragment : Fragment() {
                 val datePickerDialog = DatePickerDialog(
                     requireContext(),
                     { _, year, month, dayOfMonth ->
+                        val calendar = Calendar.getInstance()
                         calendar.set(year, month, dayOfMonth)
-                        _viewModel.updateDOBValue(calendar)
+
+                        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+                        val formattedDate = dateFormat.format(calendar.time)
+
+                        _viewModel.updateDOBValue(formattedDate)
                     },
                     Calendar.getInstance().get(Calendar.YEAR),
                     Calendar.getInstance().get(Calendar.MONTH),
@@ -382,12 +391,20 @@ class SavedFragment : Fragment() {
 
 
             // Settup Role
-            var currentRole = ""
+            var currentRole = 0;
             val rolelist = resources.getStringArray(R.array.RoleName)
             val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_menu, rolelist)
             atc_roleListCombo_info.setAdapter(arrayAdapter)
             atc_roleListCombo_info.setOnItemClickListener {  _, _, position, _ ->
-                currentRole = rolelist[position]
+                if (rolelist[position].equals("USER")) {
+                    currentRole = 3;
+                }
+                if (rolelist[position].equals("ADMIN")) {
+                    currentRole = 2;
+                }
+                if (rolelist[position].equals("SUPER ADMIN")) {
+                    currentRole = 1;
+                }
             }
 
             // Setup Active
@@ -398,20 +415,26 @@ class SavedFragment : Fragment() {
             atc_ActiveList.setOnItemClickListener { parent, view, position, id ->
                 currentActive = activeList[position]
             }
-
-
-
             btn_register.setOnClickListener {
                 if (
                     !etUsername.text.isNullOrEmpty() &&
                     !etEmail.text.isNullOrEmpty() &&
                     !etPassword.text.isNullOrEmpty()&&
-                    !etConfirmPassword.text.isNullOrEmpty()&&
+                    !etFullname.text.isNullOrEmpty()&&
                     !currentActive.isNullOrEmpty() &&
                     currentGender != null &&
-                    !currentRole.isNullOrEmpty()
+                    currentRole != null
                 ) {
-                    Toast.makeText(requireContext(), "OK", Toast.LENGTH_SHORT).show()
+                    val userAddDTO = AddUserRequestDTO(
+                        email = etEmail.text.toString(),
+                        username = etUsername.text.toString(),
+                        fullName = etFullname.text.toString(),
+                        dob = btn_dob.text.toString(),
+                        gender = if (male.isChecked) 0 else 1,
+                        roleID = currentRole
+                    )
+                    Log.d("CheckUserDTO", userAddDTO.toString())
+                    CallRegisterUser(userAddDTO)
 
                 } else {
                     val errorDialog = ErrorDialog(
@@ -420,14 +443,12 @@ class SavedFragment : Fragment() {
                         context = requireContext()
                     )
                     errorDialog.show()
-
-
                 }
 
             }
-
-
-
+            btn_back.setOnClickListener {
+                myDialog.dismiss()
+            }
 
             myDialog.setContentView(dialogBinding)
             myDialog.setCancelable(true)
@@ -435,9 +456,37 @@ class SavedFragment : Fragment() {
             myDialog.show()
 
         }
+    }
 
+    private fun CallRegisterUser(userAddDTO : AddUserRequestDTO){
+        userRepository.addUser(userAddDTO).enqueue(object : Callback<String>{
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                if (response.isSuccessful) {
+                    val notifyDialog = NotifyDialog(
+                        requireContext(),
+                        textButton = "OK",
+                        message = "Add new User Success",
+                        title = "Add User"
+                    )
+                    notifyDialog.show()
+                    notifyDialog.setOnDismissListener {
+                        CallUserList()
+                    }
+                }
+                else {
+                    val error = ErrorDialog(
+                        context = requireContext(),
+                        errorContent = response.errorBody()!!.string(),
+                        textButton = "Back"
+                    )
+                    error.show()
+                }
+            }
 
-
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
 
     }
 
