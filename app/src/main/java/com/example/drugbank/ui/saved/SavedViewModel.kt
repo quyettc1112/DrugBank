@@ -15,7 +15,9 @@ import javax.inject.Inject
 class SavedViewModel @Inject constructor() : ViewModel() {
 
     private var calendar = Calendar.getInstance()
-    private val dateFormat = SimpleDateFormat("MMM dd yyyy")
+    private val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+
+
 
     val selectedRole = MutableLiveData<String>()
     val selectedGender = MutableLiveData<Int?>()
@@ -37,8 +39,8 @@ class SavedViewModel @Inject constructor() : ViewModel() {
         userList.postValue(userListCurrent)
     }
 
-    fun updateDOBValue(calendar: Calendar) {
-        dob.value = dateFormat.format(calendar.time)
+    fun updateDOBValue(string: String) {
+        dob.value = string
 
     }
 

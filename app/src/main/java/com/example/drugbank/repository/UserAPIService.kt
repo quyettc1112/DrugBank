@@ -50,9 +50,8 @@ interface UserAPIService {
 
     @POST("auth/register")
     fun registerUser(
-        @Header("Authorization") authorization: String,
         @Body user: AddUserRequestDTO
-    ): Call<UserListResponse.User>
+    ): Call<String>
 
 
     
