@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.viewpager.widget.ViewPager
 import com.example.drugbank.R
+import com.google.android.material.tabs.TabLayout
 
 class SearchFragment : Fragment() {
 
@@ -17,7 +19,20 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_search, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_search, container, false)
+
+        // Tạo ViewPager
+        val viewPager: ViewPager = rootView.findViewById(R.id.view_pager)
+
+        // Tạo và thiết lập SectionsPagerAdapter
+        val sectionsPagerAdapter = SectionsPagerAdapter(childFragmentManager)
+        viewPager.adapter = sectionsPagerAdapter
+
+        // Tạo TabLayout và liên kết với ViewPager
+        val tabLayout: TabLayout = rootView.findViewById(R.id.tabs)
+        tabLayout.setupWithViewPager(viewPager)
+
+        return  rootView
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
