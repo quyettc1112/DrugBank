@@ -4,7 +4,6 @@ package com.example.drugbank.repository
 
 import com.example.drugbank.data.dto.AddUserRequestDTO
 import com.example.drugbank.data.dto.UpdateUserRequestDTO
-import com.example.drugbank.data.model.User
 import com.example.drugbank.respone.UserListResponse
 import retrofit2.Call
 import retrofit2.http.Body
@@ -14,7 +13,7 @@ import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Query
 
-interface UserAPIService {
+interface Admin_UserM_APIService {
     @GET("admin/user-management/users")
     fun getPageableUser(
         @Header("Authorization") authorization: String,

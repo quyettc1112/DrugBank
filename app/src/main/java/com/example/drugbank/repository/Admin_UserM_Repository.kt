@@ -3,14 +3,11 @@ package com.example.drugbank.repository
 import com.example.drugbank.data.dto.AddUserRequestDTO
 import com.example.drugbank.data.dto.UpdateUserRequestDTO
 import dagger.hilt.android.scopes.ActivityScoped
-import dagger.hilt.android.scopes.FragmentScoped
-import retrofit2.http.Header
-import retrofit2.http.Query
 import javax.inject.Inject
 
 @ActivityScoped
-class UserRepository @Inject constructor(
-    private val apiService: UserAPIService
+class Admin_UserM_Repository @Inject constructor(
+    private val apiService: Admin_UserM_APIService
 ) {
     fun getPageableUser(authorization: String,
                          pageNo: Int,
