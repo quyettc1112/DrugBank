@@ -11,10 +11,11 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Query
 
 interface UserAPIService {
-    @GET("user/get-pageable-users")
+    @GET("admin/user-management/users")
     fun getPageableUser(
         @Header("Authorization") authorization: String,
         @Query("pageNo") pageNo: Int,
@@ -27,21 +28,21 @@ interface UserAPIService {
     ): Call<UserListResponse>
 
 
-    @POST("/user/update-user")
+    @PUT("admin/user-management/user")
     fun updateUser(
         @Header("Authorization") authorization: String,
         @Query("email") email: String,
         @Body updateUserRequest: UpdateUserRequestDTO
     ) : Call<UserListResponse.User>
 
-    @POST("user/deactivate-user")
+    @POST("admin/user-management/deactivate-user")
     fun deactivateUser(
         @Header("Authorization") authorization: String,
         @Query("email") email: String
     ): Call<UserListResponse.User>
 
 
-    @POST("user/active-user")
+    @POST("admin/user-management/active-user")
     fun ActivateUser(
         @Header("Authorization") authorization: String,
         @Query("email") email: String
