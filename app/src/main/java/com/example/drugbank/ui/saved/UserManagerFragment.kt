@@ -29,7 +29,7 @@ import com.example.drugbank.data.dto.AddUserRequestDTO
 import com.example.drugbank.data.dto.UpdateUserRequestDTO
 import com.example.drugbank.data.model.User
 import com.example.drugbank.databinding.FragmentSavedBinding
-import com.example.drugbank.repository.UserRepository
+import com.example.drugbank.repository.Admin_UserM_Repository
 import com.example.drugbank.respone.UserListResponse
 import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
@@ -51,14 +51,9 @@ class UserManagerFragment : Fragment() {
     lateinit var _viewModel: UserManager
     lateinit var  tokenManager: TokenManager
 
-    private var currentTime = Calendar.getInstance()
-    private var calendar = Calendar.getInstance()
-
-    private val dateFormat = SimpleDateFormat("MMM dd yyyy")
-
 
     @Inject
-    lateinit var userRepository: UserRepository
+    lateinit var userRepository: Admin_UserM_Repository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -323,7 +318,7 @@ class UserManagerFragment : Fragment() {
             if (activeList[position] == "ALL") {
                 _viewModel.selectedActive.value = null
             }
-          //  CallUserList()
+            CallUserList()
         }
     }
 

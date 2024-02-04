@@ -1,4 +1,6 @@
 package com.example.drugbank.respone
+import com.example.drugbank.data.model.Pageable
+import com.example.drugbank.data.model.Sort
 import com.google.gson.annotations.SerializedName
 
 
@@ -15,7 +17,7 @@ data class UserListResponse(
  @SerializedName("first") val first: Boolean,
  @SerializedName("empty") val empty: Boolean,
 
-) {
+ ) {
  data class User(
   @SerializedName("id")
   val id: Int,
@@ -35,27 +37,4 @@ data class UserListResponse(
   val isActive: String
  )
 
- data class Pageable(
-  @SerializedName("pageNumber")
-  val pageNumber: Int,
-  @SerializedName("pageSize")
-  val pageSize: Int,
-  @SerializedName("sort")
-  val sort: Sort,
-  @SerializedName("offset")
-  val offset: Int,
-  @SerializedName("paged")
-  val paged: Boolean,
-  @SerializedName("unpaged")
-  val unpaged: Boolean
- )
-
- data class Sort(
-  @SerializedName("sorted")
-  val sorted: Boolean,
-  @SerializedName("empty")
-  val empty: Boolean,
-  @SerializedName("unsorted")
-  val unsorted: Boolean
- )
 }
