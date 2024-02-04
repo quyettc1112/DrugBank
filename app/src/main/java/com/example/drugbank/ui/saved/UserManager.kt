@@ -3,16 +3,14 @@ package com.example.drugbank.ui.saved
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.drugbank.common.Resource.Resource
 import com.example.drugbank.data.model.User
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import javax.inject.Inject
 @HiltViewModel
-class SavedViewModel @Inject constructor() : ViewModel() {
+class UserManager @Inject constructor() : ViewModel() {
 
     private var calendar = Calendar.getInstance()
     private val dateFormat = SimpleDateFormat("yyyy-MM-dd")

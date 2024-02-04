@@ -2,7 +2,6 @@ package com.example.drugbank.ui.saved
 
 import android.app.DatePickerDialog
 import android.app.Dialog
-import android.graphics.drawable.ColorDrawable
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
@@ -14,13 +13,10 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import android.widget.RadioButton
-import android.widget.SearchView
-import android.widget.SearchView.*
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.drugbank.R
 import com.example.drugbank.base.dialog.ConfirmDialog
@@ -29,17 +25,13 @@ import com.example.drugbank.base.dialog.NotifyDialog
 import com.example.drugbank.common.BaseAPI.RetrofitClient
 import com.example.drugbank.common.Resource.Screen
 import com.example.drugbank.common.Token.TokenManager
-import com.example.drugbank.common.Validator.Validator
-import com.example.drugbank.common.constant.Constant
 import com.example.drugbank.data.dto.AddUserRequestDTO
 import com.example.drugbank.data.dto.UpdateUserRequestDTO
 import com.example.drugbank.data.model.User
 import com.example.drugbank.databinding.FragmentSavedBinding
 import com.example.drugbank.repository.UserRepository
 import com.example.drugbank.respone.UserListResponse
-import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
 import de.hdodenhof.circleimageview.CircleImageView
 import retrofit2.Call
@@ -50,13 +42,13 @@ import java.util.Calendar
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SavedFragment : Fragment() {
+class UserManagerFragment : Fragment() {
 
    // private lateinit var binding:ActivityMainBinding
     private lateinit var _binding: FragmentSavedBinding
-    private lateinit var _userAdapter: UserAdapter
+    private lateinit var _userAdapter: UserManagerAdapter
 
-    lateinit var _viewModel: SavedViewModel
+    lateinit var _viewModel: UserManager
     lateinit var  tokenManager: TokenManager
 
     private var currentTime = Calendar.getInstance()
@@ -73,7 +65,7 @@ class SavedFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSavedBinding.inflate(inflater, container, false)
-        _viewModel = ViewModelProvider(this).get(SavedViewModel::class.java)
+        _viewModel = ViewModelProvider(this).get(UserManager::class.java)
         onAddNewClick()
         setUpComboBoxWithViewmodel()
 
@@ -88,7 +80,7 @@ class SavedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         tokenManager = TokenManager(requireContext())
-        _userAdapter = UserAdapter(requireContext(), userRepository, tokenManager.getAccessToken().toString(), this@SavedFragment)
+        _userAdapter = UserManagerAdapter(requireContext(), userRepository, tokenManager.getAccessToken().toString(), this@UserManagerFragment)
 
         onItemClickAdapter()
         searchViewOnQuery()

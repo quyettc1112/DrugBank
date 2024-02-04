@@ -1,17 +1,13 @@
 package com.example.drugbank.ui.saved
 
 import android.content.Context
-import android.os.Parcel
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -19,29 +15,23 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.drugbank.R
-import com.example.drugbank.base.dialog.ConfirmDialog
 import com.example.drugbank.base.dialog.ErrorDialog
-import com.example.drugbank.common.constant.Constant
 import com.example.drugbank.data.model.User
 import com.example.drugbank.databinding.BaseRecycleUserBinding
 import com.example.drugbank.repository.UserRepository
 import com.example.drugbank.respone.UserListResponse
-import com.google.android.gms.drive.query.Filter
-import com.google.android.gms.drive.query.internal.zzj
-import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import kotlin.coroutines.coroutineContext
 
-class UserAdapter(context: Context, userRepository: UserRepository, token: String, fragment: SavedFragment): RecyclerView.Adapter<UserAdapter.MainViewHolder>()
+class UserManagerAdapter(context: Context, userRepository: UserRepository, token: String, fragment: UserManagerFragment): RecyclerView.Adapter<UserManagerAdapter.MainViewHolder>()
 {
     var onItemClick: ((User) -> Unit)? = null
     val context: Context = context
     val userRepository:UserRepository = userRepository
     val token: String = token
-    val fragment:SavedFragment = fragment
+    val fragment:UserManagerFragment = fragment
     inner class MainViewHolder(val itemBinding: BaseRecycleUserBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
 
@@ -136,6 +126,15 @@ class UserAdapter(context: Context, userRepository: UserRepository, token: Strin
                         ) {
                             fragment.CallUserList()
                             dialog.dismiss()
+
+                            if (response.code() == 403) {
+                                val errorDialog = ErrorDialog(
+                                    context = context,
+                                    errorContent = "Forbiden Error",
+                                    textButton = "Try Again"
+                                )
+                                errorDialog.show()
+                            }
                         }
                         override fun onFailure(call: Call<UserListResponse.User>, t: Throwable) {
                             dialog.dismiss()
