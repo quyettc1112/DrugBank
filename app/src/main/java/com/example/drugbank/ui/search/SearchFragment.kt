@@ -8,31 +8,32 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager.widget.ViewPager
 import com.example.drugbank.R
+import com.example.drugbank.databinding.FragmentSearchBinding
 import com.google.android.material.tabs.TabLayout
 
 class SearchFragment : Fragment() {
 
 
+    private var _binding: FragmentSearchBinding? = null
+    private val binding get() = _binding!!
     private lateinit var viewModel: SearchViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_search, container, false)
+        _binding = FragmentSearchBinding.inflate(inflater, container, false)
+        val rootView = binding.root
+        setUpTab()
+        return rootView
+    }
 
-        // Tạo ViewPager
-        val viewPager: ViewPager = rootView.findViewById(R.id.view_pager)
-
+    private fun setUpTab() {
         // Tạo và thiết lập SectionsPagerAdapter
         val sectionsPagerAdapter = SectionsPagerAdapter(childFragmentManager)
-        viewPager.adapter = sectionsPagerAdapter
-
-        // Tạo TabLayout và liên kết với ViewPager
-        val tabLayout: TabLayout = rootView.findViewById(R.id.tabs)
-        tabLayout.setupWithViewPager(viewPager)
-
-        return  rootView
+        binding.viewPager.adapter = sectionsPagerAdapter
+        // Liên kết TabLayout với ViewPager
+        binding.tabs.setupWithViewPager(binding.viewPager)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -40,5 +41,7 @@ class SearchFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
         // TODO: Use the ViewModel
     }
+
+
 
 }

@@ -7,11 +7,5 @@
     android:background="@color/i_gray"
     tools:context=".ui.search.childeFragment.DrugFragment">
 
-   <TextView
-       android:text="Drug"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent">
-
-   </TextView>
 
 </LinearLayout>

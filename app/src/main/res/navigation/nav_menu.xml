@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/user_managerFragmentNav"
-        android:name="com.example.drugbank.ui.saved.UserManagerFragment"
+        android:name="com.example.drugbank.ui.usermanager.UserManagerFragment"
         android:label="fragment_saved"
         tools:layout="@layout/fragment_saved" >
 

@@ -1,4 +1,4 @@
-package com.example.drugbank.ui.saved
+package com.example.drugbank.ui.usermanager
 
 import android.content.Context
 import android.view.LayoutInflater
