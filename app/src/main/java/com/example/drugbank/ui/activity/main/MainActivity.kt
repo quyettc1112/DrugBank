@@ -39,7 +39,6 @@ class MainActivity : BaseActivity() {
                 navController.navigate(Constant.getNavSeleted(currentId))
             }
         })
-        val a = 0;
         binding.bottomBar.let { bt ->
             // Todo Check người dùng đã đăng nhập chưa ở dây
             bt.onItemSelected = {

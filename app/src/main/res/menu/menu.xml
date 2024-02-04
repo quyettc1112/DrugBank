@@ -18,8 +18,8 @@
         android:icon="@drawable/ic_receipt_black_24dp" />
 
     <item
-        android:id="@+id/save"
-        android:title="@string/saved_nav"
+        android:id="@+id/user_manager"
+        android:title="@string/user_manager_nav"
         android:icon="@drawable/ic_dns_black_24dp"
         />
 

@@ -20,8 +20,8 @@
             app:destination="@id/loginFragmentNav" />
     </fragment>
     <fragment
-        android:id="@+id/savedFragmentNav"
-        android:name="com.example.drugbank.ui.saved.SavedFragment"
+        android:id="@+id/user_managerFragmentNav"
+        android:name="com.example.drugbank.ui.saved.UserManagerFragment"
         android:label="fragment_saved"
         tools:layout="@layout/fragment_saved" >
 
@@ -60,7 +60,7 @@
         tools:layout="@layout/activity_register" >
         <action
             android:id="@+id/action_registerFragment_to_savedFragmentNav"
-            app:destination="@id/savedFragmentNav" />
+            app:destination="@id/user_managerFragmentNav" />
     </fragment>
 
 </navigation>
