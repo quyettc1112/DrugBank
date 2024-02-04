@@ -18,18 +18,18 @@ import com.example.drugbank.R
 import com.example.drugbank.base.dialog.ErrorDialog
 import com.example.drugbank.data.model.User
 import com.example.drugbank.databinding.BaseRecycleUserBinding
-import com.example.drugbank.repository.UserRepository
+import com.example.drugbank.repository.Admin_UserM_Repository
 import com.example.drugbank.respone.UserListResponse
 import de.hdodenhof.circleimageview.CircleImageView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class UserManagerAdapter(context: Context, userRepository: UserRepository, token: String, fragment: UserManagerFragment): RecyclerView.Adapter<UserManagerAdapter.MainViewHolder>()
+class UserManagerAdapter(context: Context, userRepository: Admin_UserM_Repository, token: String, fragment: UserManagerFragment): RecyclerView.Adapter<UserManagerAdapter.MainViewHolder>()
 {
     var onItemClick: ((User) -> Unit)? = null
     val context: Context = context
-    val userRepository:UserRepository = userRepository
+    val userRepository:Admin_UserM_Repository = userRepository
     val token: String = token
     val fragment:UserManagerFragment = fragment
     inner class MainViewHolder(val itemBinding: BaseRecycleUserBinding) :
