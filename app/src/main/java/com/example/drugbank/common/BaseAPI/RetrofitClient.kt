@@ -1,7 +1,7 @@
 package com.example.drugbank.common.BaseAPI
 
 import com.example.drugbank.repository.LoginAPIService
-import com.example.drugbank.repository.UserAPIService
+import com.example.drugbank.repository.Admin_UserM_APIService
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -41,13 +41,13 @@ object RetrofitClient{
         retrofit.create(LoginAPIService::class.java)
     }
 
-    val instance_User: UserAPIService by lazy {
+    val instance_User: Admin_UserM_APIService by lazy {
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(client)
             .build()
-        retrofit.create(UserAPIService::class.java)
+        retrofit.create(Admin_UserM_APIService::class.java)
     }
 
 
