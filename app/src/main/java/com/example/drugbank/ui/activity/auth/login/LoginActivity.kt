@@ -40,6 +40,36 @@ class LoginActivity : BaseActivity() {
         //openRegisterActivity()
         //onBackLickIcon()
         //onBackHandle()
+        val loginDTO = LoginDTO("admin@gmail.com", "123456");
+        RetrofitClient.instance.login(loginDTO).enqueue(object : Callback<Token> {
+            override fun onResponse(call: Call<Token>, response: Response<Token>) {
+                if (response.isSuccessful) {
+                    val tokenData = response.body()
+                    if (tokenData != null) {
+                        val accessToken = tokenData.accessToken
+                        val refreshToken = tokenData.refreshToken
+                        _Token = Token(accessToken, refreshToken)
+                        Toast.makeText(this@LoginActivity, _Token.accessToken, Toast.LENGTH_SHORT).show()
+                        val tokenManager = TokenManager(this@LoginActivity)
+                        tokenManager.saveAccessToken(_Token.accessToken)
+                        IntentToHomePage()
+                    } else {
+                        Toast.makeText(this@LoginActivity, "Không có gì cả", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                if (response.code() == 404) {
+                    val error = ErrorDialog(
+                        context = this@LoginActivity,
+                        errorContent = response.errorBody()!!.string(),
+                        textButton = "Back"
+                    )
+                    error.show()
+                }
+            }
+            override fun onFailure(call: Call<Token>, t: Throwable) {
+                Toast.makeText(this@LoginActivity, t.message.toString(), Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     private fun onSignUpClick() {
@@ -48,36 +78,36 @@ class LoginActivity : BaseActivity() {
 
         if (!Strings.isNullOrEmpty(userName) && !Strings.isNullOrEmpty(password)){
             val loginDTO = LoginDTO(userName, password);
-            RetrofitClient.instance.login(loginDTO).enqueue(object : Callback<Token> {
-                override fun onResponse(call: Call<Token>, response: Response<Token>) {
-                    if (response.isSuccessful) {
-                        val tokenData = response.body()
-                        if (tokenData != null) {
-                            val accessToken = tokenData.accessToken
-                            val refreshToken = tokenData.refreshToken
-                            _Token = Token(accessToken, refreshToken)
-                            Toast.makeText(this@LoginActivity, _Token.accessToken, Toast.LENGTH_SHORT).show()
-                            val tokenManager = TokenManager(this@LoginActivity)
-                            tokenManager.saveAccessToken(_Token.accessToken)
-                            IntentToHomePage()
-                        } else {
-                            Toast.makeText(this@LoginActivity, "Không có gì cả", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                    if (response.code() == 404) {
-                        val error = ErrorDialog(
-                            context = this@LoginActivity,
-                            errorContent = response.errorBody()!!.string(),
-                            textButton = "Back"
-                        )
-                        error.show()
-                    }
-                }
-                override fun onFailure(call: Call<Token>, t: Throwable) {
-                    Toast.makeText(this@LoginActivity, t.message.toString(), Toast.LENGTH_SHORT).show()
-                }
-            }
-            )
+//            RetrofitClient.instance.login(loginDTO).enqueue(object : Callback<Token> {
+//                override fun onResponse(call: Call<Token>, response: Response<Token>) {
+//                    if (response.isSuccessful) {
+//                        val tokenData = response.body()
+//                        if (tokenData != null) {
+//                            val accessToken = tokenData.accessToken
+//                            val refreshToken = tokenData.refreshToken
+//                            _Token = Token(accessToken, refreshToken)
+//                            Toast.makeText(this@LoginActivity, _Token.accessToken, Toast.LENGTH_SHORT).show()
+//                            val tokenManager = TokenManager(this@LoginActivity)
+//                            tokenManager.saveAccessToken(_Token.accessToken)
+//                            IntentToHomePage()
+//                        } else {
+//                            Toast.makeText(this@LoginActivity, "Không có gì cả", Toast.LENGTH_SHORT).show()
+//                        }
+//                    }
+//                    if (response.code() == 404) {
+//                        val error = ErrorDialog(
+//                            context = this@LoginActivity,
+//                            errorContent = response.errorBody()!!.string(),
+//                            textButton = "Back"
+//                        )
+//                        error.show()
+//                    }
+//                }
+//                override fun onFailure(call: Call<Token>, t: Throwable) {
+//                    Toast.makeText(this@LoginActivity, t.message.toString(), Toast.LENGTH_SHORT).show()
+//                }
+//            }
+        //)
         } else {
             Toast.makeText(this@LoginActivity, "Null Input", Toast.LENGTH_LONG).show()
         }
