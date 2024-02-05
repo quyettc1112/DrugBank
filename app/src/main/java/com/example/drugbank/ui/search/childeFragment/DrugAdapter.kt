@@ -19,6 +19,9 @@ class DrugAdapter(): RecyclerView.Adapter<DrugAdapter.MainViewHolder>() {
 
         fun bindItem(drug: Drug) {
             itemBinding.tvDrugname.text = drug.name
+            itemBinding.tvSimpleDescription.text = drug.simpleDescription
+            itemBinding.tvType.text = "Type:" + drug.type
+            itemBinding.tvApprovalStatus.text = "ApprovalStatus: " + drug.approvalStatus
         }
     }
 
