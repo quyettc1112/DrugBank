@@ -22,7 +22,6 @@ class DrugAdapter(): RecyclerView.Adapter<DrugAdapter.MainViewHolder>() {
         }
     }
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DrugAdapter.MainViewHolder {
         return MainViewHolder(
             BaseRecycleDrugBinding.inflate(

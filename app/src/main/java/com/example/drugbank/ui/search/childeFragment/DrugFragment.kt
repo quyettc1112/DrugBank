@@ -92,11 +92,7 @@ class DrugFragment : Fragment() {
             override fun onFailure(call: Call<DrugMListRespone>, t: Throwable) {
                 TODO("Not yet implemented")
             }
-
-
         })
-
-
     }
 
     private fun setUpRecycleView() {
