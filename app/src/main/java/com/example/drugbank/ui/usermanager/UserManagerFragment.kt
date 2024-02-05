@@ -48,7 +48,7 @@ class UserManagerFragment : Fragment() {
     private lateinit var _binding: FragmentSavedBinding
     private lateinit var _userAdapter: UserManagerAdapter
 
-    lateinit var _viewModel: UserManager
+    lateinit var _viewModel: UserManagerViewModel
     lateinit var  tokenManager: TokenManager
 
 
@@ -60,7 +60,7 @@ class UserManagerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSavedBinding.inflate(inflater, container, false)
-        _viewModel = ViewModelProvider(this).get(UserManager::class.java)
+        _viewModel = ViewModelProvider(this).get(UserManagerViewModel::class.java)
         onAddNewClick()
         setUpComboBoxWithViewmodel()
 
