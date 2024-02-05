@@ -6,11 +6,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.drugbank.common.Token.TokenManager
 import com.example.drugbank.data.model.Drug
 import com.example.drugbank.databinding.FragmentDrugBinding
 import com.example.drugbank.repository.Admin_DrugM_Repository
 import com.example.drugbank.respone.DrugMListRespone
+import com.example.drugbank.ui.usermanager.UserManagerViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,6 +30,16 @@ class DrugFragment : Fragment() {
     private lateinit var _binding: FragmentDrugBinding
     private lateinit var _adapter: DrugAdapter
     lateinit var  tokenManager: TokenManager
+    lateinit var drugViewModel: DrugViewModel
+
+
+
+
+    // PHần này để cho phần scroll listener
+    private var isLoading = false
+    private var isLastPage = false
+    private var currentPage = 0
+
 
     @Inject
     lateinit var adminDrugmRepository: Admin_DrugM_Repository
@@ -39,8 +55,41 @@ class DrugFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentDrugBinding.inflate(inflater, container, false)
+        drugViewModel = ViewModelProvider(this).get(DrugViewModel::class.java)
 
 
+
+        tokenManager = TokenManager(requireContext())
+        _adapter = DrugAdapter()
+        _binding.rvDrugList.adapter = _adapter
+        CallDrugList()
+
+
+
+        _binding.rvDrugList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                var lastCompletelyVisibleItem = layoutManager.findLastCompletelyVisibleItemPosition()
+                var totalItemCount = layoutManager.itemCount
+
+                // Kiểm tra xem đã lướt tới phần tử cuối cùng hay chưa
+                if (lastCompletelyVisibleItem == totalItemCount - 1) {
+                    // Hiển thị Toast khi lướt tới phần tử cuối cùng
+                    Toast.makeText(requireContext(), "Add More", Toast.LENGTH_SHORT).show()
+                    CallDrugLisv2()
+                } else {
+                    lastCompletelyVisibleItem = layoutManager.findLastCompletelyVisibleItemPosition()
+                    totalItemCount = layoutManager.itemCount
+
+                }
+
+
+
+
+            }
+        })
 
         return _binding.root
     }
@@ -48,16 +97,20 @@ class DrugFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        tokenManager = TokenManager(requireContext())
-        _adapter = DrugAdapter()
-        CallDrugList()
+
+
 
     }
     private fun CallDrugList() {
+
+        isLoading = true
+
+        // Increment the page number
+
         adminDrugmRepository.getDrugMList(
             "Bearer ${tokenManager.getAccessToken()}",
             pageNo = 0,
-            pageSize = 20,
+            pageSize = PAGE_SIZE,
             sortField = "id",
             sortOrder = "asc",
             search =  ""
@@ -82,17 +135,84 @@ class DrugFragment : Fragment() {
                         )
                     } ?: emptyList()
 
+                    if (drugList.isEmpty()) {
+                        isLastPage = true
+                    }
 
-                    _adapter.differ.submitList(drugList)
-                    _binding.rvDrugList.adapter = _adapter
+                    drugViewModel.loadMoreDruglist(drugList)
+                    isLoading = true
+                    _adapter.differ.submitList(drugViewModel.currentDrugList.value)
+                    //_binding.rvDrugList.adapter = _adapter
 
-                } else Log.d("CheckGetLIst", response.code().toString())
+                } else {
+                    Log.d("CheckGetList", response.code().toString())
+                }
+                isLoading = false
             }
 
             override fun onFailure(call: Call<DrugMListRespone>, t: Throwable) {
-                TODO("Not yet implemented")
+                isLoading = false
             }
         })
+
+        currentPage++
+    }
+
+    private fun CallDrugLisv2() {
+
+        isLoading = true
+
+        // Increment the page number
+
+        adminDrugmRepository.getDrugMList(
+            "Bearer ${tokenManager.getAccessToken()}",
+            pageNo = currentPage,
+            pageSize = PAGE_SIZE,
+            sortField = "id",
+            sortOrder = "asc",
+            search =  ""
+        ).enqueue(object: Callback<DrugMListRespone> {
+            override fun onResponse(
+                call: Call<DrugMListRespone>,
+                response: Response<DrugMListRespone>
+            ) {
+                if (response.isSuccessful) {
+                    val DrugResponse: DrugMListRespone? = response.body()
+                    val drugList: List<Drug> = DrugResponse?.content?.map { drug ->
+                        Drug(
+                            id = drug.id,
+                            approvalStatus = drug.approvalStatus,
+                            clinicalDescription = drug.clinicalDescription,
+                            description = drug.description,
+                            drugbankId = null,
+                            name = drug.name,
+                            simpleDescription = drug.simpleDescription,
+                            state = drug.state,
+                            type = drug.type
+                        )
+                    } ?: emptyList()
+
+                    if (drugList.isEmpty()) {
+                        isLastPage = true
+                    }
+                    isLoading = true
+                    drugViewModel.loadMoreDruglist(drugList)
+                    _adapter.differ.submitList(drugViewModel.currentDrugList.value)
+                    //_binding.rvDrugList.adapter = _adapter
+
+
+                } else {
+                    Log.d("CheckGetList", response.code().toString())
+                }
+                isLoading = false
+            }
+
+            override fun onFailure(call: Call<DrugMListRespone>, t: Throwable) {
+                isLoading = false
+            }
+        })
+
+        currentPage++
     }
 
     private fun setUpRecycleView() {
@@ -100,6 +220,11 @@ class DrugFragment : Fragment() {
 
 
 
+    }
+
+
+    companion object {
+        private const val PAGE_SIZE = 10
     }
 
 
