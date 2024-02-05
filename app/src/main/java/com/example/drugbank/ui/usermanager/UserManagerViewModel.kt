@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import javax.inject.Inject
 @HiltViewModel
-class UserManager @Inject constructor() : ViewModel() {
+class UserManagerViewModel @Inject constructor() : ViewModel() {
 
     private var calendar = Calendar.getInstance()
     private val dateFormat = SimpleDateFormat("yyyy-MM-dd")
