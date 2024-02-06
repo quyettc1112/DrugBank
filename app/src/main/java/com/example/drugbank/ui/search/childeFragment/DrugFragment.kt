@@ -40,6 +40,7 @@ class DrugFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        drugViewModel = ViewModelProvider(this).get(DrugViewModel::class.java)
 
     }
 
@@ -48,34 +49,14 @@ class DrugFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentDrugBinding.inflate(inflater, container, false)
-        drugViewModel = ViewModelProvider(this).get(DrugViewModel::class.java)
-
-
-
         tokenManager = TokenManager(requireContext())
-        _adapter = DrugAdapter()
-        _binding.rvDrugList.adapter = _adapter
-        CallDrugList()
+        setUpRecycleView()
 
 
 
-        _binding.rvDrugList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
 
-                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-                var lastCompletelyVisibleItem = layoutManager.findLastCompletelyVisibleItemPosition()
-                var totalItemCount = layoutManager.itemCount
 
-                // Kiểm tra xem đã lướt tới phần tử cuối cùng hay chưa
-                if (lastCompletelyVisibleItem == totalItemCount - 1) {
-                    // Hiển thị Toast khi lướt tới phần tử cuối cùng
-                    Toast.makeText(requireContext(), "Add More", Toast.LENGTH_SHORT).show()
-                    //CallDrugLisv2()
-                    CallDrugList()
-                }
-            }
-        })
+
 
         return _binding.root
     }
@@ -123,7 +104,6 @@ class DrugFragment : Fragment() {
                     Log.d("CheckGetList", response.code().toString())
                 }
             }
-
             override fun onFailure(call: Call<DrugMListRespone>, t: Throwable) {
             }
         })
@@ -133,11 +113,34 @@ class DrugFragment : Fragment() {
 
 
     private fun setUpRecycleView() {
+        _adapter = DrugAdapter()
+        _binding.rvDrugList.adapter = _adapter
+        CallDrugList()
+
+        _binding.rvDrugList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                var lastCompletelyVisibleItem = layoutManager.findLastCompletelyVisibleItemPosition()
+                var totalItemCount = layoutManager.itemCount
+                if (lastCompletelyVisibleItem == totalItemCount - 1) {
+                    Toast.makeText(requireContext(), "Loaded", Toast.LENGTH_SHORT).show()
+                    CallDrugList()
+                }
+            }
+        })
     }
 
+    private fun setUpComboList() {
+
+
+
+
+    }
 
     companion object {
-        private const val PAGE_SIZE = 10
+        private const val PAGE_SIZE = 15
     }
 
 

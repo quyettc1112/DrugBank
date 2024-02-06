@@ -147,6 +147,22 @@
         <item>Active</item>
         <item>Deactivate</item>
     </string-array>
+    
+    <string-array name="sortField_drug">
+        <item>ID</item>
+        <item>Name</item>
+        <item>Type</item>
+        <item>State</item>
+        <item>Description</item>
+        <item>Simple Description</item>
+    </string-array>
+    
+    <string-array name="sortOrder">
+        <item>ACS</item>
+        <item>DESC</item>
+    </string-array>
+    
+    
     <string name="title_activity_main">MainActivity</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
