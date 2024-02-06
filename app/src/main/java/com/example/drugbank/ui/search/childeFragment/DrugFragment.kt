@@ -32,14 +32,7 @@ class DrugFragment : Fragment() {
     lateinit var  tokenManager: TokenManager
     lateinit var drugViewModel: DrugViewModel
 
-
-
-
-    // PHần này để cho phần scroll listener
-    private var isLoading = false
-    private var isLastPage = false
-    private var currentPage = 0
-
+    private var currentPage: Int = 0
 
     @Inject
     lateinit var adminDrugmRepository: Admin_DrugM_Repository
@@ -78,16 +71,9 @@ class DrugFragment : Fragment() {
                 if (lastCompletelyVisibleItem == totalItemCount - 1) {
                     // Hiển thị Toast khi lướt tới phần tử cuối cùng
                     Toast.makeText(requireContext(), "Add More", Toast.LENGTH_SHORT).show()
-                    CallDrugLisv2()
-                } else {
-                    lastCompletelyVisibleItem = layoutManager.findLastCompletelyVisibleItemPosition()
-                    totalItemCount = layoutManager.itemCount
-
+                    //CallDrugLisv2()
+                    CallDrugList()
                 }
-
-
-
-
             }
         })
 
@@ -102,67 +88,6 @@ class DrugFragment : Fragment() {
 
     }
     private fun CallDrugList() {
-
-        isLoading = true
-
-        // Increment the page number
-
-        adminDrugmRepository.getDrugMList(
-            "Bearer ${tokenManager.getAccessToken()}",
-            pageNo = 0,
-            pageSize = PAGE_SIZE,
-            sortField = "id",
-            sortOrder = "asc",
-            search =  ""
-        ).enqueue(object: Callback<DrugMListRespone> {
-            override fun onResponse(
-                call: Call<DrugMListRespone>,
-                response: Response<DrugMListRespone>
-            ) {
-                if (response.isSuccessful) {
-                    val DrugResponse: DrugMListRespone? = response.body()
-                    val drugList: List<Drug> = DrugResponse?.content?.map { drug ->
-                        Drug(
-                            id = drug.id,
-                            approvalStatus = drug.approvalStatus,
-                            clinicalDescription = drug.clinicalDescription,
-                            description = drug.description,
-                            drugbankId = null,
-                            name = drug.name,
-                            simpleDescription = drug.simpleDescription,
-                            state = drug.state,
-                            type = drug.type
-                        )
-                    } ?: emptyList()
-
-                    if (drugList.isEmpty()) {
-                        isLastPage = true
-                    }
-
-                    drugViewModel.loadMoreDruglist(drugList)
-                    isLoading = true
-                    _adapter.differ.submitList(drugViewModel.currentDrugList.value)
-                    //_binding.rvDrugList.adapter = _adapter
-
-                } else {
-                    Log.d("CheckGetList", response.code().toString())
-                }
-                isLoading = false
-            }
-
-            override fun onFailure(call: Call<DrugMListRespone>, t: Throwable) {
-                isLoading = false
-            }
-        })
-
-        currentPage++
-    }
-
-    private fun CallDrugLisv2() {
-
-        isLoading = true
-
-        // Increment the page number
 
         adminDrugmRepository.getDrugMList(
             "Bearer ${tokenManager.getAccessToken()}",
@@ -188,38 +113,26 @@ class DrugFragment : Fragment() {
                             name = drug.name,
                             simpleDescription = drug.simpleDescription,
                             state = drug.state,
-                            type = drug.type
+                            type = drug.type,
+                            active = drug.active
                         )
                     } ?: emptyList()
-
-                    if (drugList.isEmpty()) {
-                        isLastPage = true
-                    }
-                    isLoading = true
                     drugViewModel.loadMoreDruglist(drugList)
                     _adapter.differ.submitList(drugViewModel.currentDrugList.value)
-                    //_binding.rvDrugList.adapter = _adapter
-
-
                 } else {
                     Log.d("CheckGetList", response.code().toString())
                 }
-                isLoading = false
             }
 
             override fun onFailure(call: Call<DrugMListRespone>, t: Throwable) {
-                isLoading = false
             }
         })
 
         currentPage++
     }
 
+
     private fun setUpRecycleView() {
-
-
-
-
     }
 
 
