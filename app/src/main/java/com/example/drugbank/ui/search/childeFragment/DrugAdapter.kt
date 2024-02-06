@@ -7,9 +7,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.drugbank.R
 import com.example.drugbank.data.model.Drug
-import com.example.drugbank.data.model.User
 import com.example.drugbank.databinding.BaseRecycleDrugBinding
-import com.example.drugbank.databinding.BaseRecycleUserBinding
+
 
 class DrugAdapter(): RecyclerView.Adapter<DrugAdapter.MainViewHolder>() {
 
@@ -22,6 +21,7 @@ class DrugAdapter(): RecyclerView.Adapter<DrugAdapter.MainViewHolder>() {
             itemBinding.tvSimpleDescription.text = drug.simpleDescription
             itemBinding.tvType.text = "Type:" + drug.type
             itemBinding.tvApprovalStatus.text = "ApprovalStatus: " + drug.approvalStatus
+            itemBinding.ivDrugactive.setImageResource(if (drug.active) R.drawable.background_drug_active else R.drawable.background_drug_deactive)
         }
     }
 
@@ -50,13 +50,12 @@ class DrugAdapter(): RecyclerView.Adapter<DrugAdapter.MainViewHolder>() {
 
     private val differCallBack = object : DiffUtil.ItemCallback<Drug>() {
         override fun areItemsTheSame(oldItem: Drug, newItem: Drug): Boolean {
-            return oldItem.id == newItem.id
-        }
+                return oldItem.id == newItem.id
+            }
 
-        override fun areContentsTheSame(oldItem: Drug, newItem: Drug): Boolean {
-            return oldItem == newItem
+            override fun areContentsTheSame(oldItem: Drug, newItem: Drug): Boolean {
+                return oldItem == newItem
         }
-
     }
     val differ = AsyncListDiffer(this, differCallBack)
 
