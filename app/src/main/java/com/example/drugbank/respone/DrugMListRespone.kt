@@ -28,7 +28,8 @@ data class DrugMListRespone(
   @SerializedName("name") val name: String,
   @SerializedName("simpleDescription") val simpleDescription: String,
   @SerializedName("state")val state: String,
-  @SerializedName("type") val type: String
+  @SerializedName("type") val type: String,
+  @SerializedName("active") val active: Boolean
  )
 
 
