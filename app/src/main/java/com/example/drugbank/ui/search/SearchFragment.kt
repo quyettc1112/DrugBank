@@ -29,10 +29,8 @@ class SearchFragment : Fragment() {
     }
 
     private fun setUpTab() {
-        // Tạo và thiết lập SectionsPagerAdapter
         val sectionsPagerAdapter = SectionsPagerAdapter(childFragmentManager)
         binding.viewPager.adapter = sectionsPagerAdapter
-        // Liên kết TabLayout với ViewPager
         binding.tabs.setupWithViewPager(binding.viewPager)
     }
 

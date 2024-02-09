@@ -169,6 +169,13 @@ class DrugFragment : Fragment() {
         _adapter.differ.submitList(emptyList())
     }
 
+
+    private fun setUpSearchQueries() {
+
+
+
+    }
+
     companion object {
         private const val PAGE_SIZE = 10
     }

@@ -1,7 +1,8 @@
 package com.example.drugbank.ui.search
 
 import androidx.lifecycle.ViewModel
+import javax.inject.Inject
 
-class SearchViewModel : ViewModel() {
+class SearchViewModel @Inject constructor(): ViewModel() {
 
 }
