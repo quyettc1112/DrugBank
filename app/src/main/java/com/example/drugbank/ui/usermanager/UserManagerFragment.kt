@@ -383,14 +383,14 @@ class UserManagerFragment : Fragment() {
             val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_menu, rolelist)
             atc_roleListCombo_info.setAdapter(arrayAdapter)
             atc_roleListCombo_info.setOnItemClickListener {  _, _, position, _ ->
-                if (rolelist[position].equals("USER")) {
-                    currentRole = 3;
-                }
-                if (rolelist[position].equals("ADMIN")) {
-                    currentRole = 2;
-                }
-                if (rolelist[position].equals("SUPER ADMIN")) {
-                    currentRole = 1;
+                currentRole = when (rolelist[position]) {
+                    "USER" -> 3
+                    "ADMIN" -> 2
+                    "SUPER ADMIN" -> 1
+                    else -> {
+
+                        -1 // Default role set to -1
+                    }
                 }
             }
 
