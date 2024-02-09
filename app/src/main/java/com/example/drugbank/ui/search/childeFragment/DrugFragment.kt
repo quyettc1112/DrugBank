@@ -6,11 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.drugbank.R
 import com.example.drugbank.common.Token.TokenManager
 import com.example.drugbank.data.model.Drug
 import com.example.drugbank.databinding.FragmentDrugBinding
@@ -30,9 +32,8 @@ class DrugFragment : Fragment() {
     private lateinit var _binding: FragmentDrugBinding
     private lateinit var _adapter: DrugAdapter
     lateinit var  tokenManager: TokenManager
-    lateinit var drugViewModel: DrugViewModel
+    lateinit var _drugViewModel: DrugViewModel
 
-    private var currentPage: Int = 0
 
     @Inject
     lateinit var adminDrugmRepository: Admin_DrugM_Repository
@@ -40,7 +41,8 @@ class DrugFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        drugViewModel = ViewModelProvider(this).get(DrugViewModel::class.java)
+        _drugViewModel = ViewModelProvider(this).get(DrugViewModel::class.java)
+
 
     }
 
@@ -51,31 +53,20 @@ class DrugFragment : Fragment() {
         _binding = FragmentDrugBinding.inflate(inflater, container, false)
         tokenManager = TokenManager(requireContext())
         setUpRecycleView()
-
-
-
-
-
+        setUpComboList()
 
 
         return _binding.root
     }
 
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-
-    }
     private fun CallDrugList() {
 
         adminDrugmRepository.getDrugMList(
             "Bearer ${tokenManager.getAccessToken()}",
-            pageNo = currentPage,
+            pageNo = _drugViewModel.currentPage.value!!,
             pageSize = PAGE_SIZE,
-            sortField = "id",
-            sortOrder = "asc",
+            sortField = _drugViewModel.selectedSortField.value.toString(),
+            sortOrder = _drugViewModel.selectefSortBy.value.toString(),
             search =  ""
         ).enqueue(object: Callback<DrugMListRespone> {
             override fun onResponse(
@@ -98,8 +89,8 @@ class DrugFragment : Fragment() {
                             active = drug.active
                         )
                     } ?: emptyList()
-                    drugViewModel.loadMoreDruglist(drugList)
-                    _adapter.differ.submitList(drugViewModel.currentDrugList.value)
+                    _drugViewModel.loadMoreDruglist(drugList)
+                    _adapter.differ.submitList(_drugViewModel.currentDrugList.value)
                 } else {
                     Log.d("CheckGetList", response.code().toString())
                 }
@@ -108,7 +99,7 @@ class DrugFragment : Fragment() {
             }
         })
 
-        currentPage++
+
     }
 
 
@@ -116,7 +107,6 @@ class DrugFragment : Fragment() {
         _adapter = DrugAdapter()
         _binding.rvDrugList.adapter = _adapter
         CallDrugList()
-
         _binding.rvDrugList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -125,7 +115,7 @@ class DrugFragment : Fragment() {
                 var lastCompletelyVisibleItem = layoutManager.findLastCompletelyVisibleItemPosition()
                 var totalItemCount = layoutManager.itemCount
                 if (lastCompletelyVisibleItem == totalItemCount - 1) {
-                    Toast.makeText(requireContext(), "Loaded", Toast.LENGTH_SHORT).show()
+                    _drugViewModel.incrementCurrentPage()
                     CallDrugList()
                 }
             }
@@ -133,14 +123,54 @@ class DrugFragment : Fragment() {
     }
 
     private fun setUpComboList() {
+        val sortField = resources.getStringArray(R.array.sortField_drug)
+        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_menu, sortField)
+        _binding.atcSortFieldListCombo.setAdapter(arrayAdapter)
+
+        _binding.atcSortFieldListCombo.setOnItemClickListener { _, _, position, _ ->
+
+            _drugViewModel.selectedSortField.value = when (sortField[position]) {
+                "ID" -> "id"
+                "Type" -> "type"
+                "Name" -> "name"
+                "State" -> "state"
+                "Description" -> "description"
+                "Simple Description" -> "simpleDescription"
+                "Clinical Description" -> "clinicalDescription"
+                else -> {
+                    ""
+                }
+            }
+            RESET_VIEWMODEL_VALUE()
+            CallDrugList()
+        }
 
 
+        val sortByList = resources.getStringArray(R.array.sortOrder)
+        val sortOderAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_menu, sortByList)
+        _binding.atcSortByListCombo.setAdapter(sortOderAdapter)
 
+        _binding.atcSortByListCombo.setOnItemClickListener { _, _, position, _ ->
+            _drugViewModel.selectefSortBy.value = when(sortByList[position]) {
+                "ACS" -> "asc"
+                "DESC" -> "desc"
+                else -> {
+                    ""
+                }
+            }
+            RESET_VIEWMODEL_VALUE()
+            CallDrugList()
+        }
+    }
 
+    private fun RESET_VIEWMODEL_VALUE() {
+        _drugViewModel.emptyDrugList()
+        _drugViewModel.resetCurrentPage()
+        _adapter.differ.submitList(emptyList())
     }
 
     companion object {
-        private const val PAGE_SIZE = 15
+        private const val PAGE_SIZE = 10
     }
 
 
