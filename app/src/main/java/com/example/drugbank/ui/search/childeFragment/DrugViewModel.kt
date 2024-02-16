@@ -9,12 +9,14 @@ class DrugViewModel @Inject constructor() : ViewModel() {
 
     val currentDrugList = MutableLiveData<List<Drug>?>()
     val selectedSortField = MutableLiveData<String>()
+    val searchField = MutableLiveData<String>()
     val selectefSortBy = MutableLiveData<String>()
     val currentPage = MutableLiveData<Int>()
 
     init {
         selectedSortField.value = "id"
         selectefSortBy.value = "asc"
+        searchField.value = ""
         currentPage.value = 0
 
     }

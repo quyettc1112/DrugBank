@@ -30,7 +30,7 @@ import javax.inject.Inject
 class DrugFragment : Fragment() {
 
     private lateinit var _binding: FragmentDrugBinding
-    private lateinit var _adapter: DrugAdapter
+    lateinit var _adapter: DrugAdapter
     lateinit var  tokenManager: TokenManager
     lateinit var _drugViewModel: DrugViewModel
 
@@ -59,7 +59,7 @@ class DrugFragment : Fragment() {
         return _binding.root
     }
 
-    private fun CallDrugList() {
+    public fun CallDrugList() {
 
         adminDrugmRepository.getDrugMList(
             "Bearer ${tokenManager.getAccessToken()}",
@@ -67,7 +67,7 @@ class DrugFragment : Fragment() {
             pageSize = PAGE_SIZE,
             sortField = _drugViewModel.selectedSortField.value.toString(),
             sortOrder = _drugViewModel.selectefSortBy.value.toString(),
-            search =  ""
+            search =  _drugViewModel.searchField.value.toString()
         ).enqueue(object: Callback<DrugMListRespone> {
             override fun onResponse(
                 call: Call<DrugMListRespone>,
@@ -89,6 +89,7 @@ class DrugFragment : Fragment() {
                             active = drug.active
                         )
                     } ?: emptyList()
+                    Log.d("CurrentSearchValue", _drugViewModel.searchField.value.toString())
                     _drugViewModel.loadMoreDruglist(drugList)
                     _adapter.differ.submitList(_drugViewModel.currentDrugList.value)
                 } else {
@@ -163,7 +164,7 @@ class DrugFragment : Fragment() {
         }
     }
 
-    private fun RESET_VIEWMODEL_VALUE() {
+    public fun RESET_VIEWMODEL_VALUE() {
         _drugViewModel.emptyDrugList()
         _drugViewModel.resetCurrentPage()
         _adapter.differ.submitList(emptyList())
@@ -173,11 +174,15 @@ class DrugFragment : Fragment() {
     private fun setUpSearchQueries() {
 
 
-
     }
 
     companion object {
         private const val PAGE_SIZE = 10
+    }
+
+    public fun TestFun () {
+
+        Toast.makeText(requireContext(), "Run FUn", Toast.LENGTH_SHORT).show()
     }
 
 
