@@ -41,7 +41,6 @@ class SearchFragment : Fragment() {
 
 
 
-
         val sectionsPagerAdapter = SectionsPagerAdapter(childFragmentManager)
         val currentItem = binding.viewPager.currentItem
         fragment = (sectionsPagerAdapter.instantiateItem(binding.viewPager, currentItem) as? DrugFragment)!!
