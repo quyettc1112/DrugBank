@@ -20,6 +20,7 @@
     </com.example.drugbank.base.customView.CustomToolbar>
 
     <ScrollView
+
         android:fillViewport="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -27,6 +28,7 @@
             android:orientation="vertical"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
@@ -44,7 +46,7 @@
 
                 <TextView
                     android:textSize="20dp"
-                    android:textStyle="italic"
+                    android:textStyle="bold|italic"
                     android:layout_marginEnd="20dp"
                     android:id="@+id/drubBankId"
                     android:layout_width="wrap_content"
@@ -54,12 +56,21 @@
 
                 <TextView
                     android:textSize="20dp"
-                    android:textStyle="italic"
+                    android:textStyle="bold|italic"
                     android:id="@+id/active"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
                     android:text="Active: True">
                 </TextView>
+                <ImageView
+                    android:id="@+id/iv_drugactive"
+                    android:src="@drawable/background_drug_active"
+                    android:layout_gravity="center"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp">
+                </ImageView>
+
             </LinearLayout>
 
 
@@ -67,6 +78,7 @@
 
             <LinearLayout
                 android:weightSum="2"
+                android:layout_marginTop="16dp"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -190,6 +202,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:layout_marginBottom="60dp"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">

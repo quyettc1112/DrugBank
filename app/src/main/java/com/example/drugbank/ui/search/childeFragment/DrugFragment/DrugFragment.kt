@@ -1,5 +1,7 @@
 package com.example.drugbank.ui.search.childeFragment.DrugFragment
 
+import android.app.Dialog
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -7,13 +9,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.drugbank.R
+import com.example.drugbank.base.customView.CustomToolbar
+import com.example.drugbank.common.Resource.Screen
 import com.example.drugbank.common.Token.TokenManager
 import com.example.drugbank.data.model.Drug
+import com.example.drugbank.databinding.CustomToolbarBinding
 import com.example.drugbank.databinding.FragmentDrugBinding
 import com.example.drugbank.repository.Admin_DrugM_Repository
 import com.example.drugbank.respone.DrugMListRespone
@@ -205,6 +212,33 @@ class DrugFragment : Fragment() {
     private fun onDrugItemClick() {
         _adapter.onItemClick = {
            Toast.makeText(requireContext(), it.name, Toast.LENGTH_SHORT).show()
+            val dialogBinding = layoutInflater.inflate(R.layout.dialog_drug_info, null)
+            val myDialog = Dialog(requireContext())
+
+
+            dialogBinding.findViewById<TextView>(R.id.drugName).text = it.name
+            dialogBinding.findViewById<TextView>(R.id.drubBankId).text ="ID: " + it.id.toString()
+            dialogBinding.findViewById<TextView>(R.id.active).text = "Active: " + it.active
+            dialogBinding.findViewById<TextView>(R.id.approvalStatus).text = it.approvalStatus.toString()
+            dialogBinding.findViewById<TextView>(R.id.type).text = it.type
+            dialogBinding.findViewById<TextView>(R.id.simpleDescription).text = it.simpleDescription
+            dialogBinding.findViewById<TextView>(R.id.description).text = it.description
+            dialogBinding.findViewById<TextView>(R.id.clinicalDescription).text = it.clinicalDescription
+            dialogBinding.findViewById<TextView>(R.id.state).text = it.state
+
+            val imageResource = if (it.active) R.drawable.background_drug_active else R.drawable.background_drug_deactive
+            dialogBinding.findViewById<ImageView>(R.id.iv_drugactive).setImageResource(imageResource)
+
+            dialogBinding.findViewById<CustomToolbar>(R.id.customToolbar).onStartIconClick = {
+                myDialog.dismiss()
+            }
+
+
+            myDialog.setContentView(dialogBinding)
+            myDialog.setCancelable(true)
+            myDialog.window?.setLayout(Screen.width, 3000)
+           // myDialog.window?.setBackgroundDrawable(ColorDrawable(requireContext().getColor(R.color.zxing_transparent)))
+            myDialog.show()
         }
 
 
