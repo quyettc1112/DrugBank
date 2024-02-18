@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <com.example.drugbank.base.customView.CustomToolbar
+        android:id="@+id/customToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:title="Drug Info"
+        app:layout_constraintTop_toTopOf="parent"
+        app:showEndIcon="false"
+        app:showShadow="true"
+        app:showStartIcon="true"
+        app:showStartText="true">
+    </com.example.drugbank.base.customView.CustomToolbar>
+
+    <ScrollView
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:fillViewport="true"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="wrap_content">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteX="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="Drug Name">
+
+                    </TextView>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:hint="Input Drug Name"
+                        app:hintTextAppearance="@style/TextAppearance.Material3.BodyLarge"
+                        app:startIconDrawable="@drawable/baseline_health_and_safety_24">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_drugname"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:singleLine="false"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="State">
+
+                    </TextView>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:hint="Input State"
+                        app:hintTextAppearance="@style/TextAppearance.Material3.BodyLarge"
+                        app:startIconDrawable="@drawable/baseline_stacked_bar_chart_24">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etState"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textMultiLine"
+                            android:maxLines="8"
+                            android:singleLine="false"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="Description">
+
+                    </TextView>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:hint="Input Description"
+                        app:hintTextAppearance="@style/TextAppearance.Material3.BodyLarge"
+                        app:startIconDrawable="@drawable/baseline_description_24">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textMultiLine"
+                            android:maxLines="8"
+                            android:singleLine="false"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="Simple Description">
+
+                    </TextView>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:hint="Input Simple Description"
+                        app:hintTextAppearance="@style/TextAppearance.Material3.BodyLarge"
+                        app:startIconDrawable="@drawable/baseline_horizontal_split_24">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etSimpleDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textMultiLine"
+                            android:maxLines="8"
+                            android:singleLine="false"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="Clinical Description">
+
+                    </TextView>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:hint="Input Clinical Description"
+                        app:hintTextAppearance="@style/TextAppearance.Material3.BodyLarge"
+                        app:startIconDrawable="@drawable/baseline_monitor_heart_24">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etClinicalDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textMultiLine"
+                            android:maxLines="8"
+                            android:singleLine="false"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                    <LinearLayout
+                        android:weightSum="5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_weight="3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="Approval Status">
+
+                        </TextView>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_weight="2"
+                            android:id="@+id/tip_rolename"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginEnd="10dp"
+                            android:enabled="true"
+                            app:boxBackgroundColor="@color/white"
+                            app:startIconDrawable="@drawable/baseline_download_done_24">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/atc_approvalstatus"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:inputType="none"
+                                android:padding="0dp"
+                                android:textSize="13dp"
+                                android:textStyle="bold">
+
+                            </AutoCompleteTextView>
+
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+
+
+
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_back"
+                        android:layout_width="150dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/background_back_notify"
+                        android:backgroundTintMode="src_over"
+                        android:padding="0dp"
+                        android:text="Back"
+                        android:textColor="@color/red_light"
+                        android:textStyle="bold">
+
+                    </androidx.appcompat.widget.AppCompatButton>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_register"
+                        android:layout_marginBottom="10dp"
+                        android:layout_width="150dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/background_button_login_notify"
+                        android:backgroundTintMode="src_over"
+                        android:padding="0dp"
+                        android:text="Register"
+                        android:textColor="@color/white"
+                        android:textStyle="bold">
+
+                    </androidx.appcompat.widget.AppCompatButton>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</LinearLayout>

@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -60,6 +61,7 @@ class DrugFragment : Fragment() {
         setUpRecycleView()
         setUpComboList()
         setUpSearchQueries()
+        addNewDrug()
         onDrugItemClick()
 
 
@@ -106,7 +108,6 @@ class DrugFragment : Fragment() {
             override fun onFailure(call: Call<DrugMListRespone>, t: Throwable) {
             }
         })
-
 
     }
 
@@ -174,7 +175,6 @@ class DrugFragment : Fragment() {
     private fun RESET_VIEWMODEL_VALUE() {
         _drugViewModel.emptyDrugList()
         _drugViewModel.resetCurrentPage()
-       // _drugViewModel.resetSearchValue()
         _adapter.differ.submitList(emptyList())
     }
 
@@ -207,11 +207,8 @@ class DrugFragment : Fragment() {
             }
         })
     }
-
-
     private fun onDrugItemClick() {
         _adapter.onItemClick = {
-           Toast.makeText(requireContext(), it.name, Toast.LENGTH_SHORT).show()
             val dialogBinding = layoutInflater.inflate(R.layout.dialog_drug_info, null)
             val myDialog = Dialog(requireContext())
 
@@ -232,20 +229,40 @@ class DrugFragment : Fragment() {
             dialogBinding.findViewById<CustomToolbar>(R.id.customToolbar).onStartIconClick = {
                 myDialog.dismiss()
             }
-
-
             myDialog.setContentView(dialogBinding)
             myDialog.setCancelable(true)
             myDialog.window?.setLayout(Screen.width, 3000)
            // myDialog.window?.setBackgroundDrawable(ColorDrawable(requireContext().getColor(R.color.zxing_transparent)))
             myDialog.show()
         }
+    }
+
+    private fun addNewDrug() {
+        _binding.ivAddnewDrug.setOnClickListener {
+            val dialogBinding = layoutInflater.inflate(R.layout.dialog_addnew_drug, null)
+            val myDialog = Dialog(requireContext())
 
 
+            myDialog.setContentView(dialogBinding)
+            myDialog.setCancelable(true)
+            myDialog.window?.setLayout(Screen.width, 3000)
+            // myDialog.window?.setBackgroundDrawable(ColorDrawable(requireContext().getColor(R.color.zxing_transparent)))
+            myDialog.show()
+
+
+            dialogBinding.findViewById<CustomToolbar>(R.id.customToolbar).onStartIconClick = {
+                myDialog.dismiss()
+            }
+
+            dialogBinding.findViewById<AppCompatButton>(R.id.btn_back).setOnClickListener {
+                myDialog.dismiss()
+            }
+        }
 
 
 
     }
+
 
     companion object {
         private const val PAGE_SIZE = 10
