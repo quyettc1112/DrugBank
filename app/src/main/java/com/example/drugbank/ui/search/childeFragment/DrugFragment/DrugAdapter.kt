@@ -1,4 +1,4 @@
-package com.example.drugbank.ui.search.childeFragment
+package com.example.drugbank.ui.search.childeFragment.DrugFragment
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -25,7 +25,7 @@ class DrugAdapter(): RecyclerView.Adapter<DrugAdapter.MainViewHolder>() {
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DrugAdapter.MainViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         return MainViewHolder(
             BaseRecycleDrugBinding.inflate(
                 LayoutInflater.from(parent.context),
@@ -35,7 +35,7 @@ class DrugAdapter(): RecyclerView.Adapter<DrugAdapter.MainViewHolder>() {
         )
     }
 
-    override fun onBindViewHolder(holder: DrugAdapter.MainViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         val Item = differ.currentList[position]
         holder.bindItem(Item)
         holder.itemView.setOnClickListener {
