@@ -220,6 +220,7 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:layout_marginStart="5dp"
                             android:layout_weight="3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -245,6 +246,8 @@
                                 android:layout_height="40dp"
                                 android:inputType="none"
                                 android:padding="0dp"
+                                android:text="0"
+                                android:textAlignment="center"
                                 android:textSize="13dp"
                                 android:textStyle="bold">
 
@@ -284,7 +287,7 @@
                     </androidx.appcompat.widget.AppCompatButton>
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btn_register"
+                        android:id="@+id/btn_save"
                         android:layout_marginBottom="10dp"
                         android:layout_width="150dp"
                         android:layout_height="40dp"
@@ -293,7 +296,7 @@
                         android:background="@drawable/background_button_login_notify"
                         android:backgroundTintMode="src_over"
                         android:padding="0dp"
-                        android:text="Register"
+                        android:text="Save Drug"
                         android:textColor="@color/white"
                         android:textStyle="bold">
 

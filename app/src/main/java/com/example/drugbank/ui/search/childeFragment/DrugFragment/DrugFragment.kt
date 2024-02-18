@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -18,13 +19,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.drugbank.R
 import com.example.drugbank.base.customView.CustomToolbar
+import com.example.drugbank.base.dialog.ErrorDialog
 import com.example.drugbank.common.Resource.Screen
 import com.example.drugbank.common.Token.TokenManager
+import com.example.drugbank.data.dto.CreateDrugRequestDTO
 import com.example.drugbank.data.model.Drug
 import com.example.drugbank.databinding.CustomToolbarBinding
 import com.example.drugbank.databinding.FragmentDrugBinding
 import com.example.drugbank.repository.Admin_DrugM_Repository
 import com.example.drugbank.respone.DrugMListRespone
+import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
 import retrofit2.Callback
@@ -242,27 +246,88 @@ class DrugFragment : Fragment() {
             val dialogBinding = layoutInflater.inflate(R.layout.dialog_addnew_drug, null)
             val myDialog = Dialog(requireContext())
 
+            var currentStatus = 0
+            val approvalList = resources.getStringArray(R.array.aproval)
+            val arrayApprovalAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_menu, approvalList)
+            dialogBinding.findViewById<AutoCompleteTextView>(R.id.atc_approvalstatus).let {
+                it.setAdapter(arrayApprovalAdapter)
+                it.setOnItemClickListener {_, _, position, _ ->
+                    currentStatus = position
+                }
+            }
+
+            val drugname = dialogBinding.findViewById<TextInputEditText>(R.id.et_drugname)
+            val state = dialogBinding.findViewById<TextInputEditText>(R.id.etState)
+            val description = dialogBinding.findViewById<TextInputEditText>(R.id.etDescription)
+            val simpleDescription = dialogBinding.findViewById<TextInputEditText>(R.id.etSimpleDescription)
+            val clinical = dialogBinding.findViewById<TextInputEditText>(R.id.etClinicalDescription)
+
+            dialogBinding.findViewById<AppCompatButton>(R.id.btn_save).setOnClickListener {
+                if ( !drugname.text.isNullOrEmpty() &&
+                    !state.text.isNullOrEmpty() &&
+                    !description.text.isNullOrEmpty() &&
+                    !simpleDescription.text.isNullOrEmpty() &&
+                    !clinical.text.isNullOrEmpty()
+                ) {
+                    val createDrugRequestDTO = CreateDrugRequestDTO(
+                        id =  0,
+                        name = drugname.text.toString(),
+                        description = description.text.toString(),
+                        state = state.text.toString(),
+                        simpleDescription = simpleDescription.text.toString(),
+                        clinicalDescription = clinical.text.toString(),
+                        approvalStatus =  currentStatus,
+                        type = "Capsule"
+                    )
+                    callCreateDrug(createDrugRequestDTO)
+                    myDialog.dismiss()
+                    CallDrugList()
+
+                } else {
+                    val errorDialog = ErrorDialog(
+                        errorContent = "Must fill all value",
+                        textButton = "Back",
+                        context = requireContext()
+                    )
+                    errorDialog.show()
+                }
+            }
 
             myDialog.setContentView(dialogBinding)
             myDialog.setCancelable(true)
             myDialog.window?.setLayout(Screen.width, 3000)
             // myDialog.window?.setBackgroundDrawable(ColorDrawable(requireContext().getColor(R.color.zxing_transparent)))
             myDialog.show()
-
-
             dialogBinding.findViewById<CustomToolbar>(R.id.customToolbar).onStartIconClick = {
                 myDialog.dismiss()
             }
-
             dialogBinding.findViewById<AppCompatButton>(R.id.btn_back).setOnClickListener {
                 myDialog.dismiss()
             }
+
         }
-
-
-
     }
 
+
+    private fun callCreateDrug(createDrugRequestDTO: CreateDrugRequestDTO) {
+        adminDrugmRepository.createDrug(
+            "Bearer ${tokenManager.getAccessToken()}",
+            createDrugRequestDTO = createDrugRequestDTO
+        ).enqueue(object: Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    Log.d("CheckCode", response.message().toString())
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+
+        })
+
+    }
 
     companion object {
         private const val PAGE_SIZE = 10
