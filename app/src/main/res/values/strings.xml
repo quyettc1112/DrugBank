@@ -99,6 +99,27 @@
 
 
     </string>
+
+
+    <string name="sampleState">
+        The main active ingredient in ibandronate medications is ibandronate sodium. This compound plays a crucial role in binding to bone tissue, where it acts to inhibit bone resorption, ultimately leading to increased bone density and reduced fracture risk.
+    </string>
+
+
+    <string name="sampleDescription">
+         Ibandronate, sold under various brand names, is a pharmaceutical compound used to strengthen bones and prevent fractures associated with osteoporosis. It functions by slowing down the breakdown of bone tissue, leading to improved bone density and strengt
+    </string>
+    
+    
+    <string name="sampleclinical">
+        Ibandronate is a bisphosphonate medication primarily prescribed to treat osteoporosis and prevent bone fractures, especially in postmenopausal women. It works by inhibiting bone resorption, thereby increasing bone density and reducing the risk of fracture
+    </string>
+
+    <string name="sampleSimpleDescription">
+        Ibandronate is a medicine that helps make bones stronger and less likely to break. It is often prescribed for people with osteoporosis, a condition where bones become weak and fragile. By slowing down the process of bone breakdown, it helps prevent fractu
+    </string>
+
+
     <string name="title_activity_main2">MainActivity2</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

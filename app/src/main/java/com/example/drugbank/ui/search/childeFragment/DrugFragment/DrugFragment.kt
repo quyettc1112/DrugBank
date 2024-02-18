@@ -53,12 +53,13 @@ class DrugFragment : Fragment() {
         setUpRecycleView()
         setUpComboList()
         setUpSearchQueries()
+        onDrugItemClick()
 
 
         return _binding.root
     }
 
-    public fun CallDrugList() {
+    private fun CallDrugList() {
 
         adminDrugmRepository.getDrugMList(
             "Bearer ${tokenManager.getAccessToken()}",
@@ -112,8 +113,8 @@ class DrugFragment : Fragment() {
                 super.onScrolled(recyclerView, dx, dy)
 
                 val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-                var lastCompletelyVisibleItem = layoutManager.findLastCompletelyVisibleItemPosition()
-                var totalItemCount = layoutManager.itemCount
+                val lastCompletelyVisibleItem = layoutManager.findLastCompletelyVisibleItemPosition()
+                val totalItemCount = layoutManager.itemCount
                 if (lastCompletelyVisibleItem == totalItemCount - 1) {
                     _drugViewModel.incrementCurrentPage()
                     CallDrugList()
@@ -163,7 +164,7 @@ class DrugFragment : Fragment() {
         }
     }
 
-    public fun RESET_VIEWMODEL_VALUE() {
+    private fun RESET_VIEWMODEL_VALUE() {
         _drugViewModel.emptyDrugList()
         _drugViewModel.resetCurrentPage()
        // _drugViewModel.resetSearchValue()
@@ -173,8 +174,6 @@ class DrugFragment : Fragment() {
 
     private fun setUpSearchQueries() {
         val searchView = _binding.searchView
-
-
         searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (!query.isNullOrEmpty()) {
@@ -184,7 +183,6 @@ class DrugFragment : Fragment() {
                 }
                 return true
             }
-
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (!newText.isNullOrEmpty()) {
                     if (newText?.length!! % 2 == 0) {
@@ -193,7 +191,6 @@ class DrugFragment : Fragment() {
                         CallDrugList()
                     }
                 }
-
                 if (newText?.length == 0) {
                     _drugViewModel.resetSearchValue()
                     RESET_VIEWMODEL_VALUE()
@@ -201,8 +198,18 @@ class DrugFragment : Fragment() {
                 }
                 return true
             }
-
         })
+    }
+
+
+    private fun onDrugItemClick() {
+        _adapter.onItemClick = {
+           Toast.makeText(requireContext(), it.name, Toast.LENGTH_SHORT).show()
+        }
+
+
+
+
 
     }
 
