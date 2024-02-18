@@ -3,8 +3,8 @@ package com.example.drugbank.ui.search
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.example.drugbank.ui.search.childeFragment.DrugFragment
-import com.example.drugbank.ui.search.childeFragment.ProductFragment
+import com.example.drugbank.ui.search.childeFragment.DrugFragment.DrugFragment
+import com.example.drugbank.ui.search.childeFragment.ProductFragment.ProductFragment
 
 class SectionsPagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm) {
     override fun getCount(): Int {
