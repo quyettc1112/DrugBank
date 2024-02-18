@@ -19,10 +19,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.drugbank.R
 import com.example.drugbank.base.customView.CustomToolbar
+import com.example.drugbank.base.dialog.ConfirmDialog
 import com.example.drugbank.base.dialog.ErrorDialog
 import com.example.drugbank.common.Resource.Screen
 import com.example.drugbank.common.Token.TokenManager
 import com.example.drugbank.data.dto.CreateDrugRequestDTO
+import com.example.drugbank.data.dto.UpdateUserRequestDTO
 import com.example.drugbank.data.model.Drug
 import com.example.drugbank.databinding.CustomToolbarBinding
 import com.example.drugbank.databinding.FragmentDrugBinding
@@ -230,6 +232,29 @@ class DrugFragment : Fragment() {
             val imageResource = if (it.active) R.drawable.background_drug_active else R.drawable.background_drug_deactive
             dialogBinding.findViewById<ImageView>(R.id.iv_drugactive).setImageResource(imageResource)
 
+            if (it.active == false) {
+                dialogBinding.findViewById<AppCompatButton>(R.id.btn_deleteDrug).visibility = View.GONE
+            } else dialogBinding.findViewById<AppCompatButton>(R.id.btn_deleteDrug).visibility = View.VISIBLE
+
+            dialogBinding.findViewById<AppCompatButton>(R.id.btn_deleteDrug).setOnClickListener {view ->
+                val confirmDialog = ConfirmDialog(
+                    requireContext(),
+                    object : ConfirmDialog.ConfirmCallback {
+                        override fun negativeAction() {}
+                        override fun positiveAction() {
+                            callDeleteDrug(it.id)
+                            myDialog.dismiss()
+                        }
+                    },
+                    title = "Confirm",
+                    message = "Delete Drug Info",
+                    positiveButtonTitle = "Yes",
+                    negativeButtonTitle = "No"
+                )
+                confirmDialog.show()
+
+            }
+
             dialogBinding.findViewById<CustomToolbar>(R.id.customToolbar).onStartIconClick = {
                 myDialog.dismiss()
             }
@@ -239,6 +264,36 @@ class DrugFragment : Fragment() {
            // myDialog.window?.setBackgroundDrawable(ColorDrawable(requireContext().getColor(R.color.zxing_transparent)))
             myDialog.show()
         }
+    }
+
+    private fun callDeleteDrug(id: Int) {
+        adminDrugmRepository.deleteDrug(
+            "Bearer ${tokenManager.getAccessToken()}",
+            id = id
+        ).enqueue(object: Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    RESET_VIEWMODEL_VALUE()
+                    CallDrugList()
+                }
+                else  {
+                    val errorDialog = ErrorDialog(requireContext(),
+                        errorContent =  response.code().toString(),
+                        textButton = "Back"
+                        )
+                    errorDialog.show()
+
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+
+        })
+
+
     }
 
     private fun addNewDrug() {
@@ -279,9 +334,24 @@ class DrugFragment : Fragment() {
                         approvalStatus =  currentStatus,
                         type = "Capsule"
                     )
-                    callCreateDrug(createDrugRequestDTO)
-                    myDialog.dismiss()
-                    CallDrugList()
+                    val confirmDialog = ConfirmDialog(
+                        requireContext(),
+                        object : ConfirmDialog.ConfirmCallback {
+                            override fun negativeAction() {}
+                            override fun positiveAction() {
+                                callCreateDrug(createDrugRequestDTO)
+                                CallDrugList()
+                                myDialog.dismiss()
+                            }
+                        },
+                        title = "Confirm",
+                        message = "Save Drug Info",
+                        positiveButtonTitle = "Yes",
+                        negativeButtonTitle = "No"
+                    )
+                    confirmDialog.show()
+
+
 
                 } else {
                     val errorDialog = ErrorDialog(
