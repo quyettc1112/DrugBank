@@ -1,4 +1,4 @@
-package com.example.drugbank.ui.search.childeFragment
+package com.example.drugbank.ui.search.childeFragment.DrugFragment
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,14 +9,16 @@ class DrugViewModel @Inject constructor() : ViewModel() {
 
     val currentDrugList = MutableLiveData<List<Drug>?>()
     val selectedSortField = MutableLiveData<String>()
-    val searchField = MutableLiveData<String>()
+
     val selectefSortBy = MutableLiveData<String>()
     val currentPage = MutableLiveData<Int>()
+
+    val currentSearchValue = MutableLiveData<String>()
 
     init {
         selectedSortField.value = "id"
         selectefSortBy.value = "asc"
-        searchField.value = ""
+        currentSearchValue.value = ""
         currentPage.value = 0
 
     }
@@ -38,5 +40,8 @@ class DrugViewModel @Inject constructor() : ViewModel() {
 
     fun emptyDrugList() {
         currentDrugList.value = null
+    }
+    fun resetSearchValue() {
+        currentSearchValue.value = ""
     }
 }

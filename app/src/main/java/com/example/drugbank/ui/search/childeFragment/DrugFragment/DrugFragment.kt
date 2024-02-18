@@ -1,4 +1,4 @@
-package com.example.drugbank.ui.search.childeFragment
+package com.example.drugbank.ui.search.childeFragment.DrugFragment
 
 import android.os.Bundle
 import android.util.Log
@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +17,6 @@ import com.example.drugbank.data.model.Drug
 import com.example.drugbank.databinding.FragmentDrugBinding
 import com.example.drugbank.repository.Admin_DrugM_Repository
 import com.example.drugbank.respone.DrugMListRespone
-import com.example.drugbank.ui.usermanager.UserManagerViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
 import retrofit2.Callback
@@ -54,6 +52,7 @@ class DrugFragment : Fragment() {
         tokenManager = TokenManager(requireContext())
         setUpRecycleView()
         setUpComboList()
+        setUpSearchQueries()
 
 
         return _binding.root
@@ -67,7 +66,7 @@ class DrugFragment : Fragment() {
             pageSize = PAGE_SIZE,
             sortField = _drugViewModel.selectedSortField.value.toString(),
             sortOrder = _drugViewModel.selectefSortBy.value.toString(),
-            search =  _drugViewModel.searchField.value.toString()
+            search =  _drugViewModel.currentSearchValue.value.toString()
         ).enqueue(object: Callback<DrugMListRespone> {
             override fun onResponse(
                 call: Call<DrugMListRespone>,
@@ -89,7 +88,7 @@ class DrugFragment : Fragment() {
                             active = drug.active
                         )
                     } ?: emptyList()
-                    Log.d("CurrentSearchValue", _drugViewModel.searchField.value.toString())
+                    Log.d("CurrentSearchValue", _drugViewModel.currentSearchValue.value.toString())
                     _drugViewModel.loadMoreDruglist(drugList)
                     _adapter.differ.submitList(_drugViewModel.currentDrugList.value)
                 } else {
@@ -167,22 +166,48 @@ class DrugFragment : Fragment() {
     public fun RESET_VIEWMODEL_VALUE() {
         _drugViewModel.emptyDrugList()
         _drugViewModel.resetCurrentPage()
+       // _drugViewModel.resetSearchValue()
         _adapter.differ.submitList(emptyList())
     }
 
 
     private fun setUpSearchQueries() {
+        val searchView = _binding.searchView
 
+
+        searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (!query.isNullOrEmpty()) {
+                    _drugViewModel.currentSearchValue.value = query
+                    RESET_VIEWMODEL_VALUE()
+                    CallDrugList()
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (!newText.isNullOrEmpty()) {
+                    if (newText?.length!! % 2 == 0) {
+                        _drugViewModel.currentSearchValue.value = newText
+                        RESET_VIEWMODEL_VALUE()
+                        CallDrugList()
+                    }
+                }
+
+                if (newText?.length == 0) {
+                    _drugViewModel.resetSearchValue()
+                    RESET_VIEWMODEL_VALUE()
+                    CallDrugList()
+                }
+                return true
+            }
+
+        })
 
     }
 
     companion object {
         private const val PAGE_SIZE = 10
-    }
-
-    public fun TestFun () {
-
-        Toast.makeText(requireContext(), "Run FUn", Toast.LENGTH_SHORT).show()
     }
 
 
