@@ -187,6 +187,7 @@ class DrugFragment : Fragment() {
 
     private fun setUpSearchQueries() {
         val searchView = _binding.searchView
+        searchView.clearFocus()
         searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (!query.isNullOrEmpty()) {
