@@ -252,9 +252,7 @@ class DrugFragment : Fragment() {
                     negativeButtonTitle = "No"
                 )
                 confirmDialog.show()
-
             }
-
             dialogBinding.findViewById<CustomToolbar>(R.id.customToolbar).onStartIconClick = {
                 myDialog.dismiss()
             }
@@ -282,18 +280,13 @@ class DrugFragment : Fragment() {
                         textButton = "Back"
                         )
                     errorDialog.show()
-
                 }
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
                 TODO("Not yet implemented")
             }
-
-
         })
-
-
     }
 
     private fun addNewDrug() {
@@ -350,9 +343,6 @@ class DrugFragment : Fragment() {
                         negativeButtonTitle = "No"
                     )
                     confirmDialog.show()
-
-
-
                 } else {
                     val errorDialog = ErrorDialog(
                         errorContent = "Must fill all value",
@@ -393,8 +383,6 @@ class DrugFragment : Fragment() {
             override fun onFailure(call: Call<Void>, t: Throwable) {
                 TODO("Not yet implemented")
             }
-
-
         })
 
     }
