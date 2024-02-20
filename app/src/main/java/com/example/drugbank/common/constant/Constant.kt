@@ -5,6 +5,9 @@ import com.example.drugbank.ui.drugstore.DrugStoreFragment
 
 class Constant {
     companion object {
+        const val USERNAME_OR_EMAIL = "USERNAME_OR_EMAIL"
+        const val USER_PASSWORD = "USER_PASSWORD"
+
         const val SEARCH_NAV_ID = 0;
         const val USER_MANAGER_NAV_ID = 3;
         const val RECORD_NAV_ID = 2;

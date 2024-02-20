@@ -12,7 +12,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.drugbank"
+        applicationId = "com.drugbank.drugbank"
         minSdk = 28
         targetSdk = 34
         versionCode = 1
