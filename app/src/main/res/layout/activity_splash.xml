@@ -7,18 +7,15 @@
     android:background="@color/white"
     tools:context=".ui.activity.splash.SplashActivity">
 
-    <ImageView
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:src="@drawable/logo_drugbank"
+    <ProgressBar
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.41">
+        app:layout_constraintTop_toTopOf="parent">
 
-    </ImageView>
+    </ProgressBar>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

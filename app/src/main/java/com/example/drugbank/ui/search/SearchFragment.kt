@@ -48,8 +48,6 @@ class SearchFragment : Fragment() {
         binding.tabs.setupWithViewPager(binding.viewPager)
 
 
-
-
         binding.viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
                 // Không cần thực hiện gì ở đây
