@@ -34,14 +34,18 @@ class LoginActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val userName = Constant.getSavedUsername(this@LoginActivity)
-        val password = Constant.getSavedPassword(this@LoginActivity)
 
-        // check value in share preference
-        if (!userName.isNullOrEmpty() && !password.isNullOrEmpty()) {
-            val loginDTO = LoginDTO(userName, password)
-            Toast.makeText(this@LoginActivity, "${userName}, ${password}", Toast.LENGTH_SHORT).show()
-            CallLogin(loginDTO)
+        val notificationMessage = intent.getStringExtra(Constant.FAILED_AUTHEN_BIOMRETIC)
+        if (notificationMessage == null) {
+            val userName = Constant.getSavedUsername(this@LoginActivity)
+            val password = Constant.getSavedPassword(this@LoginActivity)
+
+            // check value in share preference
+            if (!userName.isNullOrEmpty() && !password.isNullOrEmpty()) {
+                val loginDTO = LoginDTO(userName, password)
+                Toast.makeText(this@LoginActivity, "${userName}, ${password}", Toast.LENGTH_SHORT).show()
+                CallLogin(loginDTO)
+            }
         }
 
 
