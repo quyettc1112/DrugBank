@@ -23,6 +23,9 @@ class Constant {
         const val ACCESS_TOKEN = "ACCESS_TOKEN"
         const val REFESH_TOKEN = "REFESH_TOKEN"
 
+
+        const val FAILED_AUTHEN_BIOMRETIC = "FAILED_AUTHEN_BIOMRETIC"
+
         fun getNavSeleted(selected: Int): Int {
             val myHashMap = HashMap<Int, Int>()
             myHashMap[SEARCH_NAV_ID] = R.id.searchFragmentNav
@@ -42,6 +45,23 @@ class Constant {
         fun getSavedPassword(context: Context): String? {
             val sharedPreferences = context.getSharedPreferences(USER_VALUE_SF, Context.MODE_PRIVATE)
             return sharedPreferences.getString(USER_PASSWORD, null)
+        }
+        fun removeAllSavedValues(context: Context) {
+            val sharedPreferences = context.getSharedPreferences(USER_VALUE_SF, Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            sharedPreferences.all.keys.forEach { key ->
+                editor.remove(key)
+            }
+            editor.apply()
+        }
+
+        fun saveUserCredentials(context: Context, username: String?, password: String?, token: String?) {
+            val sharedPreferences = context.getSharedPreferences(USER_VALUE_SF, Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            editor.putString(USERNAME_OR_EMAIL, username)
+            editor.putString(USER_PASSWORD, password)
+            editor.putString(USER_TOKEN, token)
+            editor.apply()
         }
 
 
