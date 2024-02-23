@@ -181,6 +181,7 @@ class LoginActivity : BaseActivity() {
                             _binding.checkBox.isChecked = false
                         }
                         override fun positiveAction() {
+                            _binding.checkBox.isChecked = true
                         }
                     },
                     title = "Confirm",
@@ -198,6 +199,8 @@ class LoginActivity : BaseActivity() {
                 saveRememberMeState(false)
             }
         }
+
+
 
     }
 
