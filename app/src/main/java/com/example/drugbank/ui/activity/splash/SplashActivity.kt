@@ -43,14 +43,6 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
         loadLocalUserData()
 
-//        val hasFaceBiometric = packageManager.hasSystemFeature(PackageManager.FEATURE_FACE)
-//        displayMessage(hasFaceBiometric.toString())
-//        if (hasFaceBiometric) {
-//            checkCanUseBiometric()
-//            checkFingerSpint()
-//        }
-        //checkBiometric()
-
 
     }
 
@@ -112,18 +104,21 @@ class SplashActivity : AppCompatActivity() {
         )
     }
 
-
-
-
     private fun checkBiometric() {
         val biometricManager = BiometricManager.from(this)
+        val intent = Intent(this, MainActivity::class.java)
+        val intentLogin = Intent(this, LoginActivity::class.java)
 
         when (biometricManager.canAuthenticate()) {
             BiometricManager.BIOMETRIC_SUCCESS ->
                 displayMessage("Biometric authentication is available")
 
-            BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE ->
-                displayMessage("This device doesn't support biometric authentication")
+            BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE -> {
+                //displayMessage("This device doesn't support biometric authentication")
+                startActivity(intent)
+                finish()
+            }
+
 
             BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE ->
                 displayMessage("Biometric authentication is currently unavailable")
@@ -147,8 +142,7 @@ class SplashActivity : AppCompatActivity() {
         }
 
         val executor = ContextCompat.getMainExecutor(this)
-        val intent = Intent(this, MainActivity::class.java)
-        val intentLogin = Intent(this, LoginActivity::class.java)
+
         biometricPrompt =
             BiometricPrompt(this, executor, object : BiometricPrompt.AuthenticationCallback() {
                 override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {

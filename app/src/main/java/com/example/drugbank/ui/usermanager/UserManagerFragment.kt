@@ -12,12 +12,15 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.drugbank.R
 import com.example.drugbank.base.dialog.ConfirmDialog
 import com.example.drugbank.base.dialog.ErrorDialog
@@ -29,8 +32,10 @@ import com.example.drugbank.data.dto.AddUserRequestDTO
 import com.example.drugbank.data.dto.UpdateUserRequestDTO
 import com.example.drugbank.data.model.User
 import com.example.drugbank.databinding.FragmentSavedBinding
+import com.example.drugbank.databinding.LayoutBottomSheetBinding
 import com.example.drugbank.repository.Admin_UserM_Repository
 import com.example.drugbank.respone.UserListResponse
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
 import de.hdodenhof.circleimageview.CircleImageView
@@ -55,12 +60,29 @@ class UserManagerFragment : Fragment() {
     @Inject
     lateinit var userRepository: Admin_UserM_Repository
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSavedBinding.inflate(inflater, container, false)
         _viewModel = ViewModelProvider(this).get(UserManagerViewModel::class.java)
+
+        _binding.butttonShowBott.setOnClickListener {
+            val bottomSheetDialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme )
+
+            val view = layoutInflater.inflate(R.layout.layout_bottom_sheet, null)
+            bottomSheetDialog.setContentView(view)
+            bottomSheetDialog.show()
+
+
+
+
+
+
+
+        }
         onAddNewClick()
         setUpComboBoxWithViewmodel()
 
