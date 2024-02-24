@@ -50,7 +50,6 @@ class DrugFragment : Fragment() {
     @Inject
     lateinit var adminDrugmRepository: Admin_DrugM_Repository
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _drugViewModel = ViewModelProvider(this).get(DrugViewModel::class.java)
@@ -69,7 +68,6 @@ class DrugFragment : Fragment() {
         setUpSearchQueries()
         addNewDrug()
         onDrugItemClick()
-
 
         return _binding.root
     }
@@ -114,7 +112,6 @@ class DrugFragment : Fragment() {
             override fun onFailure(call: Call<DrugMListRespone>, t: Throwable) {
             }
         })
-
     }
 
 
