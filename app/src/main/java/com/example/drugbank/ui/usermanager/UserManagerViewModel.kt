@@ -15,6 +15,10 @@ class UserManagerViewModel @Inject constructor() : ViewModel() {
     private var calendar = Calendar.getInstance()
     private val dateFormat = SimpleDateFormat("yyyy-MM-dd")
 
+     var user_count= MutableLiveData<Int>()
+     var user_active= MutableLiveData<Int>()
+     var user_gender= MutableLiveData<Int>()
+
 
 
     val selectedRole = MutableLiveData<String>()
@@ -31,6 +35,12 @@ class UserManagerViewModel @Inject constructor() : ViewModel() {
         selectedGender.value = null
         selectedActive.value = null
         dob.value = dateFormat.format(calendar.time)
+
+        user_count.value = 0
+        user_active.value = 0
+        user_gender.value = 0
+
+
     }
 
     fun getUserList(userListCurrent: List<User>) = viewModelScope.launch{
