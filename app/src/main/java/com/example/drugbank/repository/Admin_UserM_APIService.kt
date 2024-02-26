@@ -23,7 +23,7 @@ interface Admin_UserM_APIService {
         @Query("sortOrder") sortOrder: String,
         @Query("roleName") roleName: String?,
         @Query("status") status: String?,
-        @Query("gender") gender: Int?,
+        @Query("gender") gender: Int?
     ): Call<UserListResponse>
 
 
