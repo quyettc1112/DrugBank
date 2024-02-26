@@ -138,9 +138,7 @@ class DrugFragment : Fragment() {
         val sortField = resources.getStringArray(R.array.sortField_drug)
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_menu, sortField)
         _binding.atcSortFieldListCombo.setAdapter(arrayAdapter)
-
         _binding.atcSortFieldListCombo.setOnItemClickListener { _, _, position, _ ->
-
             _drugViewModel.selectedSortField.value = when (sortField[position]) {
                 "ID" -> "id"
                 "Type" -> "type"
@@ -156,8 +154,6 @@ class DrugFragment : Fragment() {
             RESET_VIEWMODEL_VALUE()
             CallDrugList()
         }
-
-
         val sortByList = resources.getStringArray(R.array.sortOrder)
         val sortOderAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_menu, sortByList)
         _binding.atcSortByListCombo.setAdapter(sortOderAdapter)
