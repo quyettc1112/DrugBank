@@ -13,16 +13,16 @@ class SectionsPagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
         return when (position) {
-            0 -> DrugFragment()
-            1 -> ProductFragment()
+            0 -> ProductFragment()
+            1 -> DrugFragment()
             else -> throw IllegalArgumentException("Invalid position: $position")
         }
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
         return when (position) {
-            0 -> "Drug"
-            1 -> "Product"
+            0 -> "Product"
+            1 -> "Drug"
             else -> null
         }
     }
