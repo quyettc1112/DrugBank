@@ -82,7 +82,6 @@
 
 
     <LinearLayout
-        android:layout_marginBottom="100dp"
         android:layout_width="match_parent"
         android:gravity="center_horizontal"
         android:layout_marginEnd="16dp"
@@ -141,6 +140,22 @@
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_save"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="100dp"
+        android:background="@drawable/background_button_login_notify"
+        android:backgroundTintMode="src_over"
+        android:padding="0dp"
+        android:text="Save"
+        android:textColor="@color/white"
+        android:textStyle="bold">
+
+    </androidx.appcompat.widget.AppCompatButton>
 
 
 </LinearLayout>

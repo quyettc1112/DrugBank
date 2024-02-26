@@ -11,6 +11,7 @@
 
 <LinearLayout
     android:layout_weight="1"
+    android:padding="0dp"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -28,15 +29,9 @@
         app:showStartIcon="false"
         tools:layout_editor_absoluteX="0dp">
     </com.example.drugbank.base.customView.CustomToolbar>
-    <Button
-        android:id="@+id/butttonShowBott"
-        android:text="Test Bottom Dialog"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-    </Button>
 
     <com.google.android.material.card.MaterialCardView
+        android:layout_marginTop="5dp"
         android:id="@+id/materialCardView"
         android:layout_width="match_parent"
         android:layout_height="70dp"
@@ -52,160 +47,61 @@
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/searchView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:background="@drawable/backgropund_search_view"
             app:iconifiedByDefault="false"
             app:queryBackground="@android:color/transparent"
             app:queryHint="Search here ..." />
 
+        <ImageButton
+            android:id="@+id/imb_filter"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:background="@drawable/backgroung_filter"
+            android:src="@drawable/baseline_filter_list_24">
+        </ImageButton>
+
     </com.google.android.material.card.MaterialCardView>
     <LinearLayout
         android:orientation="vertical"
-        android:layout_marginTop="10dp"
+        android:id="@+id/user_generalInfo"
+        android:background="@drawable/backgroung_filter"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:gravity="center_horizontal"
-        android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:hint="Role"
-            android:id="@+id/tip_rolename"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="170dp"
-            android:layout_height="70dp"
-            android:layout_marginEnd="10dp"
-            app:boxBackgroundColor="@color/white"
-            app:startIconDrawable="@drawable/baseline_perm_contact_calendar_24"
-            >
-
-            <AutoCompleteTextView
-
-                android:id="@+id/atc_roleListCombo"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:inputType="none"
-                android:padding="0dp"
-                android:text="USER"
-                android:textSize="12dp"
-                android:textStyle="bold">
-
-            </AutoCompleteTextView>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            app:boxBackgroundColor="@color/white"
-            android:hint="Gender"
-            android:id="@+id/tip_gender"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="170dp"
-            android:layout_height="60dp"
-            app:startIconDrawable="@drawable/baseline_transgender_24"
-            android:layout_marginStart="10dp"
-
-           >
-            <AutoCompleteTextView
-                android:id="@+id/atc_genderList"
-                android:inputType="none"
-                android:text="All"
-                android:padding="0dp"
-                android:textStyle="bold"
-                android:textSize="12dp"
-
-                android:layout_width="match_parent"
-                android:layout_height="50dp">
-
-            </AutoCompleteTextView>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:gravity="center_horizontal"
         android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_height="wrap_content">
+        android:layout_height="150dp">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:hint="Sort By"
-            android:id="@+id/tip_sortName"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="170dp"
-            android:layout_height="60dp"
-            android:layout_marginEnd="10dp"
-            app:boxBackgroundColor="@color/white"
-            app:startIconDrawable="@drawable/baseline_sort_by_alpha_24"
-            >
+        <ImageView
+            android:id="@+id/img"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:src="@drawable/logo_pst"
+            android:layout_height="match_parent">
 
-            <AutoCompleteTextView
-                android:id="@+id/atc_sortListCombo"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:inputType="none"
-                android:padding="0dp"
-                android:text="ID"
-                android:textSize="12dp"
-                android:textStyle="bold">
+        </ImageView>
 
-            </AutoCompleteTextView>
+        <TextView
+            android:id="@+id/text"
+            android:text="hasihdiuasgyhdiuahguisdhguiashduhaiusdhasd"
+            android:layout_width="match_parent"
+            android:layout_height="150dp">
 
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            app:boxBackgroundColor="@color/white"
-            android:hint="Active"
-            android:id="@+id/tip_activeName"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="170dp"
-            android:layout_height="60dp"
-            app:startIconDrawable="@drawable/baseline_check_circle_outline_24"
-            android:layout_marginStart="10dp"
-
-            >
-
-            <AutoCompleteTextView
-                android:id="@+id/atc_ActiveList"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:inputType="none"
-                android:padding="0dp"
-                android:text="All"
-                android:textSize="12dp"
-                android:textStyle="bold">
-
-            </AutoCompleteTextView>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
+        </TextView>
     </LinearLayout>
-
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcl_listUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginBottom="16dp"
         tools:listitem="@layout/base_recycle_user">
-
     </androidx.recyclerview.widget.RecyclerView>
-
-
-
 </LinearLayout>
 
 
