@@ -2,8 +2,11 @@ package com.example.drugbank.ui.usermanager
 
 import android.app.DatePickerDialog
 import android.app.Dialog
+import android.content.res.Resources
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.transition.AutoTransition
+import android.transition.TransitionManager
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -69,24 +72,101 @@ class UserManagerFragment : Fragment() {
         _binding = FragmentSavedBinding.inflate(inflater, container, false)
         _viewModel = ViewModelProvider(this).get(UserManagerViewModel::class.java)
 
-        _binding.butttonShowBott.setOnClickListener {
-            val bottomSheetDialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme )
+        var isExpanded = true
+        _binding.img.visibility = if (isExpanded) View.GONE else View.VISIBLE
+         _binding.userGeneralInfo.setOnClickListener {
+
+                isExpanded = !isExpanded
+                val expandedHeight = 150.dpToPx()
+                TransitionManager.beginDelayedTransition(_binding.root, AutoTransition())
+                val newHeight = if (isExpanded) expandedHeight else 50.dpToPx()
+                val layoutParams = _binding.userGeneralInfo.layoutParams
+                layoutParams.height = newHeight
+                _binding.userGeneralInfo.layoutParams = layoutParams
+             _binding.img.visibility = if (isExpanded) View.GONE else View.VISIBLE
+             _binding.text.visibility = if (isExpanded) View.VISIBLE else View.GONE
+         }
+
+
+
+
+
+
+        showBottomSheet()
+        onAddNewClick()
+       // setUpComboBoxWithViewmodel()
+
+        return _binding.root
+    }
+
+    fun Int.dpToPx(): Int = (this * Resources.getSystem().displayMetrics.density).toInt()
+
+    private fun showBottomSheet() {
+        _binding.imbFilter.setOnClickListener {
+            val bottomSheetDialog =
+                BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
 
             val view = layoutInflater.inflate(R.layout.layout_bottom_sheet, null)
             bottomSheetDialog.setContentView(view)
             bottomSheetDialog.show()
 
+            val rolelist = resources.getStringArray(R.array.RoleName)
+            val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_menu, rolelist)
+
+            view.findViewById<AutoCompleteTextView>(R.id.atc_roleListCombo).let {
+                it.setAdapter(arrayAdapter)
+                it.setOnItemClickListener { parent, view, position, id ->
+                    _viewModel.selectedRole.value = rolelist[position]
+                    if (rolelist[position] == "SUPER ADMIN") {
+                        _viewModel.selectedRole.value = "SUPERADMIN"
+                    }
+                    CallUserList()
+                }
+            }
+            val genderList = resources.getStringArray(R.array.Gender)
+            val arrayApderGender =
+                ArrayAdapter(requireContext(), R.layout.dropdown_menu, genderList)
+            view.findViewById<AutoCompleteTextView>(R.id.atc_genderList).let {
+                it.setAdapter(arrayApderGender)
+                it.setOnItemClickListener { parent, view, position, id ->
+                    if (genderList[position] == "ALL") {
+                        _viewModel.selectedGender.value = null
+                    }
+                    if (genderList[position] == "Male") {
+                        _viewModel.selectedGender.value = 0
+                    }
+                    if (genderList[position] == "Female") {
+                        _viewModel.selectedGender.value = 1
+                    }
+//                    CallUserList()
+                }
+            }
 
 
+            val activeList = resources.getStringArray(R.array.Active)
+            val arrayApderActive =
+                ArrayAdapter(requireContext(), R.layout.dropdown_menu, activeList)
+            view.findViewById<AutoCompleteTextView>(R.id.atc_ActiveList).let {
+                it.setAdapter(arrayApderActive)
+                it.setOnItemClickListener { parent, view, position, id ->
+                    _viewModel.selectedActive.value = activeList[position]
+                    if (activeList[position] == "ALL") {
+                        _viewModel.selectedActive.value = null
+                    }
+//                    CallUserList()
+                }
+            }
 
 
+            view.findViewById<AppCompatButton>(R.id.btn_save).setOnClickListener {
+                CallUserList()
+                bottomSheetDialog.dismiss()
+            }
 
-
+            bottomSheetDialog.setOnDismissListener {
+                CallUserList()
+            }
         }
-        onAddNewClick()
-        setUpComboBoxWithViewmodel()
-
-        return _binding.root
     }
 
     override fun onResume() {
@@ -302,47 +382,8 @@ class UserManagerFragment : Fragment() {
                 }
             })
     }
-    private fun setUpComboBoxWithViewmodel() {
-        val rolelist = resources.getStringArray(R.array.RoleName)
-        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_menu, rolelist)
-        _binding.atcRoleListCombo.setAdapter(arrayAdapter)
 
-        _binding.atcRoleListCombo.setOnItemClickListener { _, _, position, _ ->
-            _viewModel.selectedRole.value = rolelist[position]
-            if (rolelist[position] == "SUPER ADMIN") {
-                _viewModel.selectedRole.value = "SUPERADMIN"
-            }
-            CallUserList()
-        }
 
-        val genderList = resources.getStringArray(R.array.Gender)
-        val arrayApderGender = ArrayAdapter(requireContext(), R.layout.dropdown_menu, genderList)
-        _binding.atcGenderList.setAdapter(arrayApderGender)
-
-        _binding.atcGenderList.setOnItemClickListener { _, _, position, _ ->
-            if (genderList[position] == "ALL") {
-                _viewModel.selectedGender.value = null
-            }
-            if (genderList[position] == "Male") {
-                _viewModel.selectedGender.value = 0
-            }
-            if (genderList[position] == "Female") {
-                _viewModel.selectedGender.value = 1
-            }
-            CallUserList()
-        }
-
-        val activeList = resources.getStringArray(R.array.Active)
-        val arrayApderActive = ArrayAdapter(requireContext(), R.layout.dropdown_menu, activeList)
-        _binding.atcActiveList.setAdapter(arrayApderActive)
-        _binding.atcActiveList.setOnItemClickListener { _, _, position, _ ->
-            _viewModel.selectedActive.value = activeList[position]
-            if (activeList[position] == "ALL") {
-                _viewModel.selectedActive.value = null
-            }
-            CallUserList()
-        }
-    }
 
 
     private fun onAddNewClick() {
