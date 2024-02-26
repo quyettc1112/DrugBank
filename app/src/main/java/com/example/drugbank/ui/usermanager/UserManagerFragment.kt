@@ -72,41 +72,62 @@ class UserManagerFragment : Fragment() {
         _binding = FragmentSavedBinding.inflate(inflater, container, false)
         _viewModel = ViewModelProvider(this).get(UserManagerViewModel::class.java)
 
-        var isExpanded = true
-        _binding.img.visibility = if (isExpanded) View.GONE else View.VISIBLE
-         _binding.userGeneralInfo.setOnClickListener {
-
-                isExpanded = !isExpanded
-                val expandedHeight = 150.dpToPx()
-                TransitionManager.beginDelayedTransition(_binding.root, AutoTransition())
-                val newHeight = if (isExpanded) expandedHeight else 50.dpToPx()
-                val layoutParams = _binding.userGeneralInfo.layoutParams
-                layoutParams.height = newHeight
-                _binding.userGeneralInfo.layoutParams = layoutParams
-             _binding.img.visibility = if (isExpanded) View.GONE else View.VISIBLE
-             _binding.text.visibility = if (isExpanded) View.VISIBLE else View.GONE
-         }
-
-
-
-
-
-
-        showBottomSheet()
+        val bottomSheetDialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
+        val view = layoutInflater.inflate(R.layout.layout_bottom_sheet, null)
+        showBottomSheet(bottomSheetDialog, view)
         onAddNewClick()
-       // setUpComboBoxWithViewmodel()
+        setUpUiStatic()
 
         return _binding.root
     }
 
+    private fun setUpUiStatic() {
+        var isExpanded = true
+        _binding.img.visibility = if (isExpanded) View.GONE else View.VISIBLE
+        _binding.userGeneralInfo.setOnClickListener {
+            isExpanded = !isExpanded
+            val expandedHeight = 120.dpToPx()
+            TransitionManager.beginDelayedTransition(_binding.root, AutoTransition())
+            val newHeight = if (isExpanded) expandedHeight else 50.dpToPx()
+            val layoutParams = _binding.userGeneralInfo.layoutParams
+            layoutParams.height = newHeight
+            _binding.userGeneralInfo.layoutParams = layoutParams
+            _binding.img.visibility = if (isExpanded) View.GONE else View.VISIBLE
+
+        }
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        tokenManager = TokenManager(requireContext())
+        _userAdapter = UserManagerAdapter(requireContext(), userRepository, tokenManager.getAccessToken().toString(), this@UserManagerFragment)
+
+        updateStatic()
+        onItemClickAdapter()
+        searchViewOnQuery()
+        val itemTouchHelper = ItemTouchHelper(_userAdapter.getSimpleCallBack())
+        itemTouchHelper.attachToRecyclerView(_binding.rclListUser)
+        CallUserList()
+
+    }
+
+    private fun updateStatic() {
+        DefaultCallUserList()
+        DefaultCallUserListGen()
+        DefaultCallUserListAcctive()
+    }
+
     fun Int.dpToPx(): Int = (this * Resources.getSystem().displayMetrics.density).toInt()
 
-    private fun showBottomSheet() {
+    private fun showBottomSheet(bottomSheetDialog:BottomSheetDialog, view: View) {
         _binding.imbFilter.setOnClickListener {
-            val bottomSheetDialog =
-                BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
 
-            val view = layoutInflater.inflate(R.layout.layout_bottom_sheet, null)
             bottomSheetDialog.setContentView(view)
             bottomSheetDialog.show()
 
@@ -138,7 +159,7 @@ class UserManagerFragment : Fragment() {
                     if (genderList[position] == "Female") {
                         _viewModel.selectedGender.value = 1
                     }
-//                    CallUserList()
+                    CallUserList()
                 }
             }
 
@@ -153,7 +174,7 @@ class UserManagerFragment : Fragment() {
                     if (activeList[position] == "ALL") {
                         _viewModel.selectedActive.value = null
                     }
-//                    CallUserList()
+                    CallUserList()
                 }
             }
 
@@ -163,39 +184,111 @@ class UserManagerFragment : Fragment() {
                 bottomSheetDialog.dismiss()
             }
 
-            bottomSheetDialog.setOnDismissListener {
-                CallUserList()
-            }
         }
     }
-
-    override fun onResume() {
-        super.onResume()
+    public fun DefaultCallUserList() {
+        RetrofitClient.instance_User.getPageableUser(
+            "Bearer ${tokenManager.getAccessToken()}",
+            pageNo = 0,
+            pageSize = 100,
+            sortField = "id",
+            sortOrder = "asc",
+            roleName = "",
+            status = "",
+            gender = null,
+        ).enqueue(object : Callback<UserListResponse> {
+            override fun onResponse(
+                call: Call<UserListResponse>,
+                response: Response<UserListResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val userResponse: UserListResponse? = response.body()
+                    val totalElement = userResponse?.totalElements ?: 0 // Lấy totalElement từ response
+                    _viewModel.user_count.value = totalElement
+                    _binding.tvNumoofUser.text = "User Count: ${_viewModel.user_count.value}"
+                } else {
+                    println("Error: ${response.code()}")
+                }
+            }
+            override fun onFailure(call: Call<UserListResponse>, t: Throwable) {
+                println("Failed to make API call: ${t.message}")
+            }
+        })
 
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        tokenManager = TokenManager(requireContext())
-        _userAdapter = UserManagerAdapter(requireContext(), userRepository, tokenManager.getAccessToken().toString(), this@UserManagerFragment)
+    public fun DefaultCallUserListGen() {
+        RetrofitClient.instance_User.getPageableUser(
+            "Bearer ${tokenManager.getAccessToken()}",
+            pageNo = 0,
+            pageSize = 100,
+            sortField = "id",
+            sortOrder = "asc",
+            roleName = "",
+            status = "",
+            gender = 0,
+        ).enqueue(object : Callback<UserListResponse> {
+            override fun onResponse(
+                call: Call<UserListResponse>,
+                response: Response<UserListResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val userResponse: UserListResponse? = response.body()
+                    val totalElement = userResponse?.totalElements ?: 0 // Lấy totalElement từ response
+                    _viewModel.user_gender.value = totalElement
+                    _binding.tvNumofGender.text = "M: ${_viewModel.user_gender.value}, FM: ${_viewModel.user_count.value!! - _viewModel.user_gender.value!!}"
+                } else {
+                    println("Error: ${response.code()}")
+                }
+            }
+            override fun onFailure(call: Call<UserListResponse>, t: Throwable) {
+                println("Failed to make API call: ${t.message}")
+            }
+        })
 
-        onItemClickAdapter()
-        searchViewOnQuery()
-        val itemTouchHelper = ItemTouchHelper(_userAdapter.getSimpleCallBack())
-        itemTouchHelper.attachToRecyclerView(_binding.rclListUser)
-        CallUserList()
+    }
+
+    public fun DefaultCallUserListAcctive() {
+        RetrofitClient.instance_User.getPageableUser(
+            "Bearer ${tokenManager.getAccessToken()}",
+            pageNo = 0,
+            pageSize = 100,
+            sortField = "id",
+            sortOrder = "asc",
+            roleName = "",
+            status = "active",
+            gender = null,
+        ).enqueue(object : Callback<UserListResponse> {
+            override fun onResponse(
+                call: Call<UserListResponse>,
+                response: Response<UserListResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val userResponse: UserListResponse? = response.body()
+                    val totalElement = userResponse?.totalElements ?: 0 // Lấy totalElement từ response
+                    _viewModel.user_active.value = totalElement
+                    _binding.tvNumofActive.text = "Active:  ${_viewModel.user_active.value} / ${_viewModel.user_count.value}"
+                } else {
+                    println("Error: ${response.code()}")
+                }
+            }
+            override fun onFailure(call: Call<UserListResponse>, t: Throwable) {
+                println("Failed to make API call: ${t.message}")
+            }
+        })
+
     }
 
     public fun CallUserList() {
         RetrofitClient.instance_User.getPageableUser(
             "Bearer ${tokenManager.getAccessToken()}",
             pageNo = 0,
-            pageSize = 20,
+            pageSize = 30,
             sortField = "id",
             sortOrder = "asc",
             roleName = _viewModel.selectedRole.value,
             status = _viewModel.selectedActive.value,
-            gender = _viewModel.selectedGender.value
+            gender = _viewModel.selectedGender.value,
         ).enqueue(object : Callback<UserListResponse> {
             override fun onResponse(
                 call: Call<UserListResponse>,
@@ -215,6 +308,7 @@ class UserManagerFragment : Fragment() {
                             isActive = user.isActive
                         )
                     } ?: emptyList()
+                    updateStatic()
                     _userAdapter.differ.submitList(userList)
                     _binding.rclListUser.adapter = _userAdapter
                 } else {
@@ -275,8 +369,6 @@ class UserManagerFragment : Fragment() {
         val arrayApderActive = ArrayAdapter(requireContext(), R.layout.dropdown_menu, activeList)
         activeName.setAdapter(arrayApderActive)
         activeName.setText(user.isActive)
-
-
 
         myDialog.setContentView(dialogBinding)
         myDialog.setCancelable(true)
