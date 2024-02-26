@@ -7,6 +7,15 @@
     android:orientation="vertical"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:layout_gravity="center"
+        android:background="@drawable/shape"
+        android:layout_width="60dp"
+        android:layout_marginTop="10dp"
+        android:layout_height="6dp">
+
+    </LinearLayout>
+    
     <TextView
         android:layout_marginTop="16dp"
         android:gravity="center"
