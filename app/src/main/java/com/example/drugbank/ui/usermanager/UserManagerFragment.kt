@@ -108,12 +108,12 @@ class UserManagerFragment : Fragment() {
         tokenManager = TokenManager(requireContext())
         _userAdapter = UserManagerAdapter(requireContext(), userRepository, tokenManager.getAccessToken().toString(), this@UserManagerFragment)
 
-        updateStatic()
         onItemClickAdapter()
         searchViewOnQuery()
         val itemTouchHelper = ItemTouchHelper(_userAdapter.getSimpleCallBack())
         itemTouchHelper.attachToRecyclerView(_binding.rclListUser)
         CallUserList()
+        updateStatic()
 
     }
 
