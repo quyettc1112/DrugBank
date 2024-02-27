@@ -2,6 +2,7 @@ package com.example.drugbank.common.constant
 
 import android.content.Context
 import com.example.drugbank.R
+import com.example.drugbank.respone.ProductListRespone
 import com.example.drugbank.ui.drugstore.DrugStoreFragment
 
 class Constant {
@@ -62,6 +63,60 @@ class Constant {
             editor.putString(USER_PASSWORD, password)
             editor.putString(USER_TOKEN, token)
             editor.apply()
+        }
+
+        fun getItemListForRecycleView_UserHome():  ArrayList<ProductListRespone.Content> {
+            val itemList = ArrayList<ProductListRespone.Content>()
+            val content = ProductListRespone.Content(
+                id = 1,
+                category = "string",
+                company = "string",
+                name =  "string",
+                createdOn = "string",
+                labeller = "string",
+                prescriptionName = "string",
+                route = "string"
+
+            )
+            val content1 = ProductListRespone.Content(
+                id = 1,
+                category = "string",
+                company = "string",
+                name =  "string",
+                createdOn = "string",
+                labeller = "string",
+                prescriptionName = "string",
+                route = "string"
+
+            )
+            val content2 = ProductListRespone.Content(
+                id = 1,
+                category = "string",
+                company = "string",
+                name =  "string",
+                createdOn = "string",
+                labeller = "string",
+                prescriptionName = "string",
+                route = "string"
+
+            )
+            val content3 = ProductListRespone.Content(
+                id = 1,
+                category = "string",
+                company = "string",
+                name =  "string",
+                createdOn = "string",
+                labeller = "string",
+                prescriptionName = "string",
+                route = "string"
+
+            )
+            itemList.add(content1)
+            itemList.add(content2)
+            itemList.add(content3)
+
+
+            return  itemList
         }
 
 
