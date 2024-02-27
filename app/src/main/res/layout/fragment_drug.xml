@@ -15,7 +15,7 @@
         android:layout_height="wrap_content">
         <com.google.android.material.card.MaterialCardView
             android:layout_weight="1"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:id="@+id/materialCardView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <ImageView
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:id="@+id/iv_addnewDrug"
             android:layout_weight="1"
             android:layout_width="40dp"
