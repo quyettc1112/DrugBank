@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:background="@drawable/background_base_product"
+        android:orientation="horizontal"
+        android:weightSum="10"
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="190dp">
+
+        <LinearLayout
+            android:layout_weight="7"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:src="@drawable/dafult_product_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </ImageView>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_weight="3">
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:maxLines="1"
+                android:text="Paracetamol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </TextView>
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:weightSum="6"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+                <TextView
+                    android:gravity="left|center"
+                    android:layout_weight="4"
+                    android:text="Category "
+                    android:textSize="13dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </TextView>
+
+                <LinearLayout
+                    android:layout_width="1dp"
+                    android:background="@color/black"
+                    android:layout_height="match_parent">
+
+                </LinearLayout>
+                <TextView
+                    android:gravity="left|center"
+                    android:layout_marginStart="10dp"
+                    android:maxLines="2"
+                    android:textSize="13dp"
+                    android:text="Analgesic, Bruh, Blah, Durg"
+                    android:layout_weight="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </TextView>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:weightSum="6"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+                <TextView
+                    android:gravity="left|center"
+                    android:layout_weight="4"
+                    android:text="Prescription Name"
+                    android:textSize="13dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </TextView>
+                <LinearLayout
+                    android:layout_width="1dp"
+                    android:background="@color/black"
+                    android:layout_height="match_parent">
+
+                </LinearLayout>
+                <TextView
+                    android:gravity="left|center"
+                    android:layout_marginStart="10dp"
+                    android:maxLines="2"
+                    android:textSize="13dp"
+                    android:text="Acetaminophen"
+                    android:layout_weight="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:weightSum="6"
+                android:layout_width="match_parent"
+                android:layout_height="60dp">
+                <TextView
+                    android:gravity="left|center"
+                    android:layout_weight="4"
+                    android:text="Route"
+                    android:textSize="13dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </TextView>
+                <LinearLayout
+                    android:layout_width="1dp"
+                    android:background="@color/black"
+                    android:layout_height="match_parent">
+
+                </LinearLayout>
+                <TextView
+                    android:layout_marginStart="10dp"
+                    android:maxLines="3"
+                    android:textSize="13dp"
+                    android:text="Oral, Rectal, Intravenous  Injection, Oral Dissolving Tablets"
+                    android:layout_weight="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </TextView>
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>
