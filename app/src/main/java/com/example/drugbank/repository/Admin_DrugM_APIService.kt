@@ -21,7 +21,7 @@ interface Admin_DrugM_APIService {
         @Query("pageSize") pageSize: Int,
         @Query("sortField") sortField: String,
         @Query("sortOrder") sortOrder: String,
-            @Query("search") search: String,
+        @Query("search") search: String,
     ): Call<DrugMListRespone>
 
 
