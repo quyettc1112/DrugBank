@@ -44,6 +44,7 @@
     <ScrollView
         android:fillViewport="true"
         android:layout_width="match_parent"
+        android:layout_marginBottom="16dp"
         android:layout_height="wrap_content">
 
         <LinearLayout
@@ -72,7 +73,9 @@
                 android:layout_marginEnd="16dp"
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/base_product_list_recycle"></androidx.recyclerview.widget.RecyclerView>
+                tools:listitem="@layout/base_product_list_recycle">
+
+            </androidx.recyclerview.widget.RecyclerView>
 
 
         </LinearLayout>
