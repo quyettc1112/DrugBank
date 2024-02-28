@@ -9,7 +9,13 @@
         android:id="@+id/searchFragmentNav"
         android:name="com.example.drugbank.ui.search.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            android:id="@+id/action_searchFragmentNav_to_productDetailFragmentNav"
+            app:destination="@id/productDetailFragmentNav" />
+    </fragment>
     <fragment
         android:id="@+id/recordFragmentnav"
         android:name="com.example.drugbank.ui.record.RecordFragment"
@@ -62,5 +68,11 @@
             android:id="@+id/action_registerFragment_to_savedFragmentNav"
             app:destination="@id/user_managerFragmentNav" />
     </fragment>
+    <fragment
+        android:id="@+id/productDetailFragmentNav"
+        android:name="com.example.drugbank.ui.search.childeFragment.ProductFragment.ProductDetail.ProductDetailFragment"
+        android:label="fragment_product_detail"
+        tools:layout="@layout/fragment_product_detail" />
+
 
 </navigation>
