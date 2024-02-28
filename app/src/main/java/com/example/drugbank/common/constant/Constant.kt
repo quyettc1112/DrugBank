@@ -17,6 +17,7 @@ class Constant {
         const val RECORD_NAV_ID = 2;
         const val DRUGSTORE_NAV_ID = 1;
         const val SETTING_NAV_ID = 4;
+        const val PRODUCT_DETAIL = 5
         const val LOGIN_NAV_ID = 99;
         const val DEFAULT_ERROR_MESSAGE: String = "An error occurred"
         const val DOCTOR_SECURITY_DOCTOR = "123"
@@ -35,6 +36,7 @@ class Constant {
             myHashMap[DRUGSTORE_NAV_ID] = R.id.drugStoreFragmentNav
             myHashMap[SETTING_NAV_ID] = R.id.settingFragmentNav
             myHashMap[LOGIN_NAV_ID] = R.id.loginFragmentNav
+            myHashMap[PRODUCT_DETAIL] = R.id.productDetailFragmentNav
             return myHashMap[selected] ?: -1
         }
 
@@ -63,60 +65,6 @@ class Constant {
             editor.putString(USER_PASSWORD, password)
             editor.putString(USER_TOKEN, token)
             editor.apply()
-        }
-
-        fun getItemListForRecycleView_UserHome():  ArrayList<ProductListRespone.Content> {
-            val itemList = ArrayList<ProductListRespone.Content>()
-            val content = ProductListRespone.Content(
-                id = 1,
-                category = "string",
-                company = "string",
-                name =  "string",
-                createdOn = "string",
-                labeller = "string",
-                prescriptionName = "string",
-                route = "string"
-
-            )
-            val content1 = ProductListRespone.Content(
-                id = 1,
-                category = "string",
-                company = "string",
-                name =  "string",
-                createdOn = "string",
-                labeller = "string",
-                prescriptionName = "string",
-                route = "string"
-
-            )
-            val content2 = ProductListRespone.Content(
-                id = 1,
-                category = "string",
-                company = "string",
-                name =  "string",
-                createdOn = "string",
-                labeller = "string",
-                prescriptionName = "string",
-                route = "string"
-
-            )
-            val content3 = ProductListRespone.Content(
-                id = 1,
-                category = "string",
-                company = "string",
-                name =  "string",
-                createdOn = "string",
-                labeller = "string",
-                prescriptionName = "string",
-                route = "string"
-
-            )
-            itemList.add(content1)
-            itemList.add(content2)
-            itemList.add(content3)
-
-
-            return  itemList
         }
 
 
