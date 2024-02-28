@@ -5,8 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.drugbank.R
 import com.example.drugbank.databinding.BaseProductListRecycleBinding
 import com.example.drugbank.respone.ProductListRespone
+import com.squareup.picasso.Picasso
 
 class ProductAdapter(): RecyclerView.Adapter<ProductAdapter.MainViewHolder>() {
 
@@ -14,7 +16,17 @@ class ProductAdapter(): RecyclerView.Adapter<ProductAdapter.MainViewHolder>() {
         inner class MainViewHolder(val itemBinding: BaseProductListRecycleBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
 
-        fun bindItem() {
+        fun bindItem(item: ProductListRespone.Content) {
+//            Picasso.get()
+//                .load(doctor?.avatar) // Assuming item.img is the URL string
+//                .placeholder(R.drawable.avatar_1) // Optional: Placeholder image while loading
+//                .error(R.drawable.default_user_avt) // Optional: Error image to display on load failure
+//                .into(itemBinding.ivUserAVTSchedule)
+            itemBinding.ivImgProduct.setImageResource(R.drawable.dafult_product_img)
+            itemBinding.tvCategory.text = item.category
+            itemBinding.tvRoute.text = item.route
+            itemBinding.tvProductname.text = item.name
+            itemBinding.tvPrescripsionname.text = item.prescriptionName
 
         }
     }
@@ -35,7 +47,7 @@ class ProductAdapter(): RecyclerView.Adapter<ProductAdapter.MainViewHolder>() {
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         val Item = differ.currentList[position]
-//        holder.bindItem(Item)
+        holder.bindItem(Item)
         holder.itemView.setOnClickListener {
             onItemClick?.invoke(Item)
         }
