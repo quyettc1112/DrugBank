@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.search.childeFragment.ProductFragment.ProductDetail.ProductDetailFragment">
+
+    <com.example.drugbank.base.customView.CustomToolbar
+        android:id="@+id/customToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:title="Product Detail"
+        app:layout_constraintTop_toTopOf="parent"
+        app:showEndIcon="false"
+        app:showShadow="true"
+        app:showStartIcon="true"
+        app:showStartText="true">
+    </com.example.drugbank.base.customView.CustomToolbar>
+
+</LinearLayout>
