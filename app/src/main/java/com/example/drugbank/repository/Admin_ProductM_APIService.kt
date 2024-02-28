@@ -10,7 +10,6 @@ import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface Admin_ProductM_APIService {
-
     @GET("admin/approval-product-management/approval-products")
     fun getProductList(
         @Header("Authorization") authorization: String,
