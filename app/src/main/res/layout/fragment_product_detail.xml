@@ -4,7 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     android:layout_height="match_parent"
+    android:layout_marginBottom="60dp"
     tools:context=".ui.search.childeFragment.ProductFragment.ProductDetail.ProductDetailFragment">
 
     <com.example.drugbank.base.customView.CustomToolbar
@@ -21,26 +23,299 @@
     </com.example.drugbank.base.customView.CustomToolbar>
 
     <LinearLayout
+        android:visibility="visible"
+        android:id="@+id/pg_isLoading"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <ProgressBar
-            android:id="@+id/pg_isLoading"
             android:layout_width="100dp"
             android:layout_height="100dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
         </ProgressBar>
-        <TextView
-            android:text="Bruh test"
-            android:layout_width="wrap_content"
+    </LinearLayout>
+
+    <ScrollView
+        android:fillViewport="true"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </ScrollView>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:textStyle="bold"
+                android:textSize="24dp"
+                android:layout_gravity="center"
+                android:text="Paracetamol - 150g"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </TextView>
+            <ImageView
+                android:src="@drawable/dafult_product_img"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:layout_width="250dp"
+                android:layout_height="200dp">
+            </ImageView>
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:weightSum="10"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginStart="16dp"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:layout_weight="6"
+                android:text="ID"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </TextView>
+            <LinearLayout
+                android:layout_width="1dp"
+                android:background="@color/black"
+                android:layout_height="match_parent">
+            </LinearLayout>
+            <TextView
+                android:textSize="16dp"
+                android:layout_weight="4"
+                android:layout_marginStart="16dp"
+                android:text="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </TextView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:weightSum="10"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginStart="16dp"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:layout_weight="6"
+                android:text="Labeller"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </TextView>
+            <LinearLayout
+                android:layout_width="1dp"
+                android:background="@color/black"
+                android:layout_height="match_parent">
+            </LinearLayout>
+            <TextView
+                android:textSize="16dp"
+                android:layout_weight="4"
+                android:layout_marginStart="16dp"
+                android:text="Công Ty Cổ Phần Hóa Dược"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:weightSum="10"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_weight="6"
+                android:text="Name"
+                android:textSize="16dp"
+                android:textStyle="bold"></TextView>
+
+            <LinearLayout
+                android:layout_width="1dp"
+                android:background="@color/black"
+                android:layout_height="match_parent">
+            </LinearLayout>
+            <TextView
+                android:textSize="16dp"
+                android:layout_weight="4"
+                android:layout_marginStart="16dp"
+                android:text="Paracetamol"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </TextView>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:weightSum="10"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_weight="6"
+                android:text="Prescription Name"
+                android:textSize="16dp"
+                android:textStyle="bold"></TextView>
+
+            <LinearLayout
+                android:layout_width="1dp"
+                android:background="@color/black"
+                android:layout_height="match_parent">
+            </LinearLayout>
+            <TextView
+                android:textSize="16dp"
+                android:layout_weight="4"
+                android:layout_marginStart="16dp"
+                android:text="Acetaminophenc"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </TextView>
+        </LinearLayout>
+
+
+
+        <TextView
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_weight="6"
+            android:text="Category"
+            android:textSize="16dp"
+            android:textStyle="bold">
 
         </TextView>
 
+        <TableLayout
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_width="match_parent"
+            android:background="@drawable/background_table"
+            android:layout_height="wrap_content">
+
+            <TableRow
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:background="@drawable/background_table"
+                    android:textAlignment="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="ID" />
+
+                <TextView
+                    android:background="@drawable/background_table"
+                    android:textAlignment="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Title" />
+
+                <TextView
+                    android:background="@drawable/background_table"
+                    android:textAlignment="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Slug" />
+
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:background="@drawable/background_table"
+                    android:textAlignment="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="1" />
+
+                <TextView
+                    android:background="@drawable/background_table"
+                    android:textAlignment="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Analgesic" />
+
+                <TextView
+                    android:background="@drawable/background_table"
+                    android:textAlignment="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Analgesic" />
+
+
+            </TableRow>
+        </TableLayout>
+
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_weight="6"
+            android:text="Drug Ingredients"
+            android:textSize="16dp"
+            android:textStyle="bold">
+
+        </TextView>
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
     </LinearLayout>
+
+
+
 
 </LinearLayout>
