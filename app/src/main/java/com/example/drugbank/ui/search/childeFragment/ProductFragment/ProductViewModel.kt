@@ -10,19 +10,20 @@ class ProductViewModel @Inject constructor() : ViewModel()  {
     val currentProductList = MutableLiveData<List<ProductListRespone.Content>?>()
     val currentPage = MutableLiveData<Int>()
 
-
     val currentSorField = MutableLiveData<String>()
     val currentSortBy = MutableLiveData<String>()
     val currentSearchValue = MutableLiveData<String>()
 
     val totalElement = MutableLiveData<Int>()
 
+    val current_ID_Item = MutableLiveData<Int>()
+
     init {
         currentPage.value = 0;
         currentSorField.value = "id"
         currentSortBy.value = "asc"
         currentSearchValue.value = ""
-
+        current_ID_Item.value = 0
         totalElement.value = 0
     }
 

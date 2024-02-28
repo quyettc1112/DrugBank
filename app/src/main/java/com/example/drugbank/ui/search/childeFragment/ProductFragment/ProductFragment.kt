@@ -1,5 +1,6 @@
 package com.example.drugbank.ui.search.childeFragment.ProductFragment
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -49,8 +51,7 @@ class ProductFragment : Fragment() {
         tokenManager = TokenManager(requireContext())
         _productAdapter = ProductAdapter()
         setUpRecycleViewList()
-
-        return  _binding.root
+        return _binding.root
     }
 
     private fun setUpRecycleViewList() {
@@ -65,16 +66,19 @@ class ProductFragment : Fragment() {
                 val totalItemCount = layoutManager.itemCount
                 if (lastCompletelyVisibleItem == totalItemCount - 1) {
                     if (totalItemCount < _productViewModel.totalElement.value!!) {
-                        Toast.makeText(requireContext(), "Load", Toast.LENGTH_SHORT).show()
                         _productViewModel.incrementCurrentPage()
                         CallProductList()
                     }
-
                 }
             }
         })
         _productAdapter.onItemClick = {
             val navController = requireActivity().findNavController(R.id.nav_host_fragment_activity_main)
+            _productViewModel.current_ID_Item.value = it.id
+            val sharedPreferences = requireActivity().getSharedPreferences(Constant.CURRENT_PRODUCT_ID, Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            editor.putInt(Constant.CURRENT_PRODUCT_ID_VALUE, it.id)
+            editor.apply()
             navController.navigate(Constant.getNavSeleted(5))
         }
     }
