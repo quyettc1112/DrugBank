@@ -15,11 +15,15 @@ class ProductViewModel @Inject constructor() : ViewModel()  {
     val currentSortBy = MutableLiveData<String>()
     val currentSearchValue = MutableLiveData<String>()
 
+    val totalElement = MutableLiveData<Int>()
+
     init {
         currentPage.value = 0;
         currentSorField.value = "id"
         currentSortBy.value = "asc"
         currentSearchValue.value = ""
+
+        totalElement.value = 0
     }
 
     fun loafMoreProductList(list: List<ProductListRespone.Content>) {
@@ -33,16 +37,15 @@ class ProductViewModel @Inject constructor() : ViewModel()  {
         currentPage.value = currentValue + 1 // Gán giá trị mới cho currentPage là giá trị hiện tại cộng thêm 1
     }
 
-    fun resetCurrentPage() {
+
+    fun resetAllValue() {
+        currentSearchValue.value = ""
+        currentProductList.value = null
+        totalElement.value = 0
         currentPage.value = 0 // Gán giá trị mới cho currentPage là 0
     }
 
-    fun emptyDrugList() {
-        currentProductList.value = null
-    }
-    fun resetSearchValue() {
-        currentSearchValue.value = ""
-    }
+
 
 
 }
