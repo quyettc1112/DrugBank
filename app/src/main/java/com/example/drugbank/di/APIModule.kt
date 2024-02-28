@@ -2,6 +2,7 @@ package com.example.drugbank.di
 
 import com.example.drugbank.common.BaseAPI.BaseAPI
 import com.example.drugbank.repository.Admin_DrugM_APIService
+import com.example.drugbank.repository.Admin_ProductM_APIService
 import com.example.drugbank.repository.Admin_UserM_APIService
 import com.google.firebase.BuildConfig
 import com.google.gson.Gson
@@ -85,5 +86,16 @@ object APIModule {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(Admin_DrugM_APIService::class.java)
+
+
+    @Provides
+    @Singleton
+    fun provideRetrofit_Product(baseUrl: String, gson: Gson, client: OkHttpClient): Admin_ProductM_APIService =
+        Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+            .create(Admin_ProductM_APIService::class.java)
 
 }

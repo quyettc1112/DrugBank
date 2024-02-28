@@ -1,7 +1,6 @@
 package com.example.drugbank.repository
 
 import dagger.hilt.android.scopes.ActivityScoped
-import java.net.IDN
 import javax.inject.Inject
 
 @ActivityScoped
