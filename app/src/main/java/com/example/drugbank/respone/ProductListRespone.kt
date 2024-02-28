@@ -28,7 +28,7 @@ data class ProductListRespone(
   @SerializedName("labeller") val labeller: String,
   @SerializedName("name") val name: String,
   @SerializedName("prescriptionName") val prescriptionName: String,
-  @SerializedName("route") val route: String
+  @SerializedName("route") val route: String?
  )
 
 
