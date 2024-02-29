@@ -123,7 +123,12 @@ class ProductFragment : Fragment() {
                 }
             }
             override fun onFailure(call: Call<ProductListRespone>, t: Throwable) {
-                TODO("Not yet implemented")
+                val errorDialog = ErrorDialog(
+                    requireContext(),
+                    errorContent = "${t.cause} , {${t.message}}",
+                    textButton = "Back"
+                )
+                errorDialog.show()
             }
         })
     }
