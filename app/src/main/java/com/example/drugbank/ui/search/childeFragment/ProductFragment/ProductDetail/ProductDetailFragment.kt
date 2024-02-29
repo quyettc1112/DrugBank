@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import com.example.drugbank.R
@@ -38,6 +39,8 @@ class ProductDetailFragment : Fragment() {
     private lateinit var tokenManager: TokenManager
     private lateinit var _productDetailViewModel: ProductDetailViewModel
 
+    private lateinit var productTableAdapter: ProductTableAdapter
+
     @Inject
     lateinit var adminProductDetailRepository: Admin_ProductDetail_Repository
 
@@ -53,9 +56,12 @@ class ProductDetailFragment : Fragment() {
         CallProductDetail(productID)
         setUpUiStatic()
 
+        productTableAdapter = ProductTableAdapter(Constant.getDrugList())
+        _binding.rvDrugIngredients.adapter = productTableAdapter
+
+
         return _binding.root
     }
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,19 +70,50 @@ class ProductDetailFragment : Fragment() {
     }
 
     private fun setUpUiStatic() {
+        _binding.drugIExapnded?.let { drugExpanded ->
+            drugExpanded.setUpExpansionToggle(_binding.layoutShowDrugIngredient, _binding.lineDrugIn, drugExpanded)
+        }
+
+        _binding.manufatoerExapnded?.let { manufacturerExpanded ->
+            manufacturerExpanded.setUpExpansionToggle(_binding.layoutManufator, _binding.lineManufactor, manufacturerExpanded)
+        }
+    }
+
+    private fun AppCompatImageView.setUpExpansionToggle(targetLayout: View, lineLayout: View, imageView: AppCompatImageView) {
         var isExpanded = false
-
-        _binding.drugIExapnded.setOnClickListener {
-            _binding.layoutShowDrugIngredient.visibility = if (isExpanded) View.VISIBLE else View.VISIBLE
+        this.setOnClickListener {
             isExpanded = !isExpanded
-            val expandedHeight = 200.dpToPx()
-            TransitionManager.beginDelayedTransition(_binding.root, AutoTransition())
-            val newHeight = if (isExpanded) expandedHeight else 0.dpToPx()
-            val layoutParams = _binding.layoutShowDrugIngredient.layoutParams
-            layoutParams.height = newHeight
-            _binding.layoutShowDrugIngredient.layoutParams = layoutParams
-            //_binding.drugIExapnded.visibility = if (isExpanded) View.GONE else View.VISIBLE
+            setExpandedStateAndToggleVisibility(targetLayout, lineLayout, isExpanded, imageView )
+        }
+    }
 
+    private fun View.setExpandedStateAndToggleVisibility(targetLayout: View, lineLayout: View, isExpanded: Boolean, imageView: AppCompatImageView) {
+        if (isExpanded) {
+            targetLayout.visibility = View.VISIBLE
+            val expandedHeight = targetLayout.minimumHeight
+            TransitionManager.beginDelayedTransition(_binding.root, AutoTransition())
+            val newHeight = expandedHeight
+            val layoutParams = targetLayout.layoutParams
+            layoutParams.height = newHeight
+            targetLayout.layoutParams = layoutParams
+            lineLayout.visibility = View.VISIBLE
+            imageView.setImageResource(R.drawable.baseline_arrow_drop_up_24)
+        } else {
+            targetLayout.visibility = View.GONE
+            val layoutParams = targetLayout.layoutParams
+            layoutParams.height = 0
+            targetLayout.layoutParams = layoutParams
+            lineLayout.visibility = View.GONE
+            imageView.setImageResource(R.drawable.baseline_arrow_drop_down_24)
+        }
+    }
+    fun AppCompatImageView.setExpandedStateAndToggleVisibility(linearLayout: View, isExpanded: Boolean) {
+        if (isExpanded) {
+            this.setImageResource(R.drawable.baseline_arrow_drop_up_24)
+            linearLayout.visibility = View.VISIBLE
+        } else {
+            this.setImageResource(R.drawable.baseline_arrow_drop_down_24)
+            linearLayout.visibility = View.GONE
         }
     }
     fun Int.dpToPx(): Int = (this * Resources.getSystem().displayMetrics.density).toInt()
