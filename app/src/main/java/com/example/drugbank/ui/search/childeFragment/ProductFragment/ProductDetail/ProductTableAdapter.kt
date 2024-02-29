@@ -5,8 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.drugbank.R
+import com.example.drugbank.data.model.Drug
 
-class ProductTableAdapter(private val data: List<Pair<String, String>>):
+class ProductTableAdapter(private val data: ArrayList<String>):
     RecyclerView.Adapter<ProductTableAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
