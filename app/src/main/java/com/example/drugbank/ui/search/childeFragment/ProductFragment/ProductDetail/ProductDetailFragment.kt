@@ -1,8 +1,11 @@
 package com.example.drugbank.ui.search.childeFragment.ProductFragment.ProductDetail
 
 import android.content.Context
+import android.content.res.Resources
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.transition.AutoTransition
+import android.transition.TransitionManager
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -48,11 +51,35 @@ class ProductDetailFragment : Fragment() {
         productID = sharedPreferences.getInt(Constant.CURRENT_PRODUCT_ID_VALUE, 0)
         tokenManager = TokenManager(requireContext())
         CallProductDetail(productID)
-
+        setUpUiStatic()
 
         return _binding.root
     }
 
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        _productDetailViewModel = ViewModelProvider(this).get(ProductDetailViewModel::class.java)
+    }
+
+    private fun setUpUiStatic() {
+        var isExpanded = false
+
+        _binding.drugIExapnded.setOnClickListener {
+            _binding.layoutShowDrugIngredient.visibility = if (isExpanded) View.VISIBLE else View.VISIBLE
+            isExpanded = !isExpanded
+            val expandedHeight = 200.dpToPx()
+            TransitionManager.beginDelayedTransition(_binding.root, AutoTransition())
+            val newHeight = if (isExpanded) expandedHeight else 0.dpToPx()
+            val layoutParams = _binding.layoutShowDrugIngredient.layoutParams
+            layoutParams.height = newHeight
+            _binding.layoutShowDrugIngredient.layoutParams = layoutParams
+            //_binding.drugIExapnded.visibility = if (isExpanded) View.GONE else View.VISIBLE
+
+        }
+    }
+    fun Int.dpToPx(): Int = (this * Resources.getSystem().displayMetrics.density).toInt()
     private fun loadingUI() {
         _productDetailViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             if (isLoading) {
@@ -61,11 +88,6 @@ class ProductDetailFragment : Fragment() {
                 _binding.pgIsLoading.visibility = View.GONE
             }
         }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        _productDetailViewModel = ViewModelProvider(this).get(ProductDetailViewModel::class.java)
     }
 
 
