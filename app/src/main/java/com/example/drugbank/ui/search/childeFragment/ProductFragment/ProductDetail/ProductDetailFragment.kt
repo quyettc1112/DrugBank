@@ -41,6 +41,10 @@ class ProductDetailFragment : Fragment() {
 
     private lateinit var productTableAdapter: ProductTableAdapter
 
+
+
+
+
     @Inject
     lateinit var adminProductDetailRepository: Admin_ProductDetail_Repository
 
