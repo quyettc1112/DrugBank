@@ -2,6 +2,8 @@ package com.example.drugbank.common.constant
 
 import android.content.Context
 import com.example.drugbank.R
+import com.example.drugbank.data.model.Drug
+import com.example.drugbank.respone.ProductDetailRespone
 import com.example.drugbank.respone.ProductListRespone
 import com.example.drugbank.ui.drugstore.DrugStoreFragment
 
@@ -67,6 +69,18 @@ class Constant {
             editor.putString(USER_PASSWORD, password)
             editor.putString(USER_TOKEN, token)
             editor.apply()
+        }
+
+        fun getDrugList(): ArrayList<String> {
+            val list = ArrayList<String>()
+
+           list.add("a")
+           list.add("a")
+           list.add("a")
+           list.add("a")
+           list.add("a")
+
+            return list
         }
 
 
