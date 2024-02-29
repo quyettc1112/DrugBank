@@ -22,6 +22,8 @@
         app:showStartText="true">
     </com.example.drugbank.base.customView.CustomToolbar>
 
+
+
     <LinearLayout
         android:visibility="gone"
         android:id="@+id/pg_isLoading"
@@ -78,6 +80,16 @@
             </LinearLayout>
         </LinearLayout>
 
+        <TextView
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_weight="6"
+            android:text="Product Info"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </TextView>
 
         <LinearLayout
             android:orientation="vertical"
@@ -175,8 +187,6 @@
                     android:layout_height="match_parent">
                 </TextView>
             </LinearLayout>
-
-
             <LinearLayout
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
@@ -228,34 +238,37 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_width="match_parent"
+                android:minHeight="40dp"
                 android:background="@drawable/background_table"
                 android:layout_height="wrap_content">
 
                 <TableRow
-
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
+                        android:gravity="center"
                         android:background="@drawable/background_table"
                         android:textAlignment="center"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:minHeight="40dp"
                         android:layout_weight="1"
                         android:text="ID" />
 
                     <TextView
+                        android:gravity="center"
                         android:background="@drawable/background_table"
                         android:textAlignment="center"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:minHeight="40dp"
                         android:layout_weight="1"
                         android:text="Title" />
 
                     <TextView
+                        android:gravity="center"
                         android:background="@drawable/background_table"
                         android:textAlignment="center"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:minHeight="40dp"
                         android:layout_weight="1"
                         android:text="Slug" />
 
@@ -266,26 +279,30 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
+
+                        android:gravity="center"
                         android:background="@drawable/background_table"
                         android:textAlignment="center"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:minHeight="40dp"
                         android:layout_weight="1"
                         android:text="1" />
 
                     <TextView
+                        android:gravity="center"
                         android:background="@drawable/background_table"
                         android:textAlignment="center"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:minHeight="40dp"
                         android:layout_weight="1"
                         android:text="Analgesic" />
 
                     <TextView
+                        android:gravity="center"
                         android:background="@drawable/background_table"
                         android:textAlignment="center"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:minHeight="40dp"
                         android:layout_weight="1"
                         android:text="Analgesic" />
 
@@ -314,63 +331,357 @@
 
                 </TextView>
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/drugI_Exapnded"
                     android:visibility="visible"
                     android:background="@drawable/background_btn_dob"
                     android:layout_marginEnd="20dp"
                     android:layout_weight="9"
                     android:layout_marginTop="10dp"
-                    android:src="@drawable/baseline_add_24"
+                    android:src="@drawable/baseline_arrow_drop_down_24"
                     android:layout_width="match_parent"
                     android:layout_height="30dp">
 
-                </ImageView>
-
-
+                </androidx.appcompat.widget.AppCompatImageView>
 
             </LinearLayout>
 
             <LinearLayout
+                android:orientation="vertical"
                 android:visibility="gone"
                 android:id="@+id/layoutShow_DrugIngredient"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="16dp"
+                android:minHeight="450dp"
                 android:layout_width="match_parent"
-                android:layout_height="200dp">
+                android:layout_height="wrap_content">
 
-
-                <ImageView
-                    android:src="@drawable/dafult_product_img"
+                <LinearLayout
+                    android:background="@drawable/background_table_header"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:minHeight="40dp"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
 
-                </ImageView>
-                <!--<androidx.recyclerview.widget.RecyclerView
+                    <TextView
+                        android:background="@drawable/background_table"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2.2"
+                        android:gravity="center"
+                        android:text="Name"
+                        android:textSize="16dp">
+
+                    </TextView>
+
+                    <TextView
+                        android:background="@drawable/background_table"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2.6"
+                        android:gravity="center"
+                        android:text="Strength"
+                        android:textSize="16dp">
+
+                    </TextView>
+
+                    <TextView
+                        android:background="@drawable/background_table"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2.6"
+                        android:gravity="center"
+                        android:text="Strength Number"
+                        android:textSize="16dp">
+
+                    </TextView>
+
+                    <TextView
+                        android:background="@drawable/background_table"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2.6"
+                        android:gravity="center"
+                        android:text="Strength Unit"
+                        android:textSize="16dp">
+                    </TextView>
+                </LinearLayout>
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_drug_Ingredients"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/background_table_row_layout">
+
+                </androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/line_drugIn"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginStart="130dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="130dp"
+                android:background="@color/gray_600">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:weightSum="11"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+                <TextView
+                    android:paddingTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="2"
+                    android:text="Manufactor"
+                    android:textSize="16dp"
+                    android:textStyle="bold">
+
+                </TextView>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/manufatoer_Exapnded"
+                    android:visibility="visible"
+                    android:background="@drawable/background_btn_dob"
+                    android:layout_marginEnd="20dp"
+                    android:layout_weight="9"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/baseline_arrow_drop_down_24"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+
+                </androidx.appcompat.widget.AppCompatImageView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutManufator"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:minHeight="350dp"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:weightSum="10"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                </androidx.recyclerview.widget.RecyclerView>-->
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="6.5"
+                        android:text="Name"
+                        android:textSize="16dp"
+                        android:textStyle="bold">
+                    </TextView>
+
+                    <LinearLayout
+                        android:layout_width="1dp"
+                        android:background="@color/black"
+                        android:layout_height="match_parent">
+                    </LinearLayout>
+                    <TextView
+                        android:textSize="16dp"
+                        android:layout_weight="3.5"
+                        android:layout_marginStart="16dp"
+                        android:text="Công ty cổ phần hóa - Dược phẩm Mekophar - VIỆT NAM"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:weightSum="10"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginStart="16dp"
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        android:layout_weight="6.5"
+                        android:text="Company"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </TextView>
+                    <LinearLayout
+                        android:layout_width="1dp"
+                        android:background="@color/black"
+                        android:layout_height="match_parent">
+                    </LinearLayout>
+                    <TextView
+                        android:textSize="16dp"
+                        android:layout_weight="3.5"
+                        android:layout_marginStart="16dp"
+                        android:text="Công ty cổ phần hóa - Dược phẩm Mekophar - VIỆT NAM"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:weightSum="10"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginStart="16dp"
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        android:layout_weight="6.5"
+                        android:text="Score"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </TextView>
+                    <LinearLayout
+                        android:layout_width="1dp"
+                        android:background="@color/black"
+                        android:layout_height="match_parent">
+                    </LinearLayout>
+                    <TextView
+                        android:textSize="16dp"
+                        android:layout_weight="3.5"
+                        android:layout_marginStart="16dp"
+                        android:text=""
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </TextView>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:weightSum="10"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginStart="16dp"
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        android:layout_weight="6.5"
+                        android:text="Source"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </TextView>
+                    <LinearLayout
+                        android:layout_width="1dp"
+                        android:background="@color/black"
+                        android:layout_height="match_parent">
+                    </LinearLayout>
+                    <TextView
+                        android:textSize="16dp"
+                        android:layout_weight="3.5"
+                        android:layout_marginStart="16dp"
+                        android:text="VNB-2789-05"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:weightSum="10"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="6.5"
+                        android:text="Country Id"
+                        android:textSize="16dp"
+                        android:textStyle="bold"></TextView>
+
+                    <LinearLayout
+                        android:layout_width="1dp"
+                        android:background="@color/black"
+                        android:layout_height="match_parent">
+                    </LinearLayout>
+                    <TextView
+                        android:textSize="16dp"
+                        android:layout_weight="3.5"
+                        android:layout_marginStart="16dp"
+                        android:text="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:weightSum="10"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginStart="16dp"
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        android:layout_weight="6.5"
+                        android:text="Country Name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </TextView>
+                    <LinearLayout
+                        android:layout_width="1dp"
+                        android:background="@color/black"
+                        android:layout_height="match_parent">
+                    </LinearLayout>
+                    <TextView
+                        android:textSize="16dp"
+                        android:layout_weight="3.5"
+                        android:layout_marginStart="16dp"
+                        android:text="Việt Nam"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </TextView>
+                </LinearLayout>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/line_manufactor"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginStart="130dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="130dp"
+                android:background="@color/gray_600">
+
             </LinearLayout>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
         </LinearLayout>
-
-
     </LinearLayout>
 
     </ScrollView>
