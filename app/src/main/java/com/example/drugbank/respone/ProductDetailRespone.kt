@@ -40,11 +40,11 @@ data class ProductDetailRespone(
  @Keep
  data class Manufactor(
   @SerializedName("company")
-  val company: String,
+  val company: String?,
   @SerializedName("countryId")
   val countryId: Int?,
   @SerializedName("countryName")
-  val countryName: String,
+  val countryName: String?,
   @SerializedName("name")
   val name: String?,
   @SerializedName("score")
@@ -53,25 +53,23 @@ data class ProductDetailRespone(
   val source: String?
  )
 
- @Keep
  data class Pharmacogenomic(
-  @SerializedName("asorption")
-  val asorption: String,
+  @SerializedName("asorption") val asorption: String?,
   @SerializedName("indication")
-  val indication: String,
+  val indication: String?,
   @SerializedName("mechanismOfAction")
-  val mechanismOfAction: String,
+  val mechanismOfAction: String?,
   @SerializedName("pharmacodynamic")
-  val pharmacodynamic: String,
+  val pharmacodynamic: String?,
   @SerializedName("toxicity")
-  val toxicity: String
+  val toxicity: String?
  )
 
  @Keep
  data class ProductAllergyDetail(
   @SerializedName("detail")
-  val detail: String,
+  val detail: String?,
   @SerializedName("summary")
-  val summary: String
+  val summary: String?
  )
 }
