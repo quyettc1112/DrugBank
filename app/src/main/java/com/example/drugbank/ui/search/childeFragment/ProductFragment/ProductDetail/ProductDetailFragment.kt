@@ -50,12 +50,14 @@ class ProductDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentProductDetailBinding.inflate(inflater, container, false)
+        _productDetailViewModel = ViewModelProvider(this).get(ProductDetailViewModel::class.java)
         backToSearch()
         val sharedPreferences = requireActivity().getSharedPreferences(Constant.CURRENT_PRODUCT_ID, Context.MODE_PRIVATE)
         productID = sharedPreferences.getInt(Constant.CURRENT_PRODUCT_ID_VALUE, 0)
         tokenManager = TokenManager(requireContext())
         CallProductDetail(productID)
         setUpUiStatic()
+
 
         productTableAdapter = ProductTableAdapter(Constant.getDrugList())
         _binding.rvDrugIngredients.adapter = productTableAdapter
@@ -70,7 +72,7 @@ class ProductDetailFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _productDetailViewModel = ViewModelProvider(this).get(ProductDetailViewModel::class.java)
+
     }
 
     private fun setUpUiStatic() {
@@ -153,6 +155,9 @@ class ProductDetailFragment : Fragment() {
                     val productDetail: ProductDetailRespone? = productDetailRespone
                     bindDataProductInfo(productDetail)
                     bindDataManufactor(productDetail)
+                    bindDataPharmarcogenomic(productDetail)
+                    bindDataAroductAllergyDetail(productDetail)
+
                     handleSuccess(productDetailRespone)
                 } else {
                     handleError()
@@ -176,16 +181,31 @@ class ProductDetailFragment : Fragment() {
     }
 
     private fun bindDataManufactor(productDetail: ProductDetailRespone?) {
-        if (productDetail != null) {
-            _binding.manufactorName.text = productDetail.manufactor.name
-            _binding.manufactorCompany.text = productDetail.manufactor.company
+        if (productDetail!!.manufactor != null) {
+            _binding.manufactorName.text = productDetail.manufactor.name.toString()
+            _binding.manufactorCompany.text = productDetail.manufactor.company.toString()
             _binding.manufactorScore.text = productDetail.manufactor.score.toString()
-            _binding.manufactorSource.text = productDetail.manufactor.source
+            _binding.manufactorSource.text = productDetail.manufactor.source.toString()
             _binding.manufactorCountryID.text = productDetail.manufactor.countryId.toString()
-            _binding.manufactorCountryName.text = productDetail.manufactor.countryName
+            _binding.manufactorCountryName.text = productDetail.manufactor.countryName.toString()
         }
+    }
+    private fun bindDataPharmarcogenomic(productDetail: ProductDetailRespone?) {
+        if (productDetail!!.pharmacogenomic != null) {
+            _binding.pharmarPharmar.text = productDetail.pharmacogenomic.pharmacodynamic.toString()
+            _binding.pharmarAsorption.text = productDetail.pharmacogenomic.asorption.toString()
+            _binding.pharmarIndication.text = productDetail.pharmacogenomic.indication.toString()
+            _binding.pharmarToxicity.text = productDetail.pharmacogenomic.toxicity.toString()
+            _binding.pharmarMechinbism.text = productDetail.pharmacogenomic.mechanismOfAction.toString()
 
+        }
+    }
 
+    private fun bindDataAroductAllergyDetail(productDetail: ProductDetailRespone?) {
+        if (productDetail!!.productAllergyDetail != null) {
+            _binding.aadDetail.text = productDetail.productAllergyDetail.detail.toString()
+            _binding.aadSumary.text = productDetail.productAllergyDetail.summary.toString()
+        }
     }
 
     private fun backToSearch() {
