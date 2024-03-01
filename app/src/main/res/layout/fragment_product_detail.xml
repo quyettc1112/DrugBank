@@ -357,58 +357,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:background="@drawable/background_table_header"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minHeight="40dp"
-                    android:orientation="horizontal"
-                    android:weightSum="10">
 
-                    <TextView
-                        android:background="@drawable/background_table"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2.2"
-                        android:gravity="center"
-                        android:text="Name"
-                        android:textSize="16dp">
-
-                    </TextView>
-
-                    <TextView
-                        android:background="@drawable/background_table"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2.6"
-                        android:gravity="center"
-                        android:text="Strength"
-                        android:textSize="16dp">
-
-                    </TextView>
-
-                    <TextView
-                        android:background="@drawable/background_table"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2.6"
-                        android:gravity="center"
-                        android:text="Strength Number"
-                        android:textSize="16dp">
-
-                    </TextView>
-
-                    <TextView
-                        android:background="@drawable/background_table"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2.6"
-                        android:gravity="center"
-                        android:text="Strength Unit"
-                        android:textSize="16dp">
-                    </TextView>
-                </LinearLayout>
-
+                <include layout="@layout/background_table_row_layout_header"></include>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_drug_Ingredients"
@@ -679,9 +629,84 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:weightSum="11"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+                <TextView
+                    android:paddingTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="2"
+                    android:text="Authorities"
+                    android:textSize="16dp"
+                    android:textStyle="bold">
+
+                </TextView>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/authorities_Exapnded"
+                    android:visibility="visible"
+                    android:background="@drawable/background_btn_dob"
+                    android:layout_marginEnd="20dp"
+                    android:layout_weight="9"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/baseline_arrow_drop_down_24"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+
+                </androidx.appcompat.widget.AppCompatImageView>
+
+            </LinearLayout>
 
 
+            <LinearLayout
+                android:id="@+id/layoutAuthorites"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:minHeight="400dp"
+                android:layout_height="wrap_content">
+
+                <include
+                    layout="@layout/base_authorities_list_header"
+                    />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_authorities"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="16dp"
+                    tools:listitem="@layout/base_authorities_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/line_authorities"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginStart="130dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="130dp"
+                android:background="@color/gray_600">
+
+            </LinearLayout>
         </LinearLayout>
+
     </LinearLayout>
 
     </ScrollView>
