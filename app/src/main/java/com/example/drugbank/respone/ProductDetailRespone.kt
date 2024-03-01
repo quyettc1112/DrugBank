@@ -42,15 +42,15 @@ data class ProductDetailRespone(
   @SerializedName("company")
   val company: String,
   @SerializedName("countryId")
-  val countryId: Int,
+  val countryId: Int?,
   @SerializedName("countryName")
   val countryName: String,
   @SerializedName("name")
-  val name: String,
+  val name: String?,
   @SerializedName("score")
-  val score: Any,
+  val score: Any?,
   @SerializedName("source")
-  val source: String
+  val source: String?
  )
 
  @Keep

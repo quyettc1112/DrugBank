@@ -151,7 +151,8 @@ class ProductDetailFragment : Fragment() {
                 if (response.isSuccessful) {
                     val productDetailRespone: ProductDetailRespone? = response.body()
                     val productDetail: ProductDetailRespone? = productDetailRespone
-                    Log.d("CheckValue", productDetail.toString())
+                    bindDataProductInfo(productDetail)
+                    bindDataManufactor(productDetail)
                     handleSuccess(productDetailRespone)
                 } else {
                     handleError()
@@ -162,6 +163,31 @@ class ProductDetailFragment : Fragment() {
             }
         })
     }
+
+    private fun bindDataProductInfo(productResponse: ProductDetailRespone?) {
+        _binding.productId.text = productResponse!!.id.toString()
+        _binding.productName.text = productResponse!!.name.toString()
+        _binding.productPrename.text = productResponse!!.prescriptionName.toString()
+        _binding.prouductNameSmall.text = productResponse!!.name.toString()
+        _binding.productLabeller.text = productResponse!!.labeller.toString()
+        _binding.cateId.text = productResponse!!.category.id.toString()
+        _binding.cateTitlee.text = productResponse!!.category.title.toString()
+        _binding.cateSlug.text = productResponse!!.category.slug.toString()
+    }
+
+    private fun bindDataManufactor(productDetail: ProductDetailRespone?) {
+        if (productDetail != null) {
+            _binding.manufactorName.text = productDetail.manufactor.name
+            _binding.manufactorCompany.text = productDetail.manufactor.company
+            _binding.manufactorScore.text = productDetail.manufactor.score.toString()
+            _binding.manufactorSource.text = productDetail.manufactor.source
+            _binding.manufactorCountryID.text = productDetail.manufactor.countryId.toString()
+            _binding.manufactorCountryName.text = productDetail.manufactor.countryName
+        }
+
+
+    }
+
     private fun backToSearch() {
         _binding.customToolbar.onStartIconClick = {
             val navController = requireActivity().findNavController(R.id.nav_host_fragment_activity_main)
