@@ -40,10 +40,7 @@ class ProductDetailFragment : Fragment() {
     private lateinit var _productDetailViewModel: ProductDetailViewModel
 
     private lateinit var productTableAdapter: ProductTableAdapter
-
-
-
-
+    private lateinit var producDetail_Authorites_Adapter: ProductDetail_Authorites_Adapter
 
     @Inject
     lateinit var adminProductDetailRepository: Admin_ProductDetail_Repository
@@ -63,6 +60,9 @@ class ProductDetailFragment : Fragment() {
         productTableAdapter = ProductTableAdapter(Constant.getDrugList())
         _binding.rvDrugIngredients.adapter = productTableAdapter
 
+        producDetail_Authorites_Adapter = ProductDetail_Authorites_Adapter(Constant.getDrugList())
+        _binding.rvAuthorities.adapter = producDetail_Authorites_Adapter
+
 
         return _binding.root
     }
@@ -80,6 +80,10 @@ class ProductDetailFragment : Fragment() {
 
         _binding.manufatoerExapnded?.let { manufacturerExpanded ->
             manufacturerExpanded.setUpExpansionToggle(_binding.layoutManufator, _binding.lineManufactor, manufacturerExpanded)
+        }
+
+        _binding.authoritiesExapnded?.let { authorExpane ->
+            authorExpane.setUpExpansionToggle(_binding.layoutAuthorites, _binding.lineAuthorities, authorExpane)
         }
     }
 
@@ -130,7 +134,6 @@ class ProductDetailFragment : Fragment() {
             }
         }
     }
-
 
     private fun CallProductDetail(id: Int){
         adminProductDetailRepository.getProductDetail(
