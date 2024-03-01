@@ -92,13 +92,10 @@ class ProductDetailFragment : Fragment() {
 
         _binding.productAllergyDetailExapnded?.let {pAllegry ->
             pAllegry.setUpExpansionToggle(_binding.layoutproductAllergyDetail, _binding.lineProductAllergyDetail, pAllegry)
-
         }
 
         _binding.contraindicationExapnded?.let { contrain ->
             contrain.setUpExpansionToggle(_binding.layoutcontraindication, _binding.lineContraindicationl, contrain)
-
-
         }
     }
 
@@ -128,15 +125,6 @@ class ProductDetailFragment : Fragment() {
             targetLayout.layoutParams = layoutParams
             lineLayout.visibility = View.GONE
             imageView.setImageResource(R.drawable.baseline_arrow_drop_down_24)
-        }
-    }
-    fun AppCompatImageView.setExpandedStateAndToggleVisibility(linearLayout: View, isExpanded: Boolean) {
-        if (isExpanded) {
-            this.setImageResource(R.drawable.baseline_arrow_drop_up_24)
-            linearLayout.visibility = View.VISIBLE
-        } else {
-            this.setImageResource(R.drawable.baseline_arrow_drop_down_24)
-            linearLayout.visibility = View.GONE
         }
     }
     fun Int.dpToPx(): Int = (this * Resources.getSystem().displayMetrics.density).toInt()
