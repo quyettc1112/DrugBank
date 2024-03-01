@@ -1026,9 +1026,125 @@
 
 
 
+            <LinearLayout
+                android:weightSum="11"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+                <TextView
+                    android:paddingTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="2"
+                    android:text="Contraindication"
+                    android:textSize="16dp"
+                    android:textStyle="bold">
+                </TextView>
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/contraindication_Exapnded"
+                    android:visibility="visible"
+                    android:background="@drawable/background_btn_dob"
+                    android:layout_marginEnd="20dp"
+                    android:layout_weight="9"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/baseline_arrow_drop_down_24"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+
+                </androidx.appcompat.widget.AppCompatImageView>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layoutcontraindication"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:minHeight="200dp"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:weightSum="10"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginStart="16dp"
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        android:layout_weight="6"
+                        android:text="Relationship"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </TextView>
+                    <LinearLayout
+                        android:layout_width="1dp"
+                        android:background="@color/black"
+                        android:layout_height="match_parent">
+                    </LinearLayout>
+                    <TextView
+                        android:textSize="16dp"
+                        android:layout_weight="4"
+                        android:layout_marginStart="16dp"
+                        android:text="string"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:weightSum="10"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="6"
+                        android:text="Value"
+                        android:textSize="16dp"
+                        android:textStyle="bold"></TextView>
+
+                    <LinearLayout
+                        android:layout_width="1dp"
+                        android:background="@color/black"
+                        android:layout_height="match_parent">
+                    </LinearLayout>
+                    <TextView
+                        android:textSize="16dp"
+                        android:layout_weight="4"
+                        android:layout_marginStart="16dp"
+                        android:text="string"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </TextView>
+                </LinearLayout>
 
 
 
+
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/line_contraindicationl"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginStart="130dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="130dp"
+                android:background="@color/gray_600">
+
+            </LinearLayout>
 
 
         <LinearLayout

@@ -94,6 +94,12 @@ class ProductDetailFragment : Fragment() {
             pAllegry.setUpExpansionToggle(_binding.layoutproductAllergyDetail, _binding.lineProductAllergyDetail, pAllegry)
 
         }
+
+        _binding.contraindicationExapnded?.let { contrain ->
+            contrain.setUpExpansionToggle(_binding.layoutcontraindication, _binding.lineContraindicationl, contrain)
+
+
+        }
     }
 
     private fun AppCompatImageView.setUpExpansionToggle(targetLayout: View, lineLayout: View, imageView: AppCompatImageView) {
