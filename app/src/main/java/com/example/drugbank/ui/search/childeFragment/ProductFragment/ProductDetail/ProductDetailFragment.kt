@@ -85,6 +85,15 @@ class ProductDetailFragment : Fragment() {
         _binding.authoritiesExapnded?.let { authorExpane ->
             authorExpane.setUpExpansionToggle(_binding.layoutAuthorites, _binding.lineAuthorities, authorExpane)
         }
+
+        _binding.pharmacogenomicExapnded?.let { phacrmarExpa ->
+            phacrmarExpa.setUpExpansionToggle(_binding.layoutpharmacogenomic, _binding.linePharmacogenomic, phacrmarExpa)
+        }
+
+        _binding.productAllergyDetailExapnded?.let {pAllegry ->
+            pAllegry.setUpExpansionToggle(_binding.layoutproductAllergyDetail, _binding.lineProductAllergyDetail, pAllegry)
+
+        }
     }
 
     private fun AppCompatImageView.setUpExpansionToggle(targetLayout: View, lineLayout: View, imageView: AppCompatImageView) {

@@ -42,11 +42,9 @@
 
     <ScrollView
         android:fillViewport="true"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-
 
     <LinearLayout
         android:orientation="vertical"
@@ -79,7 +77,6 @@
                 </ImageView>
             </LinearLayout>
         </LinearLayout>
-
         <TextView
             android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
@@ -90,7 +87,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </TextView>
-
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -155,7 +151,6 @@
                     android:layout_height="match_parent">
                 </TextView>
             </LinearLayout>
-
             <LinearLayout
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
@@ -233,7 +228,6 @@
                 android:textStyle="bold">
 
             </TextView>
-
             <TableLayout
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
@@ -245,14 +239,15 @@
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <TextView
-                        android:gravity="center"
-                        android:background="@drawable/background_table"
-                        android:textAlignment="center"
                         android:layout_width="0dp"
-                        android:minHeight="40dp"
                         android:layout_weight="1"
-                        android:text="ID" />
+                        android:background="@drawable/background_table"
+                        android:gravity="center"
+                        android:minHeight="40dp"
+                        android:text="ID"
+                        android:textAlignment="center" />
 
                     <TextView
                         android:gravity="center"
@@ -305,8 +300,6 @@
                         android:minHeight="40dp"
                         android:layout_weight="1"
                         android:text="Analgesic" />
-
-
                 </TableRow>
             </TableLayout>
 
@@ -345,7 +338,6 @@
                 </androidx.appcompat.widget.AppCompatImageView>
 
             </LinearLayout>
-
             <LinearLayout
                 android:orientation="vertical"
                 android:visibility="gone"
@@ -369,8 +361,6 @@
 
                 </androidx.recyclerview.widget.RecyclerView>
             </LinearLayout>
-
-
             <LinearLayout
                 android:orientation="vertical"
                 android:id="@+id/line_drugIn"
@@ -381,7 +371,6 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="130dp"
                 android:background="@color/gray_600">
-
             </LinearLayout>
 
             <LinearLayout
@@ -418,7 +407,6 @@
                 </androidx.appcompat.widget.AppCompatImageView>
 
             </LinearLayout>
-
             <LinearLayout
                 android:id="@+id/layoutManufator"
                 android:orientation="vertical"
@@ -626,7 +614,6 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="130dp"
                 android:background="@color/gray_600">
-
             </LinearLayout>
 
             <LinearLayout
@@ -663,8 +650,6 @@
                 </androidx.appcompat.widget.AppCompatImageView>
 
             </LinearLayout>
-
-
             <LinearLayout
                 android:id="@+id/layoutAuthorites"
                 android:orientation="vertical"
@@ -692,7 +677,6 @@
 
 
             </LinearLayout>
-
             <LinearLayout
                 android:orientation="vertical"
                 android:id="@+id/line_authorities"
@@ -705,14 +689,362 @@
                 android:background="@color/gray_600">
 
             </LinearLayout>
+
+            <LinearLayout
+                android:weightSum="11"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+                <TextView
+                    android:paddingTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="2"
+                    android:text="Pharmacogenomic"
+                    android:textSize="16dp"
+                    android:textStyle="bold">
+                </TextView>
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/pharmacogenomic_Exapnded"
+                    android:visibility="visible"
+                    android:background="@drawable/background_btn_dob"
+                    android:layout_marginEnd="20dp"
+                    android:layout_weight="9"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/baseline_arrow_drop_down_24"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+
+                </androidx.appcompat.widget.AppCompatImageView>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layoutpharmacogenomic"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:minHeight="800dp"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:weightSum="10"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="6"
+                        android:text="Indication"
+                        android:textSize="16dp"
+                        android:textStyle="bold">
+                    </TextView>
+
+                    <LinearLayout
+                        android:layout_width="1dp"
+                        android:background="@color/black"
+                        android:layout_height="match_parent">
+                    </LinearLayout>
+                    <TextView
+                        android:textSize="16dp"
+                        android:layout_weight="4"
+                        android:layout_marginStart="16dp"
+                        android:text="Paracetamol thường được sử dụng để giảm đau và hạ sốt. Nó được chỉ định cho các trường hợp đau nhẹ đến vừa phải như đau đầu, đau cơ bắp, đau răng, đau kinh nguyệt, và trong các trường hợp sốt do cảm lạnh hoặc cảm cúm."
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:weightSum="10"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginStart="16dp"
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        android:layout_weight="6"
+                        android:text="Pharmacodynamic"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </TextView>
+                    <LinearLayout
+                        android:layout_width="1dp"
+                        android:background="@color/black"
+                        android:layout_height="match_parent">
+                    </LinearLayout>
+                    <TextView
+                        android:textSize="16dp"
+                        android:layout_weight="4"
+                        android:layout_marginStart="16dp"
+                        android:text="Các nghiên cứu về di truyền dược lý của paracetamol đã chỉ ra rằng một số biến thể gen như CYP2E1 có thể ảnh hưởng đến cách mà cơ thể chuyển hóa paracetamol và do đó ảnh hưởng đến hiệu quả và an toàn của thuốc đối với mỗi người. "
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:weightSum="10"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginStart="16dp"
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        android:layout_weight="6"
+                        android:text="Mechanism Of Action"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </TextView>
+                    <LinearLayout
+                        android:layout_width="1dp"
+                        android:background="@color/black"
+                        android:layout_height="match_parent">
+                    </LinearLayout>
+                    <TextView
+                        android:textSize="16dp"
+                        android:layout_weight="4"
+                        android:layout_marginStart="16dp"
+                        android:text="Mặc dù cơ chế hoạt động chính xác của paracetamol vẫn chưa được hiểu rõ hoàn toàn, nhưng nó được cho là tác động lên hệ thống thần kinh trung ương để giảm cảm giác đau và hạ sốt. "
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </TextView>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:weightSum="10"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginStart="16dp"
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        android:layout_weight="6"
+                        android:text="Asorption"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </TextView>
+                    <LinearLayout
+                        android:layout_width="1dp"
+                        android:background="@color/black"
+                        android:layout_height="match_parent">
+                    </LinearLayout>
+                    <TextView
+                        android:textSize="16dp"
+                        android:layout_weight="4"
+                        android:layout_marginStart="16dp"
+                        android:text="Paracetamol được hấp thụ nhanh chóng và đầy đủ từ dạ dày và ruột non sau khi uống."
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:weightSum="10"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="6"
+                        android:text="Toxicity"
+                        android:textSize="16dp"
+                        android:textStyle="bold"></TextView>
+
+                    <LinearLayout
+                        android:layout_width="1dp"
+                        android:background="@color/black"
+                        android:layout_height="match_parent">
+                    </LinearLayout>
+                    <TextView
+                        android:textSize="16dp"
+                        android:layout_weight="4"
+                        android:layout_marginStart="16dp"
+                        android:text="Nghưng sử dụng quá mức có thể gây ra nguy cơ độc tính gan"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </TextView>
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/line_pharmacogenomic"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginStart="130dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="130dp"
+                android:background="@color/gray_600">
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:weightSum="11"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+                <TextView
+                    android:paddingTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="2"
+                    android:text="Aroduct Allergy Detail"
+                    android:textSize="16dp"
+                    android:textStyle="bold">
+                </TextView>
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/productAllergyDetail_Exapnded"
+                    android:visibility="visible"
+                    android:background="@drawable/background_btn_dob"
+                    android:layout_marginEnd="20dp"
+                    android:layout_weight="9"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/baseline_arrow_drop_down_24"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+
+                </androidx.appcompat.widget.AppCompatImageView>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layoutproductAllergyDetail"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:minHeight="300dp"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:weightSum="10"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginStart="16dp"
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        android:layout_weight="6"
+                        android:text="Detail"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </TextView>
+                    <LinearLayout
+                        android:layout_width="1dp"
+                        android:background="@color/black"
+                        android:layout_height="match_parent">
+                    </LinearLayout>
+                    <TextView
+                        android:textSize="16dp"
+                        android:layout_weight="4"
+                        android:layout_marginStart="16dp"
+                        android:text="Ban da, ngứa, phát ban dị ứng, đau ngực, khó thở, hoặc phát ban dị ứng toàn thân."
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:weightSum="10"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="6"
+                        android:text="Summary"
+                        android:textSize="16dp"
+                        android:textStyle="bold"></TextView>
+
+                    <LinearLayout
+                        android:layout_width="1dp"
+                        android:background="@color/black"
+                        android:layout_height="match_parent">
+                    </LinearLayout>
+                    <TextView
+                        android:textSize="16dp"
+                        android:layout_weight="4"
+                        android:layout_marginStart="16dp"
+                        android:text="Mặc dù hiếm khi xảy ra, nhưng dị ứng đối với paracetamol có thể gây ra các vấn đề sức khỏe nghiêm trọng như sốc phản vệ (anaphylaxis) - một phản ứng dị ứng cấp tính và nguy hiểm."
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </TextView>
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/line_productAllergyDetail"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_marginStart="130dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="130dp"
+                android:background="@color/gray_600">
+
+            </LinearLayout>
+
+
+
+
+
+
+
+
+        <LinearLayout
+            android:gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+            <LinearLayout
+                android:background="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="1dp">
+
+            </LinearLayout>
         </LinearLayout>
 
+        </LinearLayout>
     </LinearLayout>
-
     </ScrollView>
-
-
-
-
 
 </LinearLayout>
