@@ -3,13 +3,15 @@ package com.example.drugbank.respone
 
 import com.google.gson.annotations.SerializedName
 import androidx.annotation.Keep
+import com.example.drugbank.data.model.Authorities
+import com.example.drugbank.data.model.DrugIn
 
 
 data class ProductDetailRespone(
- @SerializedName("authorities") val authorities: List<Any>,
+ @SerializedName("authorities") val authorities: List<Authorities>,
  @SerializedName("category") val category: Category,
  @SerializedName("contraindication") val contraindication: Contraindication,
- @SerializedName("drugIngredients") val drugIngredients: List<Any>,
+ @SerializedName("drugIngredients") val drugIngredients: List<DrugIn>,
  @SerializedName("id") val id: Int,
  @SerializedName("labeller") val labeller: String,
  @SerializedName("manufactor") val manufactor: Manufactor,
