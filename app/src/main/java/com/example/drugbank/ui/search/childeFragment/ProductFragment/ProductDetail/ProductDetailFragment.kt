@@ -50,6 +50,8 @@ class ProductDetailFragment : Fragment() {
         val sharedPreferences = requireActivity().getSharedPreferences(Constant.CURRENT_PRODUCT_ID, Context.MODE_PRIVATE)
         productID = sharedPreferences.getInt(Constant.CURRENT_PRODUCT_ID_VALUE, 0)
         tokenManager = TokenManager(requireContext())
+        _productDetailViewModel.setLoading(true)
+        loadingUI()
         CallProductDetail(productID)
         setUpUiStatic()
 
@@ -142,7 +144,6 @@ class ProductDetailFragment : Fragment() {
                 call: Call<ProductDetailRespone>,
                 response: Response<ProductDetailRespone>
             ) {
-                _productDetailViewModel.setLoading(false)
                 if (response.isSuccessful) {
                     val productDetailRespone: ProductDetailRespone? = response.body()
                     val productDetail: ProductDetailRespone? = productDetailRespone
@@ -159,10 +160,9 @@ class ProductDetailFragment : Fragment() {
                     producDetail_Authorites_Adapter = ProductDetail_Authorites_Adapter(productDetailRespone!!.authorities.toList())
                     _binding.rvAuthorities.adapter = producDetail_Authorites_Adapter
 
-
-                    handleSuccess(productDetailRespone)
+                    _productDetailViewModel.setLoading(false)
                 } else {
-                    handleError()
+
                 }
             }
             override fun onFailure(call: Call<ProductDetailRespone>, t: Throwable) {
@@ -216,13 +216,7 @@ class ProductDetailFragment : Fragment() {
             navController.navigate(Constant.getNavSeleted(Constant.SEARCH_NAV_ID))
         }
     }
-    private fun handleSuccess(productDetail: ProductDetailRespone?) {
-        loadingUI()
-    }
-    // Hàm xử lý khi gặp lỗi
-    private fun handleError() {
-        // Xử lý khi gặp lỗi, ví dụ hiển thị thông báo lỗi, thử lại, vv...
-    }
+
 
 
 
