@@ -1,5 +1,6 @@
 package com.example.drugbank.ui.search.childeFragment.ProductFragment
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.drugbank.respone.ProductListRespone
@@ -9,6 +10,7 @@ class ProductViewModel @Inject constructor() : ViewModel()  {
 
     val currentProductList = MutableLiveData<List<ProductListRespone.Content>?>()
     val currentPage = MutableLiveData<Int>()
+    private var _isLoading = MutableLiveData<Boolean>()
 
     val currentSorField = MutableLiveData<String>()
     val currentSortBy = MutableLiveData<String>()
@@ -27,6 +29,12 @@ class ProductViewModel @Inject constructor() : ViewModel()  {
         totalElement.value = 0
     }
 
+    val isLoading: LiveData<Boolean>
+        get() = _isLoading
+
+    fun setLoading(isLoading: Boolean) {
+        _isLoading.value = isLoading
+    }
     fun loafMoreProductList(list: List<ProductListRespone.Content>) {
         val  currentList = currentProductList.value ?: emptyList()
         val updatedList = currentList + list
