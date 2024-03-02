@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottomSheetContainter"
+    android:layout_width="match_parent"
+    android:background="@drawable/bottom_sheet_background"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_gravity="center"
+        android:background="@drawable/shape"
+        android:layout_width="60dp"
+        android:layout_marginTop="10dp"
+        android:layout_height="6dp">
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="23dp"
+        android:text="Filter Product"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </TextView>
+
+    <LinearLayout
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:gravity="center_horizontal"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:hint=""
+            android:id="@+id/tip_sortfield"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="170dp"
+            android:layout_height="70dp"
+            android:layout_marginEnd="10dp"
+            app:boxBackgroundColor="@color/white"
+            app:startIconDrawable="@drawable/baseline_perm_contact_calendar_24"
+            >
+
+            <AutoCompleteTextView
+                android:hint="Sort Field"
+                android:id="@+id/atc_sortFeild_product"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:inputType="none"
+                android:padding="0dp"
+                android:text="ID"
+                android:textSize="12dp"
+                android:textStyle="bold">
+
+            </AutoCompleteTextView>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            app:boxBackgroundColor="@color/white"
+            android:hint="Sort By"
+            android:id="@+id/tip_gender"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="170dp"
+            android:layout_height="60dp"
+            app:startIconDrawable="@drawable/baseline_sort_by_alpha_24"
+            android:layout_marginStart="10dp"
+
+            >
+            <AutoCompleteTextView
+                android:id="@+id/atc_sortBy_product"
+                android:inputType="none"
+                android:text="All"
+                android:padding="0dp"
+                android:textStyle="bold"
+                android:textSize="12dp"
+
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+            </AutoCompleteTextView>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_save"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/background_button_login_notify"
+        android:backgroundTintMode="src_over"
+        android:padding="0dp"
+        android:text="Save"
+        android:textColor="@color/white"
+        android:textStyle="bold">
+
+    </androidx.appcompat.widget.AppCompatButton>
+
+
+</LinearLayout>
