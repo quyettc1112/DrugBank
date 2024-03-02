@@ -12,18 +12,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatImageView
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import com.example.drugbank.R
 import com.example.drugbank.common.Token.TokenManager
 import com.example.drugbank.common.constant.Constant
 import com.example.drugbank.databinding.FragmentProductDetailBinding
 import com.example.drugbank.repository.Admin_ProductDetail_Repository
-import com.example.drugbank.repository.Admin_ProductDetail_Service
-import com.example.drugbank.repository.Admin_ProductM_Repository
 import com.example.drugbank.respone.ProductDetailRespone
-import com.example.drugbank.ui.search.childeFragment.ProductFragment.ProductViewModel
-import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
 import retrofit2.Callback
@@ -59,11 +54,9 @@ class ProductDetailFragment : Fragment() {
         setUpUiStatic()
 
 
-        productTableAdapter = ProductTableAdapter(Constant.getDrugList())
-        _binding.rvDrugIngredients.adapter = productTableAdapter
 
-        producDetail_Authorites_Adapter = ProductDetail_Authorites_Adapter(Constant.getDrugList())
-        _binding.rvAuthorities.adapter = producDetail_Authorites_Adapter
+
+
 
 
         return _binding.root
@@ -157,6 +150,15 @@ class ProductDetailFragment : Fragment() {
                     bindDataManufactor(productDetail)
                     bindDataPharmarcogenomic(productDetail)
                     bindDataAroductAllergyDetail(productDetail)
+
+                    productTableAdapter = ProductTableAdapter(productDetailRespone!!.drugIngredients.toList())
+                    _binding.rvDrugIngredients.adapter = productTableAdapter
+                    Log.d("CheckDrugIn", productDetail!!.drugIngredients.toList().toString())
+
+
+                    producDetail_Authorites_Adapter = ProductDetail_Authorites_Adapter(productDetailRespone!!.authorities.toList())
+                    _binding.rvAuthorities.adapter = producDetail_Authorites_Adapter
+
 
                     handleSuccess(productDetailRespone)
                 } else {
