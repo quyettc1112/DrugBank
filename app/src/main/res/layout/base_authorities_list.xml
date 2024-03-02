@@ -14,6 +14,7 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/author_certificateName"
             android:gravity="center"
             android:text="VNB-2789-05"
             android:minHeight="55dp"
@@ -30,6 +31,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/author_countryId"
             android:gravity="center"
             android:text="1"
             android:minHeight="55dp"
@@ -48,6 +50,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/author_countryName"
             android:gravity="center"
             android:text="Việt Nam"
             android:minHeight="55dp"
