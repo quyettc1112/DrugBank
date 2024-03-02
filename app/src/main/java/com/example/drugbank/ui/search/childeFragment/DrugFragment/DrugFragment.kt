@@ -102,7 +102,6 @@ class DrugFragment : Fragment() {
                             active = drug.active
                         )
                     } ?: emptyList()
-                    Log.d("CurrentSearchValue", _drugViewModel.currentSearchValue.value.toString())
                     _drugViewModel.loadMoreDruglist(drugList)
                     _adapter.differ.submitList(_drugViewModel.currentDrugList.value)
                 } else {
