@@ -14,6 +14,7 @@
         android:weightSum="10">
 
         <TextView
+            android:id="@+id/drugIn_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="2.2"
@@ -31,6 +32,7 @@
 
         </LinearLayout>
         <TextView
+            android:id="@+id/drugIn_strength"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="2.6"
@@ -48,6 +50,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/drugIn_strengthNumber"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="2.6"
@@ -64,6 +67,7 @@
 
         </LinearLayout>
         <TextView
+            android:id="@+id/drugIn_strengthUnit"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="2.6"
@@ -104,6 +108,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/drug_clinical"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:layout_weight="1"
