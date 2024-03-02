@@ -6,7 +6,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -22,6 +25,7 @@ import com.example.drugbank.databinding.FragmentProductBinding
 import com.example.drugbank.repository.Admin_ProductM_Repository
 import com.example.drugbank.respone.DrugMListRespone
 import com.example.drugbank.respone.ProductListRespone
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
 import retrofit2.Callback
@@ -42,6 +46,7 @@ class ProductFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _productViewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
+
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,7 +56,65 @@ class ProductFragment : Fragment() {
         tokenManager = TokenManager(requireContext())
         _productAdapter = ProductAdapter()
         setUpRecycleViewList()
+        val bottomSheetDialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
+        val view = layoutInflater.inflate(R.layout.layout_bottom_sheet_prouduct, null)
+        showBottomSheet(bottomSheetDialog,view)
+        _productViewModel.setLoading(true)
+        loadingUI()
+
+
         return _binding.root
+    }
+
+    private fun showBottomSheet(bottomSheetDialog:BottomSheetDialog, view: View) {
+        _binding.imbFilter.setOnClickListener {
+
+            bottomSheetDialog.setContentView(view)
+            bottomSheetDialog.show()
+
+            val sortFeild_product = resources.getStringArray(R.array.sorrField_product)
+            val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_menu, sortFeild_product)
+
+            view.findViewById<AutoCompleteTextView>(R.id.atc_sortFeild_product).let {
+                it.setAdapter(arrayAdapter)
+                it.setOnItemClickListener { parent, view, position, id ->
+                    val sortField = sortFeild_product[position]
+                    val lowercaseSortField = when (sortField) {
+                        "ID" -> "id"
+                        "Labeller" -> "labeller"
+                        "Name" -> "name"
+                        "Route" -> "route"
+                        "Pescription Name" -> "prescriptionName"
+                        else -> sortField.toLowerCase()
+                    }
+                    _productViewModel.currentSorField.value = lowercaseSortField
+                    RESET_VIEWMODEL_VALUE()
+                    CallProductList()
+                }
+            }
+
+
+            val sortby_product = resources.getStringArray(R.array.sortByUser)
+            val arrayAdapter_SortBy = ArrayAdapter(requireContext(), R.layout.dropdown_menu, sortby_product)
+            view.findViewById<AutoCompleteTextView>(R.id.atc_sortBy_product).let{
+                it.setAdapter(arrayAdapter_SortBy)
+                it.setOnItemClickListener { parent, view, position, id ->
+                    val sortBy = sortby_product[position]
+                    val lowercaseSortBY= when (sortBy) {
+                        "ASC" -> "asc"
+                        "DESC" -> "desc"
+                        else -> sortBy.toLowerCase()
+                    }
+                    _productViewModel.currentSortBy.value = lowercaseSortBY
+                    RESET_VIEWMODEL_VALUE()
+                    CallProductList()
+                }
+            }
+            view.findViewById<AppCompatButton>(R.id.btn_save).setOnClickListener {
+                bottomSheetDialog.dismiss()
+            }
+
+        }
     }
 
     private fun setUpRecycleViewList() {
@@ -80,6 +143,16 @@ class ProductFragment : Fragment() {
             editor.putInt(Constant.CURRENT_PRODUCT_ID_VALUE, it.id)
             editor.apply()
             navController.navigate(Constant.getNavSeleted(5))
+        }
+    }
+
+    private fun loadingUI() {
+        _productViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) {
+                _binding.pgIsLoading.visibility = View.VISIBLE
+            } else {
+                _binding.pgIsLoading.visibility = View.GONE
+            }
         }
     }
 
@@ -113,6 +186,8 @@ class ProductFragment : Fragment() {
                     _productViewModel.loafMoreProductList(productList)
                     _productViewModel.totalElement.value = productRespone?.totalElements
                     _productAdapter.differ.submitList(_productViewModel.currentProductList.value)
+
+                    _productViewModel.setLoading(false)
                 } else {
                     val errorDialog = ErrorDialog(
                         requireContext(),
@@ -138,6 +213,7 @@ class ProductFragment : Fragment() {
     }
     fun RESET_VIEWMODEL_VALUE() {
         _productViewModel.resetAllValue()
+        _productAdapter.differ.submitList(emptyList())
 
     }
 
