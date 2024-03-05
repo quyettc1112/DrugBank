@@ -5,32 +5,355 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/bg_gray"
     android:layout_marginBottom="60dp"
     tools:context=".ui.search.SearchFragment">
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:background="@drawable/backgroud_effect"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:translationZ="10dp"
+        android:orientation="horizontal">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Profile"
+                android:textColor="@color/white"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                android:translationZ="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </TextView>
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/baseline_notifications_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.884"
+                app:layout_constraintTop_toTopOf="parent">
+            </ImageView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout6"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/background_effrct2"
+            android:orientation="horizontal">
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivUserAvatar"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/anh_3"
+        android:translationZ="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.151"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:background="@drawable/backgroud_effect_name"
+        android:translationZ="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ivUserAvatar"
+        app:layout_constraintVertical_bias="0.155">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Level 10"
+            android:textColor="@color/white"
+            android:textSize="23dp">
+
+        </TextView>
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Setting "
-        android:textSize="30dp"
+        android:layout_marginTop="10dp"
+        android:text="John Doe"
+        android:textSize="45dp"
+        android:textStyle="bold"
+        android:translationZ="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></TextView>
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+        app:layout_constraintVertical_bias="0.029">
 
-    <Button
-        android:id="@+id/buttonLogout"
-        android:text="Logout"
-        android:layout_width="wrap_content"
+    </TextView>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.674">
+        android:minHeight="450dp"
+
+        android:layout_marginTop="16dp"
+        android:background="@drawable/baseline_profile_list"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="0dp">
+        <ScrollView
+            android:fillViewport="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:weightSum="10"
+                    android:layout_margin="16dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_weight="4"
+                        android:src="@drawable/baseline_settings_24"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </ImageView>
+                    <TextView
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        android:text="Setting"
+                        android:textColor="@color/black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </TextView>
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_weight="4"
+                        android:src="@drawable/next"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </ImageView>
+                </LinearLayout>
+                <LinearLayout
+                    android:weightSum="10"
+                    android:layout_margin="16dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_weight="4"
+                        android:src="@drawable/gift"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </ImageView>
+                    <TextView
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        android:text="Rewards"
+                        android:textColor="@color/black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </TextView>
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_weight="4"
+                        android:src="@drawable/next"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </ImageView>
+                </LinearLayout>
+                <LinearLayout
+                    android:weightSum="10"
+                    android:layout_margin="16dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_weight="4"
+                        android:src="@drawable/baseline_access_time_24"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </ImageView>
+                    <TextView
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        android:text="History lessons"
+                        android:textColor="@color/black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </TextView>
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_weight="4"
+                        android:src="@drawable/next"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </ImageView>
+                </LinearLayout>
+                <LinearLayout
+                    android:weightSum="10"
+                    android:layout_margin="16dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_weight="4"
+                        android:src="@drawable/baseline_credit_card_24"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </ImageView>
+                    <TextView
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        android:text="Payment Method"
+                        android:textColor="@color/black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </TextView>
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_weight="4"
+                        android:src="@drawable/next"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </ImageView>
+                </LinearLayout>
+                <LinearLayout
+                    android:weightSum="10"
+                    android:layout_margin="16dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_weight="4"
+                        android:src="@drawable/baseline_question_mark_24"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </ImageView>
+                    <TextView
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        android:text="Frequently Asked Questions"
+                        android:textColor="@color/black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </TextView>
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_weight="4"
+                        android:src="@drawable/next"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </ImageView>
+                </LinearLayout>
+                <LinearLayout
+                    android:weightSum="10"
+                    android:layout_margin="16dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_weight="4"
+                        android:src="@drawable/baseline_headset_mic_24"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </ImageView>
+                    <TextView
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        android:text="Customer Care"
+                        android:textColor="@color/black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </TextView>
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_weight="4"
+                        android:src="@drawable/next"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </ImageView>
+                </LinearLayout>
 
 
-    </Button>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:src="@drawable/background_back_notify"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/icon_color_bottom_selected"
+                    android:layout_gravity="center"
+                    android:layout_width="200dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:text="Logout"
+                    android:layout_height="wrap_content">
+                </androidx.appcompat.widget.AppCompatButton>
+
+
+
+
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+
+
+    </LinearLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
