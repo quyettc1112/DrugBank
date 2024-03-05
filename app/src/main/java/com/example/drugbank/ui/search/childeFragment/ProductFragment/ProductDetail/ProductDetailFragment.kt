@@ -11,9 +11,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.navigation.findNavController
 import com.example.drugbank.R
+import com.example.drugbank.base.dialog.ConfirmDialog
+import com.example.drugbank.base.dialog.ErrorDialog
+import com.example.drugbank.base.dialog.NotifyDialog
 import com.example.drugbank.common.Token.TokenManager
 import com.example.drugbank.common.constant.Constant
 import com.example.drugbank.databinding.FragmentProductDetailBinding
@@ -56,10 +60,26 @@ class ProductDetailFragment : Fragment() {
         setUpUiStatic()
 
 
-
-
-
-
+        _binding.acbtnProductDelete.setOnClickListener {
+            val confirmDialog = ConfirmDialog(
+                requireContext(),
+                object : ConfirmDialog.ConfirmCallback {
+                    override fun negativeAction() {}
+                    override fun positiveAction() {
+                      CallDeleteProduct(productID)
+                    }
+                },
+                title = "Confirm",
+                message = "Delete Product",
+                positiveButtonTitle = "Yes",
+                negativeButtonTitle = "No"
+            )
+            confirmDialog.show()
+            confirmDialog.setOnDismissListener {
+                val navController = requireActivity().findNavController(R.id.nav_host_fragment_activity_main)
+                navController.navigate(Constant.getNavSeleted(Constant.SEARCH_NAV_ID))
+            }
+        }
 
         return _binding.root
     }
@@ -134,6 +154,43 @@ class ProductDetailFragment : Fragment() {
             }
         }
     }
+
+
+    private fun CallDeleteProduct(id: Int) {
+        adminProductDetailRepository.deleleProduct(
+            authorization = "Bearer ${tokenManager.getAccessToken()}",
+            id = id
+        ).enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                _productDetailViewModel.setLoading(true)
+                if (response.isSuccessful) {
+                    _productDetailViewModel.setLoading(false)
+                    val notifyDialog = NotifyDialog(
+                        requireContext(),
+                        title =  "Delete Product",
+                        message = "Delete Success",
+                        textButton = "Back"
+                    )
+                    notifyDialog.show()
+
+                } else{
+                    val errorDialog = ErrorDialog(
+                        requireContext(),
+                        textButton = "Back",
+                        errorContent = "${response.code()}"
+                    )
+                    errorDialog.show()
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
+
+    }
+
+
 
     private fun CallProductDetail(id: Int){
         adminProductDetailRepository.getProductDetail(
