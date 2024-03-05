@@ -11,4 +11,11 @@ class Admin_ProductDetail_Repository @Inject constructor (
         authorization: String,
         id: Int
     ) = admin_productDetail_service.getProductDetail(authorization, id)
+
+
+
+    fun deleleProduct(
+        authorization: String,
+        id: Int
+    )  = admin_productDetail_service.deleteProduuct(authorization, id)
 }
