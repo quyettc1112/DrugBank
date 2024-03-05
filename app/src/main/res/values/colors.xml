@@ -60,4 +60,6 @@
     <color name="lavender">#8692f7</color>
 
     <color name="green_ok">#89fc00</color>
+
+    <color name="background_profile">#F2FBFF</color>
 </resources>
