@@ -27,12 +27,12 @@ class SettingFragment : Fragment() {
     ): View? {
         _binding = FragmentSettingBinding.inflate(inflater, container, false)
 
-        _binding!!.buttonLogout.setOnClickListener {
-            Constant.removeAllSavedValues(requireContext())
-            val intent = Intent(requireContext(),LoginActivity::class.java)
-            startActivity(intent)
-            requireActivity().finish()
-        }
+//        _binding!!.buttonLogout.setOnClickListener {
+//            Constant.removeAllSavedValues(requireContext())
+//            val intent = Intent(requireContext(),LoginActivity::class.java)
+//            startActivity(intent)
+//            requireActivity().finish()
+//        }
 
         val rootView = binding.root
 
