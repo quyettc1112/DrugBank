@@ -194,7 +194,7 @@ class ProductDetailFragment : Fragment() {
 
     private fun CallProductDetail(id: Int){
         adminProductDetailRepository.getProductDetail(
-            authorization = "Bearer ${tokenManager.getAccessToken()}",
+            authorization = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2aW5oQGdtYWlsLmNvbSIsImZ1bGxOYW1lIjoiSHV5bmggR2lhIFZpbmgiLCJ1c2VySWQiOjIsIlJvbGVOYW1lIjoiU1VQRVJBRE1JTiIsImlhdCI6MTcxMDEzMTg1MCwiZXhwIjoxNzEwMjE4MjUwfQ.TJHqnZ2eydnXYWqNMgs7ibHD-tWcjmlpjbG2obyd6E8",
             id = id
         ).enqueue(object: Callback<ProductDetailRespone>{
             override fun onResponse(
@@ -219,11 +219,12 @@ class ProductDetailFragment : Fragment() {
 
                     _productDetailViewModel.setLoading(false)
                 } else {
-
+                    Log.d("CheckRsul", "${response.code()}, ${response.toString()}")
                 }
             }
             override fun onFailure(call: Call<ProductDetailRespone>, t: Throwable) {
                 _productDetailViewModel.setLoading(false)
+                Log.d("CheckRsul T", "${t.message}")
             }
         })
     }

@@ -74,4 +74,13 @@ data class ProductDetailRespone(
   @SerializedName("summary")
   val summary: String?
  )
+
+data class  ProductAdministrationDTO(
+ @SerializedName("id") val id: Int?,
+ @SerializedName("name") val name: String?,
+)
+
+ data class  Image (
+  @SerializedName("image") val image: String?
+ )
 }
