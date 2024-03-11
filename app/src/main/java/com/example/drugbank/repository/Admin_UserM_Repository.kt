@@ -56,5 +56,10 @@ class Admin_UserM_Repository @Inject constructor(
         user = addUserRequestDTO
     )
 
+    fun getUserByEmail(
+        authorization: String,
+        email: String
+    ) = apiService.getUserByEmail(authorization, email)
+
 
 }

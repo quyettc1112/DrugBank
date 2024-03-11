@@ -54,6 +54,15 @@ interface Admin_UserM_APIService {
     ): Call<String>
 
 
+    @GET("admin/user-management/find-by-email")
+    fun getUserByEmail (
+        @Header("Authorization") authorization: String,
+        @Query("email") email: String
+    ): Call<UserListResponse.User>
+
+
+
+
     
 
 
