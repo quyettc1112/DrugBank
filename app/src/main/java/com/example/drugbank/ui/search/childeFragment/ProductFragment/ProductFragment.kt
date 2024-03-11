@@ -92,8 +92,6 @@ class ProductFragment : Fragment() {
                     CallProductList()
                 }
             }
-
-
             val sortby_product = resources.getStringArray(R.array.sortByUser)
             val arrayAdapter_SortBy = ArrayAdapter(requireContext(), R.layout.dropdown_menu, sortby_product)
             view.findViewById<AutoCompleteTextView>(R.id.atc_sortBy_product).let{
@@ -127,7 +125,7 @@ class ProductFragment : Fragment() {
                 val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                 val lastCompletelyVisibleItem = layoutManager.findLastCompletelyVisibleItemPosition()
                 val totalItemCount = layoutManager.itemCount
-                if (lastCompletelyVisibleItem == totalItemCount - 1) {
+                if (lastCompletelyVisibleItem == totalItemCount - 5) {
                     if (totalItemCount < _productViewModel.totalElement.value!!) {
                         _productViewModel.incrementCurrentPage()
                         CallProductList()
