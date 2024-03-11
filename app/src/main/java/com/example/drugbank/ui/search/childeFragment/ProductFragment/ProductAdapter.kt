@@ -17,12 +17,12 @@ class ProductAdapter(): RecyclerView.Adapter<ProductAdapter.MainViewHolder>() {
         RecyclerView.ViewHolder(itemBinding.root) {
 
         fun bindItem(item: ProductListRespone.Content) {
-//            Picasso.get()
-//                .load(doctor?.avatar) // Assuming item.img is the URL string
-//                .placeholder(R.drawable.avatar_1) // Optional: Placeholder image while loading
-//                .error(R.drawable.default_user_avt) // Optional: Error image to display on load failure
-//                .into(itemBinding.ivUserAVTSchedule)
-            itemBinding.ivImgProduct.setImageResource(R.drawable.dafult_product_img)
+            Picasso.get()
+                .load(item?.image) // Assuming item.img is the URL string
+                .placeholder(R.drawable.dafult_product_img) // Optional: Placeholder image while loading
+                .error(R.drawable.dafult_product_img) // Optional: Error image to display on load failure
+                .into(itemBinding.ivImgProduct)
+          //  itemBinding.ivImgProduct.setImageResource(R.drawable.dafult_product_img)
             itemBinding.tvCategory.text = item.category
             itemBinding.tvRoute.text = item.route
             itemBinding.tvProductname.text = item.name

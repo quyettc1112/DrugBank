@@ -23,6 +23,7 @@ import com.example.drugbank.common.constant.Constant
 import com.example.drugbank.databinding.FragmentProductDetailBinding
 import com.example.drugbank.repository.Admin_ProductDetail_Repository
 import com.example.drugbank.respone.ProductDetailRespone
+import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
 import retrofit2.Callback
@@ -194,7 +195,7 @@ class ProductDetailFragment : Fragment() {
 
     private fun CallProductDetail(id: Int){
         adminProductDetailRepository.getProductDetail(
-            authorization = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ2aW5oQGdtYWlsLmNvbSIsImZ1bGxOYW1lIjoiSHV5bmggR2lhIFZpbmgiLCJ1c2VySWQiOjIsIlJvbGVOYW1lIjoiU1VQRVJBRE1JTiIsImlhdCI6MTcxMDEzMTg1MCwiZXhwIjoxNzEwMjE4MjUwfQ.TJHqnZ2eydnXYWqNMgs7ibHD-tWcjmlpjbG2obyd6E8",
+            authorization = "Bearer ${tokenManager.getAccessToken()}",
             id = id
         ).enqueue(object: Callback<ProductDetailRespone>{
             override fun onResponse(
@@ -208,11 +209,14 @@ class ProductDetailFragment : Fragment() {
                     bindDataManufactor(productDetail)
                     bindDataPharmarcogenomic(productDetail)
                     bindDataAroductAllergyDetail(productDetail)
-
+                    Picasso.get()
+                        .load(productDetailRespone?.image) // Assuming item.img is the URL string
+                        .placeholder(R.drawable.dafult_product_img) // Optional: Placeholder image while loading
+                        .error(R.drawable.dafult_product_img) // Optional: Error image to display on load failure
+                        .into(_binding.ivProductDetail)
                     productTableAdapter = ProductTableAdapter(productDetailRespone!!.drugIngredients.toList())
                     _binding.rvDrugIngredients.adapter = productTableAdapter
                     Log.d("CheckDrugIn", productDetail!!.drugIngredients.toList().toString())
-
 
                     producDetail_Authorites_Adapter = ProductDetail_Authorites_Adapter(productDetailRespone!!.authorities.toList())
                     _binding.rvAuthorities.adapter = producDetail_Authorites_Adapter

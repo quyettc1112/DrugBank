@@ -55,22 +55,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_gravity="left"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/acbtn_productDelete"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="4dp"
-                    android:background="@color/red_light"
-                    android:text="Delete"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-                </androidx.appcompat.widget.AppCompatButton>
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
                 android:orientation="vertical"
@@ -86,6 +71,7 @@
                     android:layout_height="wrap_content">
                 </TextView>
                 <ImageView
+                    android:id="@+id/iv_product_detail"
                     android:src="@drawable/dafult_product_img"
                     android:layout_marginTop="10dp"
                     android:layout_gravity="center"
@@ -1173,9 +1159,26 @@
                 android:layout_height="1dp">
             </LinearLayout>
         </LinearLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_gravity="left"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/acbtn_productDelete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/red_light"
+                    android:text="Delete"
+                    android:textColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"></androidx.appcompat.widget.AppCompatButton>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </LinearLayout>
     </ScrollView>
+
+
 
 </LinearLayout>

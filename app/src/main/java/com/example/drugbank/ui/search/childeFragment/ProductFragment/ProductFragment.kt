@@ -180,7 +180,9 @@ class ProductFragment : Fragment() {
                             company = product.company,
                             prescriptionName = product.prescriptionName,
                             route = product.route.toString(),
-                            createdOn = product.createdOn.toString()
+                            createdOn = product.createdOn.toString(),
+                            image = product.image,
+                            productAdministration = product.productAdministration
                         )
                     } ?: emptyList()
                     _productViewModel.loafMoreProductList(productList)

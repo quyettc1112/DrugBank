@@ -19,7 +19,9 @@ data class ProductDetailRespone(
  @SerializedName("pharmacogenomic") val pharmacogenomic: Pharmacogenomic,
  @SerializedName("prescriptionName") val prescriptionName: String,
  @SerializedName("productAllergyDetail") val productAllergyDetail: ProductAllergyDetail,
- @SerializedName("route") val route: String
+ @SerializedName("route") val route: String,
+ @SerializedName("image") val image: String?,
+ @SerializedName("productAdministrationDTO") val productAdministrationDTO: ProductAdministrationDTO?,
 ) {
  @Keep
  data class Category(
