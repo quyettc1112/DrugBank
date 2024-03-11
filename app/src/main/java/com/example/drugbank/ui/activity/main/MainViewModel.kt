@@ -6,7 +6,12 @@ import com.example.healthcarecomp.base.BaseViewModel
 class MainViewModel: BaseViewModel() {
 
     var currentNav = MutableLiveData<Int?>()
-    
+    var testValue = MutableLiveData<Int>()
+
+    init {
+        testValue.value = 0
+
+    }
     fun ChangeNav(IDNav: Int) {
         currentNav.value = IDNav
     }

@@ -1,5 +1,6 @@
 package com.example.drugbank.ui.setting
 
+import android.app.Dialog
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -8,9 +9,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.EditText
+import android.widget.RadioButton
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.widget.AppCompatButton
 import com.example.drugbank.R
+import com.example.drugbank.base.dialog.ConfirmDialog
+import com.example.drugbank.base.dialog.ErrorDialog
+import com.example.drugbank.common.Resource.Screen
 import com.example.drugbank.common.Token.TokenManager
 import com.example.drugbank.common.constant.Constant
+import com.example.drugbank.data.dto.UpdateUserRequestDTO
 import com.example.drugbank.data.model.User
 import com.example.drugbank.databinding.FragmentSearchBinding
 import com.example.drugbank.databinding.FragmentSettingBinding
@@ -18,7 +30,11 @@ import com.example.drugbank.repository.Admin_UserM_Repository
 import com.example.drugbank.respone.UserListResponse
 import com.example.drugbank.ui.activity.auth.login.LoginActivity
 import com.example.drugbank.ui.activity.main.MainActivity
+import com.example.drugbank.ui.activity.main.MainViewModel
+import com.google.android.material.textfield.TextInputEditText
+import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
+import de.hdodenhof.circleimageview.CircleImageView
 import retrofit2.Call
 import retrofit2.Response
 import javax.inject.Inject
@@ -33,6 +49,7 @@ class SettingFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var currentEmailUser: String
     private lateinit var tokenManager: TokenManager
+    private lateinit var mainViewModel: MainViewModel
 
     @Inject
     lateinit var userRepository: Admin_UserM_Repository
@@ -42,15 +59,17 @@ class SettingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSettingBinding.inflate(inflater, container, false)
-
         logout()
         tokenManager = TokenManager(requireContext())
         currentEmailUser = Constant.getSavedUsername(requireContext()).toString()
+       // CallGetUserByEmail()
 
-        CallGetUserByEmail()
+
+
+
+
 
         val rootView = binding.root
-
         return rootView
     }
 
@@ -66,9 +85,9 @@ class SettingFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(SettingViewModel::class.java)
+        mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
 
-//        val activity = requireActivity() as MainActivity
-//        activity.showLoginDialog()
+        Toast.makeText(requireContext(), "${mainViewModel.testValue.value}", Toast.LENGTH_LONG).show()
     }
 
     private fun CallGetUserByEmail() {
@@ -81,8 +100,19 @@ class SettingFragment : Fragment() {
                 response: Response<UserListResponse.User>
             ) {
                 if (response.isSuccessful) {
+                    val userRespone: UserListResponse.User? = response.body()
+                    binding.layoutSetting.setOnClickListener {
+                        Toast.makeText(requireContext(), "Click", Toast.LENGTH_SHORT).show()
+                        if (userRespone != null) {
+                            showUserInfoDialog(userRespone)
+                        }
+                    }
+                    Picasso.get()
+                        .load(userRespone?.avatar) // Assuming item.img is the URL string
+                        .placeholder(R.drawable.user_general) // Optional: Placeholder image while loading
+                        .error(R.drawable.user_general) // Optional: Error image to display on load failure
+                        .into(binding.ivUserAvatar)
 
-                    Log.d("CheckUser", response.body().toString())
                 }
                 else {
                     Log.d("CheckUser", response.code().toString())
@@ -94,9 +124,100 @@ class SettingFragment : Fragment() {
             }
         })
     }
-    private fun bindDataUser() {
+    private fun showUserInfoDialog(user: UserListResponse.User) {
+        val dialogBinding = layoutInflater.inflate(R.layout.dialog_user_info, null)
+        val myDialog = Dialog(requireContext())
 
 
+        val username = dialogBinding.findViewById<TextView>(R.id.tv_userName)
+        val id  = dialogBinding.findViewById<TextView>(R.id.tv_id)
+        val etEmail = dialogBinding.findViewById<TextInputEditText>(R.id.etEmail_userInfo)
+        val et_fullname = dialogBinding.findViewById<TextInputEditText>(R.id.et_fullname)
+        val et_dateofbirth = dialogBinding.findViewById<EditText>(R.id.et_dateofbirth)
+        val ivUserAvatar = dialogBinding.findViewById<CircleImageView>(R.id.ivUserAvatar)
+
+        val male = dialogBinding.findViewById<RadioButton>(R.id.rdo_btn_male)
+        val female = dialogBinding.findViewById<RadioButton>(R.id.rdo_btn_female)
+        male.isChecked = user.gender == 0
+        female.isChecked = !male.isChecked
+
+        username.text = user.username
+        id.text ="ID: "+ user.id.toString()
+        etEmail.setText(user.email)
+        et_fullname.setText(user.fullname)
+        et_dateofbirth.setText(user.dayOfBirth)
+        Picasso.get()
+            .load(user.avatar) // Assuming item.img is the URL string
+            .placeholder(R.drawable.user_general) // Optional: Placeholder image while loading
+            .error(R.drawable.user_general) // Optional: Error image to display on load failure
+            .into(ivUserAvatar)
+
+        val rolename = dialogBinding.findViewById<AutoCompleteTextView>(R.id.atc_roleListCombo_info)
+        val activeName = dialogBinding.findViewById<AutoCompleteTextView>(R.id.atc_ActiveList)
+
+        val rolelist = resources.getStringArray(R.array.RoleName)
+        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_menu, rolelist)
+        rolename.setAdapter(arrayAdapter)
+        rolename.setText(user.roleName)
+        if (user.roleName =="SUPERADMIN") {
+            rolename.setText("SUPER ADMIN")
+        } else rolename.setText(user.roleName)
+
+        val activeList = resources.getStringArray(R.array.Active)
+        val arrayApderActive = ArrayAdapter(requireContext(), R.layout.dropdown_menu, activeList)
+        activeName.setAdapter(arrayApderActive)
+        activeName.setText(user.isActive)
+
+        myDialog.setContentView(dialogBinding)
+        myDialog.setCancelable(true)
+        myDialog.window?.setLayout(Screen.width, Screen.height)
+        // myDialog.window?.setBackgroundDrawable(ColorDrawable(requireContext().getColor(R.color.zxing_transparent)))
+        myDialog.show()
+
+        onButtonClickDialog(dialogBinding, et_fullname, etEmail, et_dateofbirth, male, myDialog)
+    }
+
+    private fun onButtonClickDialog(
+        dialogBinding: View,
+        et_fullname: TextInputEditText,
+        etEmail: TextInputEditText,
+        et_dateofbirth: EditText,
+        male: RadioButton,
+        myDialog: Dialog
+    ) {
+        val btn_save = dialogBinding.findViewById<AppCompatButton>(R.id.btn_save)
+        val btn_back = dialogBinding.findViewById<AppCompatButton>(R.id.btn_back)
+        btn_save.setOnClickListener {
+            if (!et_fullname.text.toString().isNullOrEmpty()) {
+                val confirmDialog = ConfirmDialog(
+                    requireContext(),
+                    object : ConfirmDialog.ConfirmCallback {
+                        override fun negativeAction() {}
+                        override fun positiveAction() {
+
+                            myDialog.dismiss()
+                        }
+                    },
+                    title = "Confirm",
+                    message = "Save User Info",
+                    positiveButtonTitle = "Yes",
+                    negativeButtonTitle = "No"
+                )
+                confirmDialog.show()
+            } else {
+                val errorDialog = ErrorDialog(
+                    context = requireContext(),
+                    errorContent = "Error Null Input",
+                    textButton = "Back"
+                )
+                // Show the ConfirmDialog
+                errorDialog.show()
+
+            }
+        }
+        btn_back.setOnClickListener {
+            myDialog.dismiss()
+        }
     }
 
 

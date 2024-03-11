@@ -40,6 +40,7 @@ import com.example.drugbank.repository.Admin_UserM_Repository
 import com.example.drugbank.respone.UserListResponse
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.textfield.TextInputEditText
+import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import de.hdodenhof.circleimageview.CircleImageView
 import retrofit2.Call
@@ -352,8 +353,12 @@ class UserManagerFragment : Fragment() {
         etEmail.setText(user.email)
         et_fullname.setText(user.fullname)
         et_dateofbirth.setText(user.dayOfBirth)
-        val avatarResId = if (user.gender == 0) R.drawable.anh_2 else R.drawable.anh_3
-        ivUserAvatar.setImageResource(avatarResId)
+
+        Picasso.get()
+            .load(user.avatar) // Assuming item.img is the URL string
+            .placeholder(R.drawable.user_general) // Optional: Placeholder image while loading
+            .error(R.drawable.user_general) // Optional: Error image to display on load failure
+            .into(ivUserAvatar)
 
         val rolename = dialogBinding.findViewById<AutoCompleteTextView>(R.id.atc_roleListCombo_info)
         val activeName = dialogBinding.findViewById<AutoCompleteTextView>(R.id.atc_ActiveList)

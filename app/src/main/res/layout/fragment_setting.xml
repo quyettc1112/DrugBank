@@ -146,6 +146,7 @@
                     android:layout_height="wrap_content">
 
                     <LinearLayout
+                        android:id="@+id/layoutSetting"
                         android:weightSum="10"
                         android:layout_margin="16dp"
                         android:orientation="horizontal"
