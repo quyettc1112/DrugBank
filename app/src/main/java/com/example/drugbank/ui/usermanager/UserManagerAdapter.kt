@@ -20,6 +20,7 @@ import com.example.drugbank.data.model.User
 import com.example.drugbank.databinding.BaseRecycleUserBinding
 import com.example.drugbank.repository.Admin_UserM_Repository
 import com.example.drugbank.respone.UserListResponse
+import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 import retrofit2.Call
 import retrofit2.Callback
@@ -40,20 +41,16 @@ class UserManagerAdapter(context: Context, userRepository: Admin_UserM_Repositor
             itemBinding.tvRole.text = user.roleName
             itemBinding.tvEmail.text = user.email
             val backgroundResId = if (user.gender == 0) R.drawable.background_male else R.drawable.background_female
-            val avatarResId = if (user.gender == 0) R.drawable.anh_2 else R.drawable.anh_3
-
             itemBinding.backgroundGender.setBackgroundResource(backgroundResId)
-            itemBinding.ivUserAvatar.setImageResource(avatarResId)
 
             if (user.isActive.equals("Deactivate")) {
                 itemBinding.ivUserAvatar.setImageResource(R.drawable.baseline_block_24)
-
             }
-//            Picasso.get()
-//                .load(user.imageIcon) // Assuming item.img is the URL string
-//                .placeholder(user.imageIcon) // Optional: Placeholder image while loading
-//                .error(user.imageIcon) // Optional: Error image to display on load failure
-//                .into(itemBinding.ivUserAvatar)
+            Picasso.get()
+                .load(user.avatar) // Assuming item.img is the URL string
+                .placeholder(R.drawable.user_general) // Optional: Placeholder image while loading
+                .error(R.drawable.user_general) // Optional: Error image to display on load failure
+                .into(itemBinding.ivUserAvatar)
 
         }
     }
@@ -106,8 +103,13 @@ class UserManagerAdapter(context: Context, userRepository: Admin_UserM_Repositor
 
 
 
-        val avatarResId = if (user.gender == 0) R.drawable.anh_2 else R.drawable.anh_3
-        ivUserAvatar.setImageResource(avatarResId)
+//        val avatarResId = if (user.gender == 0) R.drawable.anh_2 else R.drawable.anh_3
+//        ivUserAvatar.setImageResource(avatarResId)
+        Picasso.get()
+            .load(user.avatar) // Assuming item.img is the URL string
+            .placeholder(R.drawable.user_general) // Optional: Placeholder image while loading
+            .error(R.drawable.user_general) // Optional: Error image to display on load failure
+            .into(ivUserAvatar)
 
         tv_userName.text = user.fullname
         //activeName.setText(user.isActive.toString())

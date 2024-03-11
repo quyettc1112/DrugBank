@@ -10,5 +10,7 @@ data class User(
     @SerializedName("dayOfBirth") val dayOfBirth: String,
     @SerializedName("gender") val gender: Int,
     @SerializedName("roleName") val roleName: String,
-    @SerializedName("isActive") val isActive: String
+    @SerializedName("isActive") val isActive: String,
+    @SerializedName("avatar")
+    val avatar: String?
 )
