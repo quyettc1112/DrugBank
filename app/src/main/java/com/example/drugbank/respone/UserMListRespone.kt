@@ -34,7 +34,9 @@ data class UserListResponse(
   @SerializedName("roleName")
   val roleName: String,
   @SerializedName("isActive")
-  val isActive: String
+  val isActive: String,
+  @SerializedName("avatar")
+  val avatar: String?
  )
 
 }

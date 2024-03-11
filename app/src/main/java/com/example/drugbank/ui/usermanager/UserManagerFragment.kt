@@ -305,7 +305,8 @@ class UserManagerFragment : Fragment() {
                             dayOfBirth = user.dayOfBirth,
                             gender = user.gender,
                             roleName = user.roleName,
-                            isActive = user.isActive
+                            isActive = user.isActive,
+                            avatar = user.avatar
                         )
                     } ?: emptyList()
                     updateStatic()
