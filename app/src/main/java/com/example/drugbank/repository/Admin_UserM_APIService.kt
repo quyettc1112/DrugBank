@@ -14,7 +14,7 @@ import retrofit2.http.PUT
 import retrofit2.http.Query
 
 interface Admin_UserM_APIService {
-    @GET("admin/user-management/users")
+    @GET("admin/users")
     fun getPageableUser(
         @Header("Authorization") authorization: String,
         @Query("pageNo") pageNo: Int,
@@ -27,21 +27,21 @@ interface Admin_UserM_APIService {
     ): Call<UserListResponse>
 
 
-    @PUT("admin/user-management/user")
+    @PUT("admin/users")
     fun updateUser(
         @Header("Authorization") authorization: String,
         @Query("email") email: String,
         @Body updateUserRequest: UpdateUserRequestDTO
     ) : Call<UserListResponse.User>
 
-    @POST("admin/user-management/deactivate-user")
+    @POST("admin/users/deactivate")
     fun deactivateUser(
         @Header("Authorization") authorization: String,
         @Query("email") email: String
     ): Call<UserListResponse.User>
 
 
-    @POST("admin/user-management/active-user")
+    @POST("admin/users/activate")
     fun ActivateUser(
         @Header("Authorization") authorization: String,
         @Query("email") email: String
@@ -54,7 +54,7 @@ interface Admin_UserM_APIService {
     ): Call<String>
 
 
-    @GET("admin/user-management/find-by-email")
+    @GET("admin/users/email")
     fun getUserByEmail (
         @Header("Authorization") authorization: String,
         @Query("email") email: String

@@ -10,13 +10,13 @@ import retrofit2.http.Query
 
 
 interface Admin_ProductDetail_Service {
-    @GET("admin/approval-product-detail")
+    @GET("admin/approval-products-detail")
     fun getProductDetail(
         @Header("Authorization") authorization: String,
         @Query("id") id: Int,
     ): Call<ProductDetailRespone>
 
-    @DELETE("admin/approval-product/delete")
+    @DELETE("admin/approval-products")
     fun deleteProduuct(
         @Header("Authorization") authorization: String,
         @Query("id") id: Int

@@ -14,7 +14,7 @@ import retrofit2.http.Query
 
 interface Admin_DrugM_APIService {
 
-    @GET("admin/drug-management/drugs")
+    @GET("admin/drugs")
     fun getDrugMList(
         @Header("Authorization") authorization: String,
         @Query("pageNo") pageNo: Int,
@@ -26,7 +26,7 @@ interface Admin_DrugM_APIService {
 
 
 
-    @PUT("admin/drug-management/drug/update")
+    @PUT("admin/drugs")
     fun updateDrugbyID(
         @Header("Authorization") authorization: String,
         @Query("drugId") drugId: Int,
@@ -34,13 +34,13 @@ interface Admin_DrugM_APIService {
     ): Call<DrugMListRespone.Content>
 
 
-    @POST("admin/drug-management/drug/create")
+    @POST("admin/drugs")
     fun createDrug(
         @Header("Authorization") authorization: String,
         @Body createDrugRequestDTO: CreateDrugRequestDTO
     ): Call<Void>
 
-    @DELETE("admin/drug-management/drug/delete")
+    @DELETE("admin/drugs")
     fun deleteDrug(
         @Header("Authorization") authorization: String,
         @Query("id") id: Int
