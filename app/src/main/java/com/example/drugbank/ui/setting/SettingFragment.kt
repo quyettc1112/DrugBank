@@ -56,11 +56,9 @@ class SettingFragment : Fragment() {
     private lateinit var viewModel: SettingViewModel
     private var _binding: FragmentSettingBinding? = null
     private val binding get() = _binding!!
-    private lateinit var currentEmailUser: String
     private lateinit var tokenManager: TokenManager
     private lateinit var currentUser: UserListResponse.User
     private val REQUEST_CODE_PICK_IMAGE = 123
-    lateinit var imageUri: Uri
 
     @Inject
     lateinit var userRepository: Admin_UserM_Repository
@@ -75,16 +73,16 @@ class SettingFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.d("CheckUserShareF", Constant.getCurrentUser(requireContext()).toString())
         _binding = FragmentSettingBinding.inflate(inflater, container, false)
         logout()
         tokenManager = TokenManager(requireContext())
+        currentUser = Constant.getCurrentUser(requireContext())!!
         bindUserData()
         _binding!!.layoutSetting.setOnClickListener {
             showUserInfoDialog(currentUser)
         }
 
-        _binding!!.ivUserAvatar.setOnClickListener {
+        binding.ivUserAvatar.setOnClickListener {
             contract.launch("image/*")
         }
 
@@ -94,10 +92,8 @@ class SettingFragment : Fragment() {
 
     private val contract = registerForActivityResult(ActivityResultContracts.GetContent()) { result ->
         if (result != null) {
-            // Nếu đã chọn hình ảnh, tiến hành upload
             upLoadImage(result)
         } else {
-            // Xử lý trường hợp không chọn hình ảnh
             Toast.makeText(requireContext(), "No image selected", Toast.LENGTH_SHORT).show()
         }
     }
@@ -114,7 +110,7 @@ class SettingFragment : Fragment() {
 
         apiUserService.uploadImage(
             authorization = "Bearer ${tokenManager.getAccessToken()}",
-            email = currentEmailUser.toString(),
+            email = currentUser.email.toString(),
             image = partImage
         ).enqueue(object : Callback<UserListResponse.User?> {
             override fun onResponse(
@@ -137,9 +133,6 @@ class SettingFragment : Fragment() {
 
 
     private fun bindUserData() {
-        currentEmailUser = Constant.getSavedUsername(requireContext()).toString()
-        // CallGetUserByEmail()
-        currentUser = Constant.getCurrentUser(requireContext())!!
         Picasso.get()
             .load(currentUser!!.avatar) // Assuming item.img is the URL string
             .placeholder(R.drawable.user_general) // Optional: Placeholder image while loading
@@ -201,7 +194,7 @@ class SettingFragment : Fragment() {
     private fun CallGetUserByEmail() {
         userRepository.getUserByEmail(
             authorization = "Bearer ${tokenManager.getAccessToken()}",
-            email = currentEmailUser
+            email = currentUser.email.toString()
         ).enqueue(object : retrofit2.Callback<UserListResponse.User> {
             override fun onResponse(
                 call: Call<UserListResponse.User>,
@@ -210,6 +203,7 @@ class SettingFragment : Fragment() {
                 if (response.isSuccessful) {
                     val userRespone: UserListResponse.User? = response.body()
                     Constant.saveCurrentUser(requireContext(), userRespone!!)
+                    currentUser = Constant.getCurrentUser(requireContext())!!
                     bindUserData()
                 }
                 else {
@@ -325,7 +319,7 @@ class SettingFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-      //  CallGetUserByEmail()
+        CallGetUserByEmail()
     }
 
 
