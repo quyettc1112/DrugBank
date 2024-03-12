@@ -192,7 +192,6 @@ class ProductDetailFragment : Fragment() {
             setExpandedStateAndToggleVisibility(targetLayout, lineLayout, isExpanded, imageView )
         }
     }
-
     private fun View.setExpandedStateAndToggleVisibility(targetLayout: View, lineLayout: View, isExpanded: Boolean, imageView: AppCompatImageView) {
         if (isExpanded) {
             targetLayout.visibility = View.VISIBLE
