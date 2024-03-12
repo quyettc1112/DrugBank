@@ -39,7 +39,7 @@ class MainActivity : BaseActivity() {
 
         tokenManager = TokenManager(this@MainActivity)
         currentEmailUser = Constant.getSavedUsername(this@MainActivity)
-        CallGetUserByEmail()
+        //CallGetUserByEmail()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setUpBottomNav()
@@ -66,28 +66,28 @@ class MainActivity : BaseActivity() {
         showLoginDialog(this, this, 0)
     }
 
-    private fun CallGetUserByEmail() {
-        userRepository.getUserByEmail(
-            authorization = "Bearer ${tokenManager.getAccessToken()}",
-            email = currentEmailUser.toString()
-        ).enqueue(object : retrofit2.Callback<UserListResponse.User> {
-            override fun onResponse(
-                call: Call<UserListResponse.User>,
-                response: Response<UserListResponse.User>
-            ) {
-                if (response.isSuccessful) {
-                    val userRespone: UserListResponse.User? = response.body()
-                    Constant.saveCurrentUser(this@MainActivity, userRespone!!)
-                }
-                else {
-                    Log.d("CheckUser", response.code().toString())
-                }
-            }
-            override fun onFailure(call: Call<UserListResponse.User>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
-        })
-    }
+//    private fun CallGetUserByEmail() {
+//        userRepository.getUserByEmail(
+//            authorization = "Bearer ${tokenManager.getAccessToken()}",
+//            email = currentEmailUser.toString()
+//        ).enqueue(object : retrofit2.Callback<UserListResponse.User> {
+//            override fun onResponse(
+//                call: Call<UserListResponse.User>,
+//                response: Response<UserListResponse.User>
+//            ) {
+//                if (response.isSuccessful) {
+//                    val userRespone: UserListResponse.User? = response.body()
+//                    Constant.saveCurrentUser(this@MainActivity, userRespone!!)
+//                }
+//                else {
+//                    Log.d("CheckUser", response.code().toString())
+//                }
+//            }
+//            override fun onFailure(call: Call<UserListResponse.User>, t: Throwable) {
+//                TODO("Not yet implemented")
+//            }
+//        })
+//    }
 
 
 }
