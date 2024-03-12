@@ -58,7 +58,6 @@ class SettingFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var tokenManager: TokenManager
     private lateinit var currentUser: UserListResponse.User
-    private val REQUEST_CODE_PICK_IMAGE = 123
 
     @Inject
     lateinit var userRepository: Admin_UserM_Repository
