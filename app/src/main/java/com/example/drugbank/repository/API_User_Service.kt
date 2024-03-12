@@ -1,5 +1,6 @@
 package com.example.drugbank.repository
 
+import com.example.drugbank.respone.ProductListRespone
 import com.example.drugbank.respone.UserListResponse
 import retrofit2.Call
 import retrofit2.http.Header
@@ -20,5 +21,15 @@ interface API_User_Service {
         @Query("email") email: String?,
         @Part image: MultipartBody.Part?
     ): Call<UserListResponse.User?>
+
+
+    @Multipart
+    @POST("api/storage/approval-products")
+    fun uploadImageProduct(
+        @Header("Authorization") authorization: String,
+        @Query("ApprovalProductID") approvalProductID: Int?,
+        @Part image: MultipartBody.Part?
+    ):  Call<ProductListRespone.Content?>
+
 
 }

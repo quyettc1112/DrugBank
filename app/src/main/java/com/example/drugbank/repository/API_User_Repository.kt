@@ -14,4 +14,12 @@ class API_User_Repository @Inject constructor(
         email:String?,
         image: MultipartBody.Part
     ) =  apiService.uploadImage(authorization,email, image)
+
+
+
+    fun upLoadImageProduct(
+        authorization: String,
+        ApprovalProductID:Int?,
+        image: MultipartBody.Part
+    ) = apiService.uploadImageProduct(authorization, ApprovalProductID, image)
 }
