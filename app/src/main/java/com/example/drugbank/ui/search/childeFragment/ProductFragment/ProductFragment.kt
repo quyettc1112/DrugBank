@@ -63,6 +63,7 @@ class ProductFragment : Fragment() {
         loadingUI()
 
 
+
         return _binding.root
     }
 
@@ -97,13 +98,13 @@ class ProductFragment : Fragment() {
             view.findViewById<AutoCompleteTextView>(R.id.atc_sortBy_product).let{
                 it.setAdapter(arrayAdapter_SortBy)
                 it.setOnItemClickListener { parent, view, position, id ->
-                    val sortBy = sortby_product[position]
-                    val lowercaseSortBY= when (sortBy) {
-                        "ASC" -> "asc"
+                    _productViewModel.currentSortBy.value = when(sortby_product[position]) {
+                        "ACS" -> "asc"
                         "DESC" -> "desc"
-                        else -> sortBy.toLowerCase()
+                        else -> {
+                            ""
+                        }
                     }
-                    _productViewModel.currentSortBy.value = lowercaseSortBY
                     RESET_VIEWMODEL_VALUE()
                     CallProductList()
                 }
