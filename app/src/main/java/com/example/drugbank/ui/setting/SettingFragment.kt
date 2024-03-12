@@ -49,7 +49,7 @@ class SettingFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var currentEmailUser: String
     private lateinit var tokenManager: TokenManager
-    private lateinit var mainViewModel: MainViewModel
+    private lateinit var currentUser: UserListResponse.User
 
     @Inject
     lateinit var userRepository: Admin_UserM_Repository
@@ -58,13 +58,14 @@ class SettingFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.d("CheckUserShareF", Constant.getCurrentUser(requireContext()).toString())
         _binding = FragmentSettingBinding.inflate(inflater, container, false)
         logout()
         tokenManager = TokenManager(requireContext())
-        currentEmailUser = Constant.getSavedUsername(requireContext()).toString()
-       // CallGetUserByEmail()
-
-
+        bindUserData()
+        _binding!!.layoutSetting.setOnClickListener {
+            showUserInfoDialog(currentUser)
+        }
 
 
 
@@ -73,9 +74,26 @@ class SettingFragment : Fragment() {
         return rootView
     }
 
+    private fun bindUserData() {
+        currentEmailUser = Constant.getSavedUsername(requireContext()).toString()
+        // CallGetUserByEmail()
+        currentUser = Constant.getCurrentUser(requireContext())!!
+        Picasso.get()
+            .load(currentUser!!.avatar) // Assuming item.img is the URL string
+            .placeholder(R.drawable.user_general) // Optional: Placeholder image while loading
+            .error(R.drawable.user_general) // Optional: Error image to display on load failure
+            .into(_binding!!.ivUserAvatar)
+
+
+        _binding!!.userName.text = currentUser.fullname
+    }
+
+
+
     private fun logout() {
         _binding!!.logout.setOnClickListener {
             Constant.removeAllSavedValues(requireContext())
+            Constant.removeAllCurrentUser(requireContext())
             val intent = Intent(requireContext(), LoginActivity::class.java)
             startActivity(intent)
             requireActivity().finish()
@@ -85,9 +103,8 @@ class SettingFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(SettingViewModel::class.java)
-        mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
 
-        Toast.makeText(requireContext(), "${mainViewModel.testValue.value}", Toast.LENGTH_LONG).show()
+
     }
 
     private fun CallGetUserByEmail() {
@@ -112,7 +129,6 @@ class SettingFragment : Fragment() {
                         .placeholder(R.drawable.user_general) // Optional: Placeholder image while loading
                         .error(R.drawable.user_general) // Optional: Error image to display on load failure
                         .into(binding.ivUserAvatar)
-
                 }
                 else {
                     Log.d("CheckUser", response.code().toString())
