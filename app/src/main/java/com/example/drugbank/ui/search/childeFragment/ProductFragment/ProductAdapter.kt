@@ -20,7 +20,7 @@ class ProductAdapter(): RecyclerView.Adapter<ProductAdapter.MainViewHolder>() {
             Picasso.get()
                 .load(item?.image) // Assuming item.img is the URL string
                 .placeholder(R.drawable.dafult_product_img) // Optional: Placeholder image while loading
-                .error(R.drawable.dafult_product_img) // Optional: Error image to display on load failure
+                .error(R.drawable.loadingsim) // Optional: Error image to display on load failure
                 .into(itemBinding.ivImgProduct)
           //  itemBinding.ivImgProduct.setImageResource(R.drawable.dafult_product_img)
             itemBinding.tvCategory.text = item.category

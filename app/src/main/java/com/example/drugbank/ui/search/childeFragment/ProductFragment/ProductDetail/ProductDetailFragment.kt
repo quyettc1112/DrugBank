@@ -2,6 +2,7 @@ package com.example.drugbank.ui.search.childeFragment.ProductFragment.ProductDet
 
 import android.content.Context
 import android.content.res.Resources
+import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.transition.AutoTransition
@@ -12,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.navigation.findNavController
 import com.example.drugbank.R
@@ -21,13 +23,21 @@ import com.example.drugbank.base.dialog.NotifyDialog
 import com.example.drugbank.common.Token.TokenManager
 import com.example.drugbank.common.constant.Constant
 import com.example.drugbank.databinding.FragmentProductDetailBinding
+import com.example.drugbank.repository.API_User_Repository
 import com.example.drugbank.repository.Admin_ProductDetail_Repository
 import com.example.drugbank.respone.ProductDetailRespone
+import com.example.drugbank.respone.ProductListRespone
+import com.example.drugbank.respone.UserListResponse
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
+import java.io.FileOutputStream
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -45,6 +55,10 @@ class ProductDetailFragment : Fragment() {
     @Inject
     lateinit var adminProductDetailRepository: Admin_ProductDetail_Repository
 
+
+    @Inject
+    lateinit var apiUserRepository: API_User_Repository
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -59,15 +73,70 @@ class ProductDetailFragment : Fragment() {
         loadingUI()
         CallProductDetail(productID)
         setUpUiStatic()
+        CallDeleteProduct()
+
+        _binding.ivProductDetail.setOnClickListener {
+            contract.launch("image/*")
+        }
 
 
+        return _binding.root
+    }
+
+
+
+    private val contract = registerForActivityResult(ActivityResultContracts.GetContent()) { result ->
+        if (result != null) {
+            upLoadImage(result)
+        } else {
+            Toast.makeText(requireContext(), "No image selected", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun upLoadImage(imageUri: Uri) {
+        val filesDir = requireContext().applicationContext.filesDir
+        val file = File(filesDir, "image.png")
+        val inputStream = requireContext().contentResolver.openInputStream(imageUri)
+        val outputStream = FileOutputStream(file)
+        inputStream!!.copyTo(outputStream)
+
+        val image = file.asRequestBody("image/*".toMediaTypeOrNull())
+        val partImage = MultipartBody.Part.createFormData("file", file.name, image)
+
+        apiUserRepository.upLoadImageProduct(
+            authorization = "Bearer ${tokenManager.getAccessToken()}",
+            ApprovalProductID = productID,
+            image = partImage
+        ).enqueue(object : Callback<ProductListRespone.Content?> {
+            override fun onResponse(
+                call: Call<ProductListRespone.Content?>,
+                response: Response<ProductListRespone.Content?>
+            ) {
+                if (response.isSuccessful) {
+                    //CallGetUserByEmail()
+                    _productDetailViewModel.setLoading(true)
+                    CallProductDetail(productID)
+                    Log.d("CheckSuss", "Yes")
+                } else {
+                    Toast.makeText(requireContext(), "Upload failed", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ProductListRespone.Content?>, t: Throwable) {
+                Toast.makeText(requireContext(), "Upload failed: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+
+        })
+    }
+
+    private fun CallDeleteProduct() {
         _binding.acbtnProductDelete.setOnClickListener {
             val confirmDialog = ConfirmDialog(
                 requireContext(),
                 object : ConfirmDialog.ConfirmCallback {
                     override fun negativeAction() {}
                     override fun positiveAction() {
-                      CallDeleteProduct(productID)
+                        CallDeleteProduct(productID)
                     }
                 },
                 title = "Confirm",
@@ -77,12 +146,11 @@ class ProductDetailFragment : Fragment() {
             )
             confirmDialog.show()
             confirmDialog.setOnDismissListener {
-                val navController = requireActivity().findNavController(R.id.nav_host_fragment_activity_main)
+                val navController =
+                    requireActivity().findNavController(R.id.nav_host_fragment_activity_main)
                 navController.navigate(Constant.getNavSeleted(Constant.SEARCH_NAV_ID))
             }
         }
-
-        return _binding.root
     }
 
 
@@ -212,7 +280,7 @@ class ProductDetailFragment : Fragment() {
                     Picasso.get()
                         .load(productDetailRespone?.image) // Assuming item.img is the URL string
                         .placeholder(R.drawable.dafult_product_img) // Optional: Placeholder image while loading
-                        .error(R.drawable.dafult_product_img) // Optional: Error image to display on load failure
+                        .error(R.drawable.loading) // Optional: Error image to display on load failure
                         .into(_binding.ivProductDetail)
                     productTableAdapter = ProductTableAdapter(productDetailRespone!!.drugIngredients.toList())
                     _binding.rvDrugIngredients.adapter = productTableAdapter
