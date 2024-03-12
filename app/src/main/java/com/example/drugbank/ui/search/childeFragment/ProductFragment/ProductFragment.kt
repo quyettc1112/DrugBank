@@ -59,6 +59,7 @@ class ProductFragment : Fragment() {
         val bottomSheetDialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
         val view = layoutInflater.inflate(R.layout.layout_bottom_sheet_prouduct, null)
         showBottomSheet(bottomSheetDialog,view)
+        setUpSearchQueries()
         _productViewModel.setLoading(true)
         loadingUI()
 
@@ -153,6 +154,36 @@ class ProductFragment : Fragment() {
                 _binding.pgIsLoading.visibility = View.GONE
             }
         }
+    }
+
+    private fun setUpSearchQueries() {
+        val searchView = _binding.searchView
+        searchView.clearFocus()
+        searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (!query.isNullOrEmpty()) {
+                    _productViewModel.currentSearchValue.value = query
+                    RESET_VIEWMODEL_VALUE()
+                    CallProductList()
+                }
+                return true
+            }
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (!newText.isNullOrEmpty()) {
+                    if (newText?.length!! % 2 == 0) {
+                        _productViewModel.currentSearchValue.value= newText
+                        RESET_VIEWMODEL_VALUE()
+                        CallProductList()
+                    }
+                }
+                if (newText?.length == 0) {
+                    _productViewModel.resetSearchValue()
+                    RESET_VIEWMODEL_VALUE()
+                    CallProductList()
+                }
+                return true
+            }
+        })
     }
 
     private fun CallProductList() {

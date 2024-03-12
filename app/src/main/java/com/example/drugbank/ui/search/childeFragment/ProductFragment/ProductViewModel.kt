@@ -50,11 +50,15 @@ class ProductViewModel @Inject constructor() : ViewModel()  {
 
 
     fun resetAllValue() {
-        currentSearchValue.value = ""
+      //  currentSearchValue.value = ""
         currentProductList.value = null
         totalElement.value = 0
         currentPage.value = 0 // Gán giá trị mới cho currentPage là 0
     }
+    fun resetSearchValue() {
+        currentSearchValue.value = ""
+    }
+
 
 
 
