@@ -1,6 +1,7 @@
 package com.example.drugbank.di
 
 import com.example.drugbank.common.BaseAPI.BaseAPI
+import com.example.drugbank.repository.API_User_Service
 import com.example.drugbank.repository.Admin_DrugM_APIService
 import com.example.drugbank.repository.Admin_ProductDetail_Service
 import com.example.drugbank.repository.Admin_ProductM_APIService
@@ -108,5 +109,16 @@ object APIModule {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(Admin_ProductDetail_Service::class.java)
+
+
+    @Provides
+    @Singleton
+    fun provideRetrofit_UploadImUser(baseUrl: String, gson: Gson, client: OkHttpClient): API_User_Service =
+        Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+            .create(API_User_Service::class.java)
 
 }

@@ -66,6 +66,7 @@ dependencies {
     implementation("com.google.android.gms:play-services-drive:17.0.0")
     implementation("androidx.recyclerview:recyclerview:1.3.0")
     implementation("androidx.preference:preference:1.2.1")
+    implementation("com.google.ai.client.generativeai:generativeai:0.2.1")
     /*    implementation("androidx.annotation:annotation-jvm:1.7.1")*/
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
