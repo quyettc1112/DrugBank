@@ -43,7 +43,6 @@ class MainActivity : BaseActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setUpBottomNav()
-
     }
 
     private fun setUpBottomNav() {
@@ -56,7 +55,6 @@ class MainActivity : BaseActivity() {
             }
         })
         binding.bottomBar.let { bt ->
-            // Todo Check người dùng đã đăng nhập chưa ở dây
             bt.onItemSelected = {
                     _mainViewModel.ChangeNav(it)
             }
@@ -79,8 +77,7 @@ class MainActivity : BaseActivity() {
             ) {
                 if (response.isSuccessful) {
                     val userRespone: UserListResponse.User? = response.body()
-                    Log.d("CheckUser", userRespone.toString())
-
+                    Constant.saveCurrentUser(this@MainActivity, userRespone!!)
                 }
                 else {
                     Log.d("CheckUser", response.code().toString())
