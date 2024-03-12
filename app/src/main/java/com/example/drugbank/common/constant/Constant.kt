@@ -70,7 +70,6 @@ class Constant {
             if (user.avatar!= null) {
                 userJson.put("avatar", user.avatar)
             } else  userJson.put("avatar", R.drawable.user_general)
-
             editor.putString(CURRENT_USER_VALUE, userJson.toString())
             editor.apply()
         }
