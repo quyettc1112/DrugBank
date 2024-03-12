@@ -84,7 +84,6 @@ class SettingFragment : Fragment() {
             .error(R.drawable.user_general) // Optional: Error image to display on load failure
             .into(_binding!!.ivUserAvatar)
 
-
         _binding!!.userName.text = currentUser.fullname
     }
 
@@ -107,6 +106,41 @@ class SettingFragment : Fragment() {
 
     }
 
+    private fun CallUpdateUser(
+        email: String,
+        updateUserRequestDTO: UpdateUserRequestDTO
+    ) {
+        userRepository.UpdateUserInfo(
+            "Bearer ${tokenManager.getAccessToken()}",
+            email = email,
+            updateUserRequestDTO
+        ).enqueue(object : retrofit2.Callback<UserListResponse.User> {
+            override fun onResponse(
+                call: Call<UserListResponse.User>,
+                response: Response<UserListResponse.User>
+            ) {
+                if (response.isSuccessful) {
+                    Constant.removeAllCurrentUser(requireContext())
+                    CallGetUserByEmail()
+                } else {
+                    val errorDialog = ErrorDialog(
+                        context = requireContext(),
+                        errorContent = "${response.code()}, ${response.message()}",
+                        textButton = "Back"
+                    )
+                    // Show the ConfirmDialog
+                    errorDialog.show()
+
+                }
+
+
+            }
+
+            override fun onFailure(call: Call<UserListResponse.User>, t: Throwable) {
+                Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
     private fun CallGetUserByEmail() {
         userRepository.getUserByEmail(
             authorization = "Bearer ${tokenManager.getAccessToken()}",
@@ -118,17 +152,8 @@ class SettingFragment : Fragment() {
             ) {
                 if (response.isSuccessful) {
                     val userRespone: UserListResponse.User? = response.body()
-                    binding.layoutSetting.setOnClickListener {
-                        Toast.makeText(requireContext(), "Click", Toast.LENGTH_SHORT).show()
-                        if (userRespone != null) {
-                            showUserInfoDialog(userRespone)
-                        }
-                    }
-                    Picasso.get()
-                        .load(userRespone?.avatar) // Assuming item.img is the URL string
-                        .placeholder(R.drawable.user_general) // Optional: Placeholder image while loading
-                        .error(R.drawable.user_general) // Optional: Error image to display on load failure
-                        .into(binding.ivUserAvatar)
+                    Constant.saveCurrentUser(requireContext(), userRespone!!)
+                    bindUserData()
                 }
                 else {
                     Log.d("CheckUser", response.code().toString())
@@ -210,7 +235,13 @@ class SettingFragment : Fragment() {
                     object : ConfirmDialog.ConfirmCallback {
                         override fun negativeAction() {}
                         override fun positiveAction() {
-
+                            CallUpdateUser(
+                                email = etEmail.text.toString(),
+                                UpdateUserRequestDTO(
+                                    et_fullname.text.toString(), et_dateofbirth.text.toString(),
+                                    gender = if (male.isChecked) 0 else 1
+                                )
+                            )
                             myDialog.dismiss()
                         }
                     },

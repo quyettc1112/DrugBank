@@ -98,7 +98,6 @@ class UserManagerFragment : Fragment() {
         }
     }
 
-
     override fun onResume() {
         super.onResume()
 

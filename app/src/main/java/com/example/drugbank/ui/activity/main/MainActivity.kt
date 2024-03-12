@@ -83,7 +83,6 @@ class MainActivity : BaseActivity() {
                     Log.d("CheckUser", response.code().toString())
                 }
             }
-
             override fun onFailure(call: Call<UserListResponse.User>, t: Throwable) {
                 TODO("Not yet implemented")
             }
