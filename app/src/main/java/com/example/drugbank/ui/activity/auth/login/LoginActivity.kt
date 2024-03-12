@@ -17,6 +17,7 @@ import com.example.drugbank.data.dto.UpdateUserRequestDTO
 import com.example.drugbank.data.model.LoginDTO
 import com.example.drugbank.data.model.Token
 import com.example.drugbank.databinding.ActivityLoginBinding
+import com.example.drugbank.repository.API_User_Repository
 import com.example.drugbank.repository.Admin_UserM_Repository
 import com.example.drugbank.respone.UserListResponse
 import com.example.drugbank.ui.activity.auth.register.RegisterActivity
@@ -35,6 +36,9 @@ class LoginActivity : BaseActivity() {
 
     private lateinit var _binding: ActivityLoginBinding
     private lateinit var _Token: Token
+
+    @Inject
+    lateinit var adminUser_Repository: Admin_UserM_Repository
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -51,8 +55,6 @@ class LoginActivity : BaseActivity() {
                 CallLogin(loginDTO)
             }
         }
-
-
 
         _binding = ActivityLoginBinding.inflate(layoutInflater)
          setContentView(_binding.root)
@@ -85,12 +87,10 @@ class LoginActivity : BaseActivity() {
                         val accessToken = tokenData.accessToken
                         val refreshToken = tokenData.refreshToken
                         _Token = Token(accessToken, refreshToken)
-                        Toast.makeText(this@LoginActivity, _Token.accessToken, Toast.LENGTH_SHORT)
-                            .show()
                         val tokenManager = TokenManager(this@LoginActivity)
                         tokenManager.saveAccessToken(_Token.accessToken)
-
                         IntentToHomePage()
+                        CallGetUserByEmail(tokenManager, loginDTO.email)
                         if (_binding.checkBox.isChecked) {
                             savesSharePreference(loginDTO, tokenManager.getAccessToken().toString())
                         }
@@ -107,6 +107,23 @@ class LoginActivity : BaseActivity() {
                     )
                     error.show()
                 }
+                if (response.code() == 401) {
+                    val error = ErrorDialog(
+                        context = this@LoginActivity,
+                        errorContent = "Account Banned",
+                        textButton = "Back"
+                    )
+                    error.show()
+                }
+
+                if (response.code() == 403) {
+                    val error = ErrorDialog(
+                        context = this@LoginActivity,
+                        errorContent = "Wrong Email or Password",
+                        textButton = "Back"
+                    )
+                    error.show()
+                }
             }
 
             override fun onFailure(call: Call<Token>, t: Throwable) {
@@ -116,25 +133,28 @@ class LoginActivity : BaseActivity() {
         )
     }
 
-    private fun onCheckSecureClick() {
-        RetrofitClient.instance_Test.getSecureData("Bearer ${_Token.accessToken}").enqueue(object : Callback<String> {
-            override fun onResponse(call: Call<String>, response: Response<String>) {
+    private fun CallGetUserByEmail(token: TokenManager, currentEmailUser: String) {
+        adminUser_Repository.getUserByEmail(
+            authorization = "Bearer ${token.getAccessToken()}",
+            email = currentEmailUser.toString()
+        ).enqueue(object : retrofit2.Callback<UserListResponse.User> {
+            override fun onResponse(
+                call: Call<UserListResponse.User>,
+                response: Response<UserListResponse.User>
+            ) {
                 if (response.isSuccessful) {
-                    val responseData = response.body()
-                    // Xử lý dữ liệu phản hồi kiểu String ở đây
-                    if (responseData != null) {
-                        Toast.makeText(this@LoginActivity, responseData.toString(), Toast.LENGTH_SHORT).show()
-                    }
+                    val userRespone: UserListResponse.User? = response.body()
+                    Constant.saveCurrentUser(this@LoginActivity, userRespone!!)
                 }
                 else {
-                    Toast.makeText(this@LoginActivity, response.message(), Toast.LENGTH_LONG).show()
+                    Log.d("CheckUser", response.code().toString())
                 }
             }
-            override fun onFailure(call: Call<String>, t: Throwable) {
-                Log.d("Bug", t.toString())
+
+            override fun onFailure(call: Call<UserListResponse.User>, t: Throwable) {
+                TODO("Not yet implemented")
             }
         })
-
     }
 
     private fun IntentToHomePage() {
