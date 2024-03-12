@@ -43,14 +43,15 @@ class UserManagerAdapter(context: Context, userRepository: Admin_UserM_Repositor
             val backgroundResId = if (user.gender == 0) R.drawable.background_male else R.drawable.background_female
             itemBinding.backgroundGender.setBackgroundResource(backgroundResId)
 
-            if (user.isActive.equals("Deactivate")) {
-                itemBinding.ivUserAvatar.setImageResource(R.drawable.baseline_block_24)
-            }
             Picasso.get()
                 .load(user.avatar) // Assuming item.img is the URL string
                 .placeholder(R.drawable.user_general) // Optional: Placeholder image while loading
                 .error(R.drawable.user_general) // Optional: Error image to display on load failure
                 .into(itemBinding.ivUserAvatar)
+            if (user.isActive.equals("Deactivate")) {
+                itemBinding.ivUserAvatar.setImageResource(R.drawable.baseline_block_24)
+            }
+
 
         }
     }

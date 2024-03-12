@@ -78,6 +78,8 @@ class UserManagerFragment : Fragment() {
         showBottomSheet(bottomSheetDialog, view)
         onAddNewClick()
         setUpUiStatic()
+        _viewModel.setLoading(true)
+        loadingUI()
 
         return _binding.root
     }
@@ -94,7 +96,6 @@ class UserManagerFragment : Fragment() {
             layoutParams.height = newHeight
             _binding.userGeneralInfo.layoutParams = layoutParams
             _binding.img.visibility = if (isExpanded) View.GONE else View.VISIBLE
-
         }
     }
 
@@ -105,6 +106,7 @@ class UserManagerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        _viewModel.setLoading(true)
         tokenManager = TokenManager(requireContext())
         _userAdapter = UserManagerAdapter(requireContext(), userRepository, tokenManager.getAccessToken().toString(), this@UserManagerFragment)
 
@@ -121,6 +123,16 @@ class UserManagerFragment : Fragment() {
         DefaultCallUserList()
         DefaultCallUserListGen()
         DefaultCallUserListAcctive()
+    }
+
+    private fun loadingUI() {
+        _viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) {
+                _binding.pgIsLoading.visibility = View.VISIBLE
+            } else {
+                _binding.pgIsLoading.visibility = View.GONE
+            }
+        }
     }
 
     fun Int.dpToPx(): Int = (this * Resources.getSystem().displayMetrics.density).toInt()
@@ -140,6 +152,9 @@ class UserManagerFragment : Fragment() {
                     _viewModel.selectedRole.value = rolelist[position]
                     if (rolelist[position] == "SUPER ADMIN") {
                         _viewModel.selectedRole.value = "SUPERADMIN"
+                    }
+                    if (rolelist[position] == "ALL") {
+                        _viewModel.selectedRole.value = ""
                     }
                     CallUserList()
                 }
@@ -271,6 +286,7 @@ class UserManagerFragment : Fragment() {
                 } else {
                     println("Error: ${response.code()}")
                 }
+                _viewModel.setLoading(false)
             }
             override fun onFailure(call: Call<UserListResponse>, t: Throwable) {
                 println("Failed to make API call: ${t.message}")
@@ -312,6 +328,7 @@ class UserManagerFragment : Fragment() {
                     updateStatic()
                     _userAdapter.differ.submitList(userList)
                     _binding.rclListUser.adapter = _userAdapter
+
                 } else {
                     println("Error: ${response.code()}")
                 }

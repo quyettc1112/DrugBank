@@ -1,5 +1,6 @@
 package com.example.drugbank.ui.usermanager
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -30,8 +31,11 @@ class UserManagerViewModel @Inject constructor() : ViewModel() {
 
     val dob = MutableLiveData<String>()
 
+    private var _isLoading = MutableLiveData<Boolean>()
+
+
     init {
-        selectedRole.value = "USER"
+        selectedRole.value = ""
         selectedGender.value = null
         selectedActive.value = null
         dob.value = dateFormat.format(calendar.time)
@@ -41,6 +45,12 @@ class UserManagerViewModel @Inject constructor() : ViewModel() {
         user_gender.value = 0
 
 
+    }
+    val isLoading: LiveData<Boolean>
+        get() = _isLoading
+
+    fun setLoading(isLoading: Boolean) {
+        _isLoading.value = isLoading
     }
 
     fun getUserList(userListCurrent: List<User>) = viewModelScope.launch{
