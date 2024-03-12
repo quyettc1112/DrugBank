@@ -67,9 +67,6 @@ class SettingFragment : Fragment() {
             showUserInfoDialog(currentUser)
         }
 
-
-
-
         val rootView = binding.root
         return rootView
     }
@@ -86,8 +83,6 @@ class SettingFragment : Fragment() {
 
         _binding!!.userName.text = currentUser.fullname
     }
-
-
 
     private fun logout() {
         _binding!!.logout.setOnClickListener {
@@ -132,10 +127,7 @@ class SettingFragment : Fragment() {
                     errorDialog.show()
 
                 }
-
-
             }
-
             override fun onFailure(call: Call<UserListResponse.User>, t: Throwable) {
                 Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
             }
@@ -214,7 +206,6 @@ class SettingFragment : Fragment() {
         myDialog.window?.setLayout(Screen.width, Screen.height)
         // myDialog.window?.setBackgroundDrawable(ColorDrawable(requireContext().getColor(R.color.zxing_transparent)))
         myDialog.show()
-
         onButtonClickDialog(dialogBinding, et_fullname, etEmail, et_dateofbirth, male, myDialog)
     }
 
@@ -265,6 +256,11 @@ class SettingFragment : Fragment() {
         btn_back.setOnClickListener {
             myDialog.dismiss()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        CallGetUserByEmail()
     }
 
 
