@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
@@ -62,6 +63,52 @@ class ProductFragment : Fragment() {
         setUpSearchQueries()
         _productViewModel.setLoading(true)
         loadingUI()
+
+        val includedLayout = _binding.layoutChoose
+        var isCheckedCard1 = false // Biến để theo dõi trạng thái của checkboxcard1
+        var isCheckedCard2 = false // Biến để theo dõi trạng thái của checkboxcard2
+        var isCheckedCard3 = false // Biến để theo dõi trạng thái của checkboxcard2
+
+        includedLayout.materialCardView2.setOnClickListener {
+            isCheckedCard1 = true
+            isCheckedCard2 = false
+            isCheckedCard3 = false
+            includedLayout.checkboxcard1.visibility = View.VISIBLE
+            includedLayout.checkboxcard1.isChecked = true
+            includedLayout.checkboxcard2.visibility = View.GONE
+            includedLayout.checkboxcard2.isChecked = false
+            includedLayout.checkboxcard3.visibility = View.GONE
+            includedLayout.checkboxcard3.isChecked = false
+
+        }
+
+        includedLayout.materialCardView3.setOnClickListener {
+            isCheckedCard1 = false
+            isCheckedCard2 = true
+            isCheckedCard3 = false
+            includedLayout.checkboxcard1.visibility = View.GONE
+            includedLayout.checkboxcard1.isChecked = false
+            includedLayout.checkboxcard2.visibility = View.VISIBLE
+            includedLayout.checkboxcard2.isChecked = true
+            includedLayout.checkboxcard3.visibility = View.GONE
+            includedLayout.checkboxcard3.isChecked = false
+        }
+
+
+        includedLayout.materialCardView4.setOnClickListener {
+            isCheckedCard1 = false
+            isCheckedCard2 = false
+            isCheckedCard3 = true
+            includedLayout.checkboxcard2.visibility = View.GONE
+            includedLayout.checkboxcard2.isChecked = false
+            includedLayout.checkboxcard1.visibility = View.GONE
+            includedLayout.checkboxcard1.isChecked = false
+            includedLayout.checkboxcard3.visibility = View.VISIBLE
+            includedLayout.checkboxcard3.isChecked = true
+        }
+        includedLayout.saveFDA.setOnClickListener {
+            Toast.makeText(requireContext(), "Button Click", Toast.LENGTH_SHORT).show()
+        }
 
 
 
