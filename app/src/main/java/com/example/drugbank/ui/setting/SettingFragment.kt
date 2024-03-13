@@ -66,6 +66,10 @@ class SettingFragment : Fragment() {
     lateinit var apiUserService: API_User_Repository
 
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        currentUser = Constant.getCurrentUser(requireContext())!!
+    }
 
 
     override fun onCreateView(
@@ -75,7 +79,6 @@ class SettingFragment : Fragment() {
         _binding = FragmentSettingBinding.inflate(inflater, container, false)
         logout()
         tokenManager = TokenManager(requireContext())
-        currentUser = Constant.getCurrentUser(requireContext())!!
         bindUserData()
         _binding!!.layoutSetting.setOnClickListener {
             showUserInfoDialog(currentUser)

@@ -24,12 +24,16 @@ import com.example.drugbank.data.model.LoginDTO
 import com.example.drugbank.data.model.Token
 import com.example.drugbank.data.model.User
 import com.example.drugbank.helper.BiometricHelper
+import com.example.drugbank.repository.Admin_UserM_Repository
+import com.example.drugbank.respone.UserListResponse
 import com.example.drugbank.ui.activity.auth.login.LoginActivity
 import com.example.drugbank.ui.activity.main.MainActivity
+import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
+import javax.inject.Inject
+@AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
 
     private lateinit var _Token: Token
@@ -37,6 +41,9 @@ class SplashActivity : AppCompatActivity() {
     private lateinit var biometricPrompt: BiometricPrompt
     private lateinit var promptInfo: BiometricPrompt.PromptInfo
     private val requestCode: Int = 123
+
+    @Inject
+    lateinit var adminUser_Repository: Admin_UserM_Repository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,6 +91,7 @@ class SplashActivity : AppCompatActivity() {
                         tokenManager.saveAccessToken(_Token.accessToken)
                         Constant.removeAllSavedValues(this@SplashActivity)
                         Constant.saveUserCredentials(this@SplashActivity, loginDTO.email, loginDTO.password, _Token.accessToken)
+                        CallGetUserByEmail(tokenManager, loginDTO.email)
                         checkBiometric()
                     }
                 }
@@ -102,6 +110,30 @@ class SplashActivity : AppCompatActivity() {
             }
         }
         )
+    }
+
+    private fun CallGetUserByEmail(token: TokenManager, currentEmailUser: String) {
+        adminUser_Repository.getUserByEmail(
+            authorization = "Bearer ${token.getAccessToken()}",
+            email = currentEmailUser.toString()
+        ).enqueue(object : retrofit2.Callback<UserListResponse.User> {
+            override fun onResponse(
+                call: Call<UserListResponse.User>,
+                response: Response<UserListResponse.User>
+            ) {
+                if (response.isSuccessful) {
+                    val userRespone: UserListResponse.User? = response.body()
+                    Constant.saveCurrentUser(this@SplashActivity, userRespone!!)
+                }
+                else {
+                    Log.d("CheckUser", response.code().toString())
+                }
+            }
+
+            override fun onFailure(call: Call<UserListResponse.User>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
     }
 
     private fun checkBiometric() {
