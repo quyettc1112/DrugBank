@@ -62,4 +62,6 @@
     <color name="green_ok">#89fc00</color>
 
     <color name="background_profile">#F2FBFF</color>
+
+    <color name="textCountry">#ffd60a</color>
 </resources>
