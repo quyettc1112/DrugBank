@@ -8,49 +8,58 @@
     android:background="@color/i_gray"
     tools:context=".ui.search.childeFragment.ProductFragment.ProductFragment">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/materialCardView"
+    <include android:id="@+id/layoutChoose" layout="@layout/layout_chose_country" android:visibility="visible"></include>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="5dp"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="5dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/searchView"
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchView"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:background="@drawable/backgropund_search_view"
+                app:iconifiedByDefault="false"
+                app:queryBackground="@android:color/transparent"
+                app:queryHint="Search here ..." />
+
+            <ImageButton
+                android:id="@+id/imb_filter"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:background="@drawable/backgroung_filter"
+                android:src="@drawable/baseline_filter_list_24">
+
+            </ImageButton>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:text="Most searched products"
+            android:textSize="20dp"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:background="@drawable/backgropund_search_view"
-            app:iconifiedByDefault="false"
-            app:queryBackground="@android:color/transparent"
-            app:queryHint="Search here ..." />
+            android:layout_height="wrap_content">
 
-        <ImageButton
-            android:id="@+id/imb_filter"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="right"
-            android:background="@drawable/backgroung_filter"
-            android:src="@drawable/baseline_filter_list_24"></ImageButton>
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <TextView
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="20dp"
-        android:text="Most searched products"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-    </TextView>
+        </TextView>
 
         <LinearLayout
             android:visibility="visible"
@@ -91,6 +100,8 @@
 
             </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
+
+    </LinearLayout>
 
 
 
