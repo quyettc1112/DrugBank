@@ -23,6 +23,7 @@ import com.example.drugbank.common.Token.TokenManager
 import com.example.drugbank.common.constant.Constant
 import com.example.drugbank.data.model.Drug
 import com.example.drugbank.databinding.FragmentProductBinding
+import com.example.drugbank.databinding.LayoutChoseCountryBinding
 import com.example.drugbank.repository.Admin_ProductM_Repository
 import com.example.drugbank.respone.DrugMListRespone
 import com.example.drugbank.respone.ProductListRespone
@@ -40,13 +41,14 @@ class ProductFragment : Fragment() {
     lateinit var _productAdapter: ProductAdapter
     lateinit var  tokenManager: TokenManager
     lateinit var _productViewModel: ProductViewModel
-
+    private var currentIDClcik: Int = 0
     @Inject
     lateinit var adminProductRepository: Admin_ProductM_Repository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _productViewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
+
 
     }
     override fun onCreateView(
@@ -56,71 +58,125 @@ class ProductFragment : Fragment() {
         _binding = FragmentProductBinding.inflate(inflater, container, false)
         tokenManager = TokenManager(requireContext())
         _productAdapter = ProductAdapter()
-        setUpRecycleViewList()
-        val bottomSheetDialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
-        val view = layoutInflater.inflate(R.layout.layout_bottom_sheet_prouduct, null)
-        showBottomSheet(bottomSheetDialog,view)
-        setUpSearchQueries()
         _productViewModel.setLoading(true)
-        loadingUI()
 
-        val includedLayout = _binding.layoutChoose
-        var isCheckedCard1 = false // Biến để theo dõi trạng thái của checkboxcard1
-        var isCheckedCard2 = false // Biến để theo dõi trạng thái của checkboxcard2
-        var isCheckedCard3 = false // Biến để theo dõi trạng thái của checkboxcard2
+        val sharedPreferences = requireActivity().getSharedPreferences(Constant.CURRENT_FDA, Context.MODE_PRIVATE)
+        val currentFDAValue = sharedPreferences.getInt(Constant.CURRENT_FDA_VALUE, -1)
 
-        includedLayout.materialCardView2.setOnClickListener {
-            isCheckedCard1 = true
-            isCheckedCard2 = false
-            isCheckedCard3 = false
-            includedLayout.checkboxcard1.visibility = View.VISIBLE
-            includedLayout.checkboxcard1.isChecked = true
-            includedLayout.checkboxcard2.visibility = View.GONE
-            includedLayout.checkboxcard2.isChecked = false
-            includedLayout.checkboxcard3.visibility = View.GONE
-            includedLayout.checkboxcard3.isChecked = false
+        if (currentFDAValue != -1) {
+            Log.d("CheckFDAValue", "Nice ${currentFDAValue}")
 
+        } else {
+            Log.d("CheckFDAValue", currentFDAValue.toString())
         }
 
-        includedLayout.materialCardView3.setOnClickListener {
-            isCheckedCard1 = false
-            isCheckedCard2 = true
-            isCheckedCard3 = false
-            includedLayout.checkboxcard1.visibility = View.GONE
-            includedLayout.checkboxcard1.isChecked = false
-            includedLayout.checkboxcard2.visibility = View.VISIBLE
-            includedLayout.checkboxcard2.isChecked = true
-            includedLayout.checkboxcard3.visibility = View.GONE
-            includedLayout.checkboxcard3.isChecked = false
-        }
-
-
-        includedLayout.materialCardView4.setOnClickListener {
-            isCheckedCard1 = false
-            isCheckedCard2 = false
-            isCheckedCard3 = true
-            includedLayout.checkboxcard2.visibility = View.GONE
-            includedLayout.checkboxcard2.isChecked = false
-            includedLayout.checkboxcard1.visibility = View.GONE
-            includedLayout.checkboxcard1.isChecked = false
-            includedLayout.checkboxcard3.visibility = View.VISIBLE
-            includedLayout.checkboxcard3.isChecked = true
-        }
-        includedLayout.saveFDA.setOnClickListener {
-            Toast.makeText(requireContext(), "Button Click", Toast.LENGTH_SHORT).show()
-        }
-
-
+        uiChooseFDA()
 
         return _binding.root
     }
 
-    private fun showBottomSheet(bottomSheetDialog:BottomSheetDialog, view: View) {
-        _binding.imbFilter.setOnClickListener {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+
+    }
+
+    private fun uiChooseFDA() {
+        val includedLayout = _binding.layoutChoose
+        var selectedCardId: Int? = null // Biến để lưu ID của card được chọn
+
+        includedLayout.materialCardView2.setOnClickListener {
+            if (selectedCardId != R.id.materialCardView2) { // Kiểm tra xem card hiện tại đã được chọn chưa
+                selectedCardId = R.id.materialCardView2 // Đặt ID của card được chọn
+                updateCardState(includedLayout, R.id.materialCardView2) // Cập nhật trạng thái của các card và checkbox
+            } else { // Nếu card đang được chọn mà bạn click vào nó lần nữa
+                selectedCardId = null // Bỏ chọn card
+                includedLayout.materialCardView2.isChecked = false // Bỏ chọn checkbox của card
+                includedLayout.checkboxcard1.visibility = View.GONE // Ẩn checkbox
+                _productViewModel.resetAllValue()
+            }
+        }
+        includedLayout.materialCardView3.setOnClickListener {
+            if (selectedCardId != R.id.materialCardView3) {
+                selectedCardId = R.id.materialCardView3
+                updateCardState(includedLayout, R.id.materialCardView3)
+            } else {
+                selectedCardId = null
+                includedLayout.materialCardView3.isChecked = false
+                includedLayout.checkboxcard2.visibility = View.GONE
+                _productViewModel.resetAllValue()
+            }
+        }
+        includedLayout.materialCardView4.setOnClickListener {
+            if (selectedCardId != R.id.materialCardView4) {
+                selectedCardId = R.id.materialCardView4
+                updateCardState(includedLayout, R.id.materialCardView4)
+            } else {
+                selectedCardId = null
+                includedLayout.materialCardView4.isChecked = false
+                includedLayout.checkboxcard3.visibility = View.GONE
+                _productViewModel.resetAllValue()
+            }
+        }
+
+        includedLayout.saveFDA.setOnClickListener {
+            currentIDClcik = 0
+            _binding.layoutIncludeHolder.visibility = View.GONE
+            setUpRecycleViewList()
+            showBottomSheet()
+            setUpSearchQueries()
+            _productViewModel.setLoading(true)
+            loadingUI()
+        }
+    }
+
+    private fun updateCardState(includedLayout: LayoutChoseCountryBinding, selectedId: Int) {
+        // Tắt tất cả các card và checkbox
+        includedLayout.materialCardView2.isChecked = false
+        includedLayout.materialCardView3.isChecked = false
+        includedLayout.materialCardView4.isChecked = false
+        includedLayout.checkboxcard1.visibility = View.GONE
+        includedLayout.checkboxcard1.isChecked = false
+        includedLayout.checkboxcard2.visibility = View.GONE
+        includedLayout.checkboxcard2.isChecked = false
+        includedLayout.checkboxcard3.visibility = View.GONE
+        includedLayout.checkboxcard3.isChecked = false
+
+        // Bật card và checkbox tương ứng với card được chọn
+        when (selectedId) {
+            R.id.materialCardView2 -> {
+                includedLayout.materialCardView2.isChecked = true
+                includedLayout.checkboxcard1.visibility = View.VISIBLE
+                includedLayout.checkboxcard1.isChecked = true
+                _productViewModel.resetCheckCardValue()
+                _productViewModel.isCheckedCard1.value = true
+                currentIDClcik = 1
+            }
+            R.id.materialCardView3 -> {
+                includedLayout.materialCardView3.isChecked = true
+                includedLayout.checkboxcard2.visibility = View.VISIBLE
+                includedLayout.checkboxcard2.isChecked = true
+                _productViewModel.resetCheckCardValue()
+                _productViewModel.isCheckedCard2.value = true
+                currentIDClcik = 2
+            }
+            R.id.materialCardView4 -> {
+                includedLayout.materialCardView4.isChecked = true
+                includedLayout.checkboxcard3.visibility = View.VISIBLE
+                includedLayout.checkboxcard3.isChecked = true
+                _productViewModel.resetCheckCardValue()
+                _productViewModel.isCheckedCard3.value = true
+                currentIDClcik = 3
+            }
+        }
+    }
+
+    private fun showBottomSheet() {
+        _binding.imbFilter.setOnClickListener {
+            val bottomSheetDialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
+            val view = layoutInflater.inflate(R.layout.layout_bottom_sheet_prouduct, null)
             bottomSheetDialog.setContentView(view)
             bottomSheetDialog.show()
-
             val sortFeild_product = resources.getStringArray(R.array.sorrField_product)
             val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_menu, sortFeild_product)
 
@@ -160,14 +216,12 @@ class ProductFragment : Fragment() {
             view.findViewById<AppCompatButton>(R.id.btn_save).setOnClickListener {
                 bottomSheetDialog.dismiss()
             }
-
         }
     }
 
     private fun setUpRecycleViewList() {
         _binding.rvItemUserHome.adapter = _productAdapter
         CallProductList()
-
         _binding.rvItemUserHome.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -189,10 +243,18 @@ class ProductFragment : Fragment() {
             val editor = sharedPreferences.edit()
             editor.putInt(Constant.CURRENT_PRODUCT_ID_VALUE, it.id)
             editor.apply()
+
+
+            val currentFDA = requireActivity().getSharedPreferences(Constant.CURRENT_FDA, Context.MODE_PRIVATE)
+            val editorFDA = currentFDA.edit()
+            editorFDA.putInt(Constant.CURRENT_FDA_VALUE, currentIDClcik)
+            editorFDA.apply()
+
+
+
             navController.navigate(Constant.getNavSeleted(5))
         }
     }
-
     private fun loadingUI() {
         _productViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             if (isLoading) {
@@ -234,34 +296,47 @@ class ProductFragment : Fragment() {
     }
 
     private fun CallProductList() {
-        adminProductRepository.getProductList(
+        if (_productViewModel.isCheckedCard1.value == true) {
+            CallProductList_FDA()
+        } else if (_productViewModel.isCheckedCard2.value == true){
+            CallProductList_ANSM()
+        } else if (_productViewModel.isCheckedCard3.value == true) {
+            CallProductList_DAV()
+        } else {
+            CallProductList_NoFIll()
+        }
+    }
+
+    private fun CallProductList_DAV() {
+        adminProductRepository.getProductListDAV(
             authorization = "Bearer ${tokenManager.getAccessToken()}",
             pageNo = _productViewModel.currentPage.value!!,
             pageSize = PAGE_SIZE,
             sortField = _productViewModel.currentSorField.value.toString(),
             sortOrder = _productViewModel.currentSortBy.value.toString(),
-            search =  _productViewModel.currentSearchValue.value.toString()
-        ).enqueue( object: Callback<ProductListRespone> {
+            search = _productViewModel.currentSearchValue.value.toString()
+        ).enqueue(object : Callback<ProductListRespone> {
             override fun onResponse(
                 call: Call<ProductListRespone>,
                 response: Response<ProductListRespone>
             ) {
                 if (response.isSuccessful) {
                     val productRespone: ProductListRespone? = response.body()
-                    val productList: List<ProductListRespone.Content> = productRespone?.content?.map { product ->
-                        ProductListRespone.Content(
-                            id = product.id,
-                            category = product.category,
-                            name =product.name,
-                            labeller = product.labeller,
-                            company = product.company,
-                            prescriptionName = product.prescriptionName,
-                            route = product.route.toString(),
-                            createdOn = product.createdOn.toString(),
-                            image = product.image,
-                            productAdministration = product.productAdministration
-                        )
-                    } ?: emptyList()
+                    val productList: List<ProductListRespone.Content> =
+                        productRespone?.content?.map { product ->
+                            ProductListRespone.Content(
+                                id = product.id,
+                                category = product.category,
+                                name = product.name,
+                                labeller = product.labeller,
+                                company = product.company,
+                                prescriptionName = product.prescriptionName,
+                                route = product.route.toString(),
+                                createdOn = product.createdOn.toString(),
+                                image = product.image,
+                                productAdministration = product.productAdministration
+                            )
+                        } ?: emptyList()
                     _productViewModel.loafMoreProductList(productList)
                     _productViewModel.totalElement.value = productRespone?.totalElements
                     _productAdapter.differ.submitList(_productViewModel.currentProductList.value)
@@ -276,6 +351,173 @@ class ProductFragment : Fragment() {
                     errorDialog.show()
                 }
             }
+
+            override fun onFailure(call: Call<ProductListRespone>, t: Throwable) {
+                val errorDialog = ErrorDialog(
+                    requireContext(),
+                    errorContent = "${t.cause} , {${t.message}}",
+                    textButton = "Back"
+                )
+                errorDialog.show()
+            }
+        })
+    }
+    private fun CallProductList_ANSM() {
+        adminProductRepository.getProductListANSM(
+            authorization = "Bearer ${tokenManager.getAccessToken()}",
+            pageNo = _productViewModel.currentPage.value!!,
+            pageSize = PAGE_SIZE,
+            sortField = _productViewModel.currentSorField.value.toString(),
+            sortOrder = _productViewModel.currentSortBy.value.toString(),
+            search = _productViewModel.currentSearchValue.value.toString()
+        ).enqueue(object : Callback<ProductListRespone> {
+            override fun onResponse(
+                call: Call<ProductListRespone>,
+                response: Response<ProductListRespone>
+            ) {
+                if (response.isSuccessful) {
+                    val productRespone: ProductListRespone? = response.body()
+                    val productList: List<ProductListRespone.Content> =
+                        productRespone?.content?.map { product ->
+                            ProductListRespone.Content(
+                                id = product.id,
+                                category = product.category,
+                                name = product.name,
+                                labeller = product.labeller,
+                                company = product.company,
+                                prescriptionName = product.prescriptionName,
+                                route = product.route.toString(),
+                                createdOn = product.createdOn.toString(),
+                                image = product.image,
+                                productAdministration = product.productAdministration
+                            )
+                        } ?: emptyList()
+                    _productViewModel.loafMoreProductList(productList)
+                    _productViewModel.totalElement.value = productRespone?.totalElements
+                    _productAdapter.differ.submitList(_productViewModel.currentProductList.value)
+
+                    _productViewModel.setLoading(false)
+                } else {
+                    val errorDialog = ErrorDialog(
+                        requireContext(),
+                        errorContent = "${response.code()} , {${response.errorBody()}}",
+                        textButton = "Back"
+                    )
+                    errorDialog.show()
+                }
+            }
+
+            override fun onFailure(call: Call<ProductListRespone>, t: Throwable) {
+                val errorDialog = ErrorDialog(
+                    requireContext(),
+                    errorContent = "${t.cause} , {${t.message}}",
+                    textButton = "Back"
+                )
+                errorDialog.show()
+            }
+        })
+    }
+    private fun CallProductList_NoFIll() {
+        adminProductRepository.getProductList(
+            authorization = "Bearer ${tokenManager.getAccessToken()}",
+            pageNo = _productViewModel.currentPage.value!!,
+            pageSize = PAGE_SIZE,
+            sortField = _productViewModel.currentSorField.value.toString(),
+            sortOrder = _productViewModel.currentSortBy.value.toString(),
+            search = _productViewModel.currentSearchValue.value.toString()
+        ).enqueue(object : Callback<ProductListRespone> {
+            override fun onResponse(
+                call: Call<ProductListRespone>,
+                response: Response<ProductListRespone>
+            ) {
+                if (response.isSuccessful) {
+                    val productRespone: ProductListRespone? = response.body()
+                    val productList: List<ProductListRespone.Content> =
+                        productRespone?.content?.map { product ->
+                            ProductListRespone.Content(
+                                id = product.id,
+                                category = product.category,
+                                name = product.name,
+                                labeller = product.labeller,
+                                company = product.company,
+                                prescriptionName = product.prescriptionName,
+                                route = product.route.toString(),
+                                createdOn = product.createdOn.toString(),
+                                image = product.image,
+                                productAdministration = product.productAdministration
+                            )
+                        } ?: emptyList()
+                    _productViewModel.loafMoreProductList(productList)
+                    _productViewModel.totalElement.value = productRespone?.totalElements
+                    _productAdapter.differ.submitList(_productViewModel.currentProductList.value)
+
+                    _productViewModel.setLoading(false)
+                } else {
+                    val errorDialog = ErrorDialog(
+                        requireContext(),
+                        errorContent = "${response.code()} , {${response.errorBody()}}",
+                        textButton = "Back"
+                    )
+                    errorDialog.show()
+                }
+            }
+
+            override fun onFailure(call: Call<ProductListRespone>, t: Throwable) {
+                val errorDialog = ErrorDialog(
+                    requireContext(),
+                    errorContent = "${t.cause} , {${t.message}}",
+                    textButton = "Back"
+                )
+                errorDialog.show()
+            }
+        })
+    }
+
+    private fun CallProductList_FDA() {
+        adminProductRepository.getProductListFDA(
+            authorization = "Bearer ${tokenManager.getAccessToken()}",
+            pageNo = _productViewModel.currentPage.value!!,
+            pageSize = PAGE_SIZE,
+            sortField = _productViewModel.currentSorField.value.toString(),
+            sortOrder = _productViewModel.currentSortBy.value.toString(),
+            search = _productViewModel.currentSearchValue.value.toString()
+        ).enqueue(object : Callback<ProductListRespone> {
+            override fun onResponse(
+                call: Call<ProductListRespone>,
+                response: Response<ProductListRespone>
+            ) {
+                if (response.isSuccessful) {
+                    val productRespone: ProductListRespone? = response.body()
+                    val productList: List<ProductListRespone.Content> =
+                        productRespone?.content?.map { product ->
+                            ProductListRespone.Content(
+                                id = product.id,
+                                category = product.category,
+                                name = product.name,
+                                labeller = product.labeller,
+                                company = product.company,
+                                prescriptionName = product.prescriptionName,
+                                route = product.route.toString(),
+                                createdOn = product.createdOn.toString(),
+                                image = product.image,
+                                productAdministration = product.productAdministration
+                            )
+                        } ?: emptyList()
+                    _productViewModel.loafMoreProductList(productList)
+                    _productViewModel.totalElement.value = productRespone?.totalElements
+                    _productAdapter.differ.submitList(_productViewModel.currentProductList.value)
+
+                    _productViewModel.setLoading(false)
+                } else {
+                    val errorDialog = ErrorDialog(
+                        requireContext(),
+                        errorContent = "${response.code()} , {${response.errorBody()}}",
+                        textButton = "Back"
+                    )
+                    errorDialog.show()
+                }
+            }
+
             override fun onFailure(call: Call<ProductListRespone>, t: Throwable) {
                 val errorDialog = ErrorDialog(
                     requireContext(),
@@ -300,6 +542,8 @@ class ProductFragment : Fragment() {
         super.onDestroyView()
         RESET_VIEWMODEL_VALUE()
     }
+
+
 
 
 

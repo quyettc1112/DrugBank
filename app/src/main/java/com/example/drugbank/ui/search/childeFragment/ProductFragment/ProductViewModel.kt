@@ -22,6 +22,13 @@ class ProductViewModel @Inject constructor() : ViewModel()  {
 
     val current_ID_Item = MutableLiveData<Int>()
 
+
+    val isCheckedCard1 = MutableLiveData<Boolean>()
+    val isCheckedCard2 = MutableLiveData<Boolean>()
+    val isCheckedCard3 = MutableLiveData<Boolean>()
+
+    val isNextClick = MutableLiveData<Boolean>()
+
     init {
         currentPage.value = 0;
         currentSorField.value = "id"
@@ -29,6 +36,14 @@ class ProductViewModel @Inject constructor() : ViewModel()  {
         currentSearchValue.value = ""
         current_ID_Item.value = 0
         totalElement.value = 0
+
+
+        isCheckedCard1.value = false
+        isCheckedCard2.value = false
+        isCheckedCard3.value = false
+
+        isNextClick.value = false
+
     }
 
     val isLoading: LiveData<Boolean>
@@ -57,6 +72,12 @@ class ProductViewModel @Inject constructor() : ViewModel()  {
     }
     fun resetSearchValue() {
         currentSearchValue.value = ""
+    }
+
+    fun resetCheckCardValue() {
+        isCheckedCard1.value = false
+        isCheckedCard2.value = false
+        isCheckedCard3.value = false
     }
 
 

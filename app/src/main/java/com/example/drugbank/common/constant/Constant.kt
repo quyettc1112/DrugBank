@@ -7,6 +7,7 @@ import com.example.drugbank.respone.ProductDetailRespone
 import com.example.drugbank.respone.ProductListRespone
 import com.example.drugbank.respone.UserListResponse
 import com.example.drugbank.ui.drugstore.DrugStoreFragment
+import org.checkerframework.checker.units.qual.Current
 import org.json.JSONObject
 
 class Constant {
@@ -31,6 +32,10 @@ class Constant {
 
         const val CURRENT_USER = "CURRENT_USER"
         const val CURRENT_USER_VALUE = "CURRENT_USER_VALUE"
+
+
+        const val CURRENT_FDA = "CURRENT_FDA"
+        const val CURRENT_FDA_VALUE = "CURRENT_FDA_VALUE"
 
 
         const val CURRENT_PRODUCT_ID = "CURRENT_PRODUCT_ID"

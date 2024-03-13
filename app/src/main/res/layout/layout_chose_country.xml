@@ -34,7 +34,7 @@
                 android:layout_height="200dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="5dp"
                 android:layout_marginEnd="20dp"
                 android:padding="0dp">
 
@@ -104,8 +104,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:layout_marginEnd="20dp"
                 android:padding="0dp">
                 <com.google.android.material.card.MaterialCardView
@@ -174,8 +174,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="20dp"
                 android:padding="0dp">
                 <com.google.android.material.card.MaterialCardView
@@ -242,7 +242,7 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/saveFDA"
                 android:background="@drawable/background_cta_button"
-                android:text="Save"
+                android:text="Next"
                 android:foreground="@drawable/effect"
                 android:textColor="@color/white"
                 android:layout_marginTop="16dp"

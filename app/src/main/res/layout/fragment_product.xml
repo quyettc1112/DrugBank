@@ -8,10 +8,17 @@
     android:background="@color/i_gray"
     tools:context=".ui.search.childeFragment.ProductFragment.ProductFragment">
 
-    <include android:id="@+id/layoutChoose" layout="@layout/layout_chose_country" android:visibility="visible"></include>
+    <LinearLayout
+        android:visibility="visible"
+        android:id="@+id/layout_includeHolder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include android:id="@+id/layoutChoose" layout="@layout/layout_chose_country" android:visibility="visible"></include>
+
+    </LinearLayout>
 
     <LinearLayout
-        android:visibility="gone"
+        android:visibility="visible"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
