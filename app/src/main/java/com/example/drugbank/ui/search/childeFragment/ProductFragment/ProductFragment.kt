@@ -89,10 +89,8 @@ class ProductFragment : Fragment() {
 
             }
             setUpRecycleViewList()
-            Log.d("ChecckbackFromDetail", isBackFromDetail.toString())
         } else {
             uiChooseFDA()
-            Toast.makeText(requireContext(), "NO", Toast.LENGTH_SHORT).show()
         }
         //uiChooseFDA()
 
@@ -653,7 +651,9 @@ class ProductFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.d("CheckOndesTroy", "Yesy DEtrou")
+
+
+
 
     }
 

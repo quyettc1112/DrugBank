@@ -67,6 +67,7 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.3.0")
     implementation("androidx.preference:preference:1.2.1")
     implementation("com.google.ai.client.generativeai:generativeai:0.2.1")
+    implementation("com.google.android.gms:play-services-location:21.2.0")
     /*    implementation("androidx.annotation:annotation-jvm:1.7.1")*/
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
@@ -151,4 +152,9 @@ dependencies {
     // Paging for android
     implementation("androidx.paging:paging-common-ktx:3.2.1")
     implementation("androidx.paging:paging-runtime-ktx:3.2.1")
+
+    // Google Map
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
+    implementation("com.google.android.gms:play-services-location:21.2.0")
+    implementation("com.google.android.libraries.places:places:3.3.0")
 }

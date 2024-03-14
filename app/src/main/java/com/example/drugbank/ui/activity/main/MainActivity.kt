@@ -16,6 +16,12 @@ import com.example.drugbank.databinding.DialogConfirmBinding
 import com.example.drugbank.repository.Admin_UserM_Repository
 import com.example.drugbank.respone.UserListResponse
 import com.example.healthcarecomp.base.BaseActivity
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import me.ibrahimsn.lib.NiceBottomBar
@@ -24,13 +30,15 @@ import retrofit2.Response
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity() , OnMapReadyCallback {
 
     private lateinit var binding:ActivityMainBinding
     private lateinit var _mainViewModel: MainViewModel
 
     private  var currentEmailUser: String? = null
     private lateinit var tokenManager: TokenManager
+
+    private lateinit var map: GoogleMap
 
     @Inject
     lateinit var userRepository: Admin_UserM_Repository
@@ -39,10 +47,18 @@ class MainActivity : BaseActivity() {
 
         tokenManager = TokenManager(this@MainActivity)
         currentEmailUser = Constant.getSavedUsername(this@MainActivity)
-        //CallGetUserByEmail()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setUpBottomNav()
+
+        val mapFragment = supportFragmentManager.findFragmentById(R.id.id_map) as? SupportMapFragment
+        if (mapFragment != null) {
+            mapFragment.getMapAsync { googleMap ->
+                map = googleMap
+            }
+        } else {
+            Log.e("TAG", "Map fragment is not found in the layout or it is not a SupportMapFragment")
+        }
     }
 
     private fun setUpBottomNav() {
@@ -65,29 +81,14 @@ class MainActivity : BaseActivity() {
     fun showLoginDialog() {
         showLoginDialog(this, this, 0)
     }
+    override fun onMapReady(googleMap: GoogleMap) {
+        map = googleMap
+        val hoChiMinhLatLng = LatLng(10.7769, 106.7009)
+        map.addMarker(MarkerOptions().position(hoChiMinhLatLng).title("Ho Chi Minh City"))
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(hoChiMinhLatLng, 15F))
+    }
 
-//    private fun CallGetUserByEmail() {
-//        userRepository.getUserByEmail(
-//            authorization = "Bearer ${tokenManager.getAccessToken()}",
-//            email = currentEmailUser.toString()
-//        ).enqueue(object : retrofit2.Callback<UserListResponse.User> {
-//            override fun onResponse(
-//                call: Call<UserListResponse.User>,
-//                response: Response<UserListResponse.User>
-//            ) {
-//                if (response.isSuccessful) {
-//                    val userRespone: UserListResponse.User? = response.body()
-//                    Constant.saveCurrentUser(this@MainActivity, userRespone!!)
-//                }
-//                else {
-//                    Log.d("CheckUser", response.code().toString())
-//                }
-//            }
-//            override fun onFailure(call: Call<UserListResponse.User>, t: Throwable) {
-//                TODO("Not yet implemented")
-//            }
-//        })
-//    }
+
 
 
 }
