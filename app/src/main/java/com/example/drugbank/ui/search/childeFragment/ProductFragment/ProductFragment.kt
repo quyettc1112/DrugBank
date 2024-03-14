@@ -92,8 +92,6 @@ class ProductFragment : Fragment() {
             uiChooseFDA()
             Toast.makeText(requireContext(), "NO", Toast.LENGTH_SHORT).show()
         }
-
-
         //uiChooseFDA()
 
         _binding.imvFlag.setOnClickListener {
@@ -160,7 +158,6 @@ class ProductFragment : Fragment() {
                 editorFDA.putInt(Constant.CURRENT_FDA_VALUE, currentIDClcik)
                 editorFDA.apply()
             }
-
 
             setUpRecycleViewList()
             showBottomSheet()
@@ -343,17 +340,20 @@ class ProductFragment : Fragment() {
         if (_productViewModel.isCheckedCard1.value == true) {
             CallProductList_FDA()
             _binding.imvFlag.setBackgroundResource(R.drawable.fda)
+            _binding.textFlag.setText("FDA")
         } else if (_productViewModel.isCheckedCard2.value == true){
             CallProductList_ANSM()
             _binding.imvFlag.setBackgroundResource(R.drawable.ansm)
+            _binding.textFlag.setText("ANSM")
         } else if (_productViewModel.isCheckedCard3.value == true) {
             CallProductList_DAV()
             _binding.imvFlag.setBackgroundResource(R.drawable.dav)
+            _binding.textFlag.setText("DAV")
         } else {
             CallProductList_NoFIll()
             _binding.imvFlag.setBackgroundResource(R.drawable.avatar_1)
         }
-      //  lodingFlag()
+
     }
 
     private fun CallProductList_DAV() {
