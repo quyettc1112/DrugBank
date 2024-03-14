@@ -60,7 +60,46 @@ class ProductFragment : Fragment() {
         _productAdapter = ProductAdapter()
         _productViewModel.setLoading(true)
 
-        uiChooseFDA()
+        showBottomSheet()
+        loadingUI()
+        val sharedPreferences = requireActivity().getSharedPreferences(Constant.CURRENT_FDA, Context.MODE_PRIVATE)
+        val isBackFromDetail = sharedPreferences.getInt(Constant.CURRENT_FDA_VALUE, 0)
+
+        if (isBackFromDetail != 0) {
+            _binding.layoutIncludeHolder.visibility = View.GONE
+            if (isBackFromDetail == 1) {
+                _productViewModel.resetCheckCardValue()
+                _productViewModel.isCheckedCard1.value = true
+               // CallProductList()
+            }
+
+            if (isBackFromDetail == 2) {
+                _productViewModel.resetCheckCardValue()
+                _productViewModel.isCheckedCard2.value = true
+               // CallProductList()
+
+            }
+
+            if (isBackFromDetail == 3) {
+                _productViewModel.resetCheckCardValue()
+                _productViewModel.isCheckedCard3.value = true
+                //CallProductList()
+
+            }
+            setUpRecycleViewList()
+            Log.d("ChecckbackFromDetail", isBackFromDetail.toString())
+        } else {
+            uiChooseFDA()
+
+        }
+
+
+        //uiChooseFDA()
+
+        _binding.imvFlag.setOnClickListener {
+            RESET_VIEWMODEL_VALUE()
+            uiChooseFDA()
+        }
 
         return _binding.root
     }
@@ -211,6 +250,7 @@ class ProductFragment : Fragment() {
 
     private fun setUpRecycleViewList() {
         _binding.rvItemUserHome.adapter = _productAdapter
+        RESET_VIEWMODEL_VALUE()
         CallProductList()
         _binding.rvItemUserHome.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -253,30 +293,6 @@ class ProductFragment : Fragment() {
         }
     }
 
-    private fun lodingFlag() {
-        _productViewModel.isCheckedCard1.observe(viewLifecycleOwner) {isChoose ->
-            if (isChoose) {
-                _binding.imvFlag.setBackgroundResource(R.drawable.fda)
-                _binding.imvFlag.visibility = View.VISIBLE
-            } else _binding.imvFlag.visibility = View.GONE
-        }
-
-        _productViewModel.isCheckedCard2.observe(viewLifecycleOwner) {isChoose ->
-            if (isChoose) {
-                _binding.imvFlag.setBackgroundResource(R.drawable.ansm)
-                _binding.imvFlag.visibility = View.VISIBLE
-            } else _binding.imvFlag.visibility = View.GONE
-        }
-
-        _productViewModel.isCheckedCard3.observe(viewLifecycleOwner) {isChoose ->
-            if (isChoose) {
-                _binding.imvFlag.setBackgroundResource(R.drawable.dav)
-                _binding.imvFlag.visibility = View.VISIBLE
-            } else _binding.imvFlag.visibility = View.GONE
-        }
-
-
-    }
 
     private fun setUpSearchQueries() {
         val searchView = _binding.searchView
@@ -309,15 +325,21 @@ class ProductFragment : Fragment() {
     }
 
     private fun CallProductList() {
+        RESET_VIEWMODEL_VALUE()
         if (_productViewModel.isCheckedCard1.value == true) {
             CallProductList_FDA()
+            _binding.imvFlag.setBackgroundResource(R.drawable.fda)
         } else if (_productViewModel.isCheckedCard2.value == true){
             CallProductList_ANSM()
+            _binding.imvFlag.setBackgroundResource(R.drawable.ansm)
         } else if (_productViewModel.isCheckedCard3.value == true) {
             CallProductList_DAV()
+            _binding.imvFlag.setBackgroundResource(R.drawable.dav)
         } else {
             CallProductList_NoFIll()
+            _binding.imvFlag.setBackgroundResource(R.drawable.avatar_1)
         }
+      //  lodingFlag()
     }
 
     private fun CallProductList_DAV() {
@@ -431,6 +453,7 @@ class ProductFragment : Fragment() {
         })
     }
     private fun CallProductList_NoFIll() {
+        RESET_VIEWMODEL_VALUE()
         adminProductRepository.getProductList(
             authorization = "Bearer ${tokenManager.getAccessToken()}",
             pageNo = _productViewModel.currentPage.value!!,
@@ -554,6 +577,12 @@ class ProductFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         RESET_VIEWMODEL_VALUE()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("CheckOndesTroy", "Yesy DEtrou")
+
     }
 
 
