@@ -90,7 +90,7 @@ class ProductFragment : Fragment() {
             Log.d("ChecckbackFromDetail", isBackFromDetail.toString())
         } else {
             uiChooseFDA()
-
+            Toast.makeText(requireContext(), "NO", Toast.LENGTH_SHORT).show()
         }
 
 
@@ -151,6 +151,17 @@ class ProductFragment : Fragment() {
 
         includedLayout.saveFDA.setOnClickListener {
             _binding.layoutIncludeHolder.visibility = View.GONE
+
+            val sharedPreferences = requireActivity().getSharedPreferences(Constant.CURRENT_PRODUCT_ID, Context.MODE_PRIVATE)
+            val currentFDA = requireActivity().getSharedPreferences(Constant.CURRENT_FDA, Context.MODE_PRIVATE)
+            val isBackFromDetail = sharedPreferences.getInt(Constant.CURRENT_FDA_VALUE, 0)
+            if (isBackFromDetail != currentIDClcik) {
+                val editorFDA = currentFDA.edit()
+                editorFDA.putInt(Constant.CURRENT_FDA_VALUE, currentIDClcik)
+                editorFDA.apply()
+            }
+
+
             setUpRecycleViewList()
             showBottomSheet()
             setUpSearchQueries()
@@ -275,10 +286,14 @@ class ProductFragment : Fragment() {
             editor.apply()
 
 
-            val currentFDA = requireActivity().getSharedPreferences(Constant.CURRENT_FDA, Context.MODE_PRIVATE)
-            val editorFDA = currentFDA.edit()
-            editorFDA.putInt(Constant.CURRENT_FDA_VALUE, currentIDClcik)
-            editorFDA.apply()
+//            val currentFDA = requireActivity().getSharedPreferences(Constant.CURRENT_FDA, Context.MODE_PRIVATE)
+//            val isBackFromDetail = sharedPreferences.getInt(Constant.CURRENT_FDA_VALUE, 0)
+//            if (isBackFromDetail != currentIDClcik) {
+//                val editorFDA = currentFDA.edit()
+//                editorFDA.putInt(Constant.CURRENT_FDA_VALUE, currentIDClcik)
+//                editorFDA.apply()
+//            }
+
 
             navController.navigate(Constant.getNavSeleted(5))
         }
@@ -325,7 +340,6 @@ class ProductFragment : Fragment() {
     }
 
     private fun CallProductList() {
-        RESET_VIEWMODEL_VALUE()
         if (_productViewModel.isCheckedCard1.value == true) {
             CallProductList_FDA()
             _binding.imvFlag.setBackgroundResource(R.drawable.fda)
