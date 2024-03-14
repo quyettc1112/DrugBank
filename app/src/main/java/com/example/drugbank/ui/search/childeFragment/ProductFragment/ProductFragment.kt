@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
@@ -28,6 +29,7 @@ import com.example.drugbank.repository.Admin_ProductM_Repository
 import com.example.drugbank.respone.DrugMListRespone
 import com.example.drugbank.respone.ProductListRespone
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.card.MaterialCardView
 import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
 import retrofit2.Callback
@@ -250,9 +252,65 @@ class ProductFragment : Fragment() {
                     CallProductList()
                 }
             }
+            var currentCheckedCheckbox: CheckBox? = null
+
+
+
+            val materialCardViewFDA = view.findViewById<MaterialCardView>(R.id.materialCardView2_dialog)
+            val checkBoxFDA = view.findViewById<CheckBox>(R.id.checkboxcard1_dia)
+            materialCardViewFDA.setOnClickListener {
+                if (currentCheckedCheckbox != checkBoxFDA) {
+                    currentCheckedCheckbox?.isChecked = false
+                    checkBoxFDA.isChecked = true
+                    currentCheckedCheckbox = checkBoxFDA
+                }
+            }
+
+            val materialCardViewANSM = view.findViewById<MaterialCardView>(R.id.materialCardView3_ANSM)
+            val checkBoxANSM = view.findViewById<CheckBox>(R.id.checkboxcard2_ANSM)
+            materialCardViewANSM.setOnClickListener {
+                if (currentCheckedCheckbox != checkBoxANSM) {
+                    currentCheckedCheckbox?.isChecked = false
+                    checkBoxANSM.isChecked = true
+                    currentCheckedCheckbox = checkBoxANSM
+                }
+            }
+
+            val materialCardViewDAV = view.findViewById<MaterialCardView>(R.id.materialCardView4_DAV)
+            val checkBoxDAV = view.findViewById<CheckBox>(R.id.checkboxcard3_DAV)
+            materialCardViewDAV.setOnClickListener {
+                if (currentCheckedCheckbox != checkBoxDAV) {
+                    currentCheckedCheckbox?.isChecked = false
+                    checkBoxDAV.isChecked = true
+                    currentCheckedCheckbox = checkBoxDAV
+                }
+            }
+
             view.findViewById<AppCompatButton>(R.id.btn_save).setOnClickListener {
                 bottomSheetDialog.dismiss()
+                if (currentCheckedCheckbox == checkBoxFDA) {
+                    _productViewModel.resetCheckCardValue()
+                    RESET_VIEWMODEL_VALUE()
+                    _productViewModel.isCheckedCard1.value = true
+                    currentIDClcik = 1
+                    CallProductList()
+                } else if (currentCheckedCheckbox == checkBoxANSM) {
+                    _productViewModel.resetCheckCardValue()
+                    RESET_VIEWMODEL_VALUE()
+                    _productViewModel.isCheckedCard2.value = true
+                    currentIDClcik = 2
+                    CallProductList()
+                } else if (currentCheckedCheckbox == checkBoxDAV) {
+                    _productViewModel.resetCheckCardValue()
+                    RESET_VIEWMODEL_VALUE()
+                    _productViewModel.isCheckedCard3.value = true
+                    currentIDClcik = 3
+                    CallProductList()
+                }
             }
+
+
+
         }
     }
 

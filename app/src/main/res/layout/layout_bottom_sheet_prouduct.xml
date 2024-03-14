@@ -132,7 +132,7 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:checkable="true"
-                android:id="@+id/materialCardView2"
+                android:id="@+id/materialCardView2_dialog"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:cardCornerRadius="15dp"
@@ -153,22 +153,21 @@
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="FDA"
                 android:textColor="@color/textCountry"
                 android:textSize="40dp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/materialCardView2"
+                app:layout_constraintBottom_toBottomOf="@+id/materialCardView2_dialog"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"></TextView>
             <CheckBox
                 android:clickable="false"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:checked="false"
-                android:id="@+id/checkboxcard1"
+                android:id="@+id/checkboxcard1_dia"
                 android:background="@color/icon_color_normal"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -188,7 +187,7 @@
             android:layout_marginEnd="40dp"
             android:padding="0dp">
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/materialCardView3"
+                android:id="@+id/materialCardView3_ANSM"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:cardCornerRadius="15dp"
@@ -221,9 +220,9 @@
                 app:layout_constraintTop_toTopOf="parent"></TextView>
             <CheckBox
                 android:clickable="false"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:checked="false"
-                android:id="@+id/checkboxcard2"
+                android:id="@+id/checkboxcard2_ANSM"
                 android:background="@color/icon_color_normal"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -243,7 +242,7 @@
             android:layout_marginEnd="40dp"
             android:padding="0dp">
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/materialCardView4"
+                android:id="@+id/materialCardView4_DAV"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:cardCornerRadius="15dp"
@@ -270,15 +269,15 @@
                 android:textColor="@color/textCountry"
                 android:textSize="40dp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/materialCardView4"
+                app:layout_constraintBottom_toBottomOf="@+id/materialCardView4_DAV"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"></TextView>
             <CheckBox
                 android:clickable="false"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:checked="false"
-                android:id="@+id/checkboxcard3"
+                android:id="@+id/checkboxcard3_DAV"
                 android:background="@color/icon_color_normal"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
