@@ -60,16 +60,6 @@ class ProductFragment : Fragment() {
         _productAdapter = ProductAdapter()
         _productViewModel.setLoading(true)
 
-        val sharedPreferences = requireActivity().getSharedPreferences(Constant.CURRENT_FDA, Context.MODE_PRIVATE)
-        val currentFDAValue = sharedPreferences.getInt(Constant.CURRENT_FDA_VALUE, -1)
-
-        if (currentFDAValue != -1) {
-            Log.d("CheckFDAValue", "Nice ${currentFDAValue}")
-
-        } else {
-            Log.d("CheckFDAValue", currentFDAValue.toString())
-        }
-
         uiChooseFDA()
 
         return _binding.root
@@ -82,6 +72,7 @@ class ProductFragment : Fragment() {
     }
 
     private fun uiChooseFDA() {
+        _binding.layoutIncludeHolder.visibility = View.VISIBLE
         val includedLayout = _binding.layoutChoose
         var selectedCardId: Int? = null // Biến để lưu ID của card được chọn
 
@@ -120,7 +111,6 @@ class ProductFragment : Fragment() {
         }
 
         includedLayout.saveFDA.setOnClickListener {
-            currentIDClcik = 0
             _binding.layoutIncludeHolder.visibility = View.GONE
             setUpRecycleViewList()
             showBottomSheet()
@@ -250,8 +240,6 @@ class ProductFragment : Fragment() {
             editorFDA.putInt(Constant.CURRENT_FDA_VALUE, currentIDClcik)
             editorFDA.apply()
 
-
-
             navController.navigate(Constant.getNavSeleted(5))
         }
     }
@@ -263,6 +251,31 @@ class ProductFragment : Fragment() {
                 _binding.pgIsLoading.visibility = View.GONE
             }
         }
+    }
+
+    private fun lodingFlag() {
+        _productViewModel.isCheckedCard1.observe(viewLifecycleOwner) {isChoose ->
+            if (isChoose) {
+                _binding.imvFlag.setBackgroundResource(R.drawable.fda)
+                _binding.imvFlag.visibility = View.VISIBLE
+            } else _binding.imvFlag.visibility = View.GONE
+        }
+
+        _productViewModel.isCheckedCard2.observe(viewLifecycleOwner) {isChoose ->
+            if (isChoose) {
+                _binding.imvFlag.setBackgroundResource(R.drawable.ansm)
+                _binding.imvFlag.visibility = View.VISIBLE
+            } else _binding.imvFlag.visibility = View.GONE
+        }
+
+        _productViewModel.isCheckedCard3.observe(viewLifecycleOwner) {isChoose ->
+            if (isChoose) {
+                _binding.imvFlag.setBackgroundResource(R.drawable.dav)
+                _binding.imvFlag.visibility = View.VISIBLE
+            } else _binding.imvFlag.visibility = View.GONE
+        }
+
+
     }
 
     private fun setUpSearchQueries() {

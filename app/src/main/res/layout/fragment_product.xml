@@ -57,16 +57,33 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <TextView
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="20dp"
-            android:text="Most searched products"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"
+                android:text="Most searched products"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-        </TextView>
+            </TextView>
+
+            <ImageView
+                android:id="@+id/imv_flag"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/dav"
+                android:layout_width="60dp"
+                android:layout_height="40dp">
+
+
+            </ImageView>
+
+        </LinearLayout>
+
 
         <LinearLayout
             android:visibility="visible"
