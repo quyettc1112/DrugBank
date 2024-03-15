@@ -32,6 +32,7 @@ class Constant {
 
         const val CURRENT_USER = "CURRENT_USER"
         const val CURRENT_USER_VALUE = "CURRENT_USER_VALUE"
+        const val IS_BACK_FROM_MAP = "IS_BACK_FROM_MAPs"
 
 
         const val CURRENT_FDA = "CURRENT_FDA"
