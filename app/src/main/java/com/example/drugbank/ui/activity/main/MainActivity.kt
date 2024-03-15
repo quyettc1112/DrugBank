@@ -51,7 +51,7 @@ class MainActivity : BaseActivity() , OnMapReadyCallback {
         setContentView(binding.root)
         setUpBottomNav()
 
-        val mapFragment = supportFragmentManager.findFragmentById(R.id.id_map) as? SupportMapFragment
+        val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
         if (mapFragment != null) {
             mapFragment.getMapAsync { googleMap ->
                 map = googleMap
@@ -83,7 +83,7 @@ class MainActivity : BaseActivity() , OnMapReadyCallback {
     }
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
-        val hoChiMinhLatLng = LatLng(10.7769, 106.7009)
+        val hoChiMinhLatLng = LatLng(-34.0, 151.0)
         map.addMarker(MarkerOptions().position(hoChiMinhLatLng).title("Ho Chi Minh City"))
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(hoChiMinhLatLng, 15F))
     }
