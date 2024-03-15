@@ -41,43 +41,47 @@ class MainActivity : BaseActivity() , OnMapReadyCallback {
         currentEmailUser = Constant.getSavedUsername(this@MainActivity)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setUpBottomNav()
+       // setUpBottomNav()
 
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
         if (mapFragment != null) {
             mapFragment.getMapAsync { googleMap ->
                 map = googleMap
+                val hoChiMinhLatLng = LatLng(10.762622, 106.660172 )
+                map.addMarker(MarkerOptions().position(hoChiMinhLatLng).title("What"))
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(hoChiMinhLatLng, 20F))
+                Log.e("TAG", "Not Null")
             }
         } else {
             Log.e("TAG", "Map fragment is not found in the layout or it is not a SupportMapFragment")
         }
     }
 
-    private fun setUpBottomNav() {
-        _mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
-        _mainViewModel.setUpNav()
-        _mainViewModel.currentNav.observe(this, Observer { currentId ->
-            if (currentId != null) {
-                val navController = findNavController(com.example.drugbank.R.id.nav_host_fragment_activity_main)
-                navController.navigate(Constant.getNavSeleted(currentId))
-            }
-        })
-        binding.bottomBar.let { bt ->
-            bt.onItemSelected = {
-                    _mainViewModel.ChangeNav(it)
-            }
-            bt.setBadge(2)
-        }
-    }
+//    private fun setUpBottomNav() {
+//        _mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
+//        _mainViewModel.setUpNav()
+//        _mainViewModel.currentNav.observe(this, Observer { currentId ->
+//            if (currentId != null) {
+//                val navController = findNavController(com.example.drugbank.R.id.nav_host_fragment_activity_main)
+//                navController.navigate(Constant.getNavSeleted(currentId))
+//            }
+//        })
+//        binding.bottomBar.let { bt ->
+//            bt.onItemSelected = {
+//                    _mainViewModel.ChangeNav(it)
+//            }
+//            bt.setBadge(2)
+//        }
+//    }
 
     fun showLoginDialog() {
         showLoginDialog(this, this, 0)
     }
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
-        val hoChiMinhLatLng = LatLng(20.5937, 78.9629)
-        map.addMarker(MarkerOptions().position(hoChiMinhLatLng).title("Ho Chi Minh City"))
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(hoChiMinhLatLng, 15F))
+        val hoChiMinhLatLng = LatLng(0.0, 0.0 )
+        map.addMarker(MarkerOptions().position(hoChiMinhLatLng).title("What"))
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(hoChiMinhLatLng, 20F))
     }
 
 

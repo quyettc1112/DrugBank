@@ -6,6 +6,7 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     android:background="@color/i_gray"
+    android:visibility="visible"
     tools:context=".ui.search.childeFragment.ProductFragment.ProductFragment">
 
     <LinearLayout

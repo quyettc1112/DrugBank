@@ -6,7 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".ui.activity.main.MainActivity">
 
+    <fragment
+        android:id="@+id/map"
+        class="com.google.android.gms.maps.SupportMapFragment"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+
     <me.ibrahimsn.lib.NiceBottomBar
+        android:visibility="gone"
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -16,6 +26,7 @@
         app:menu="@menu/menu" />
 
     <fragment
+        android:visibility="gone"
         android:id="@+id/nav_host_fragment_activity_main"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
