@@ -1,10 +1,7 @@
 package com.example.drugbank.ui.activity.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -12,9 +9,7 @@ import com.example.drugbank.R
 import com.example.drugbank.common.Token.TokenManager
 import com.example.drugbank.common.constant.Constant
 import com.example.drugbank.databinding.ActivityMainBinding
-import com.example.drugbank.databinding.DialogConfirmBinding
 import com.example.drugbank.repository.Admin_UserM_Repository
-import com.example.drugbank.respone.UserListResponse
 import com.example.healthcarecomp.base.BaseActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -22,12 +17,9 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
-import me.ibrahimsn.lib.NiceBottomBar
-import retrofit2.Call
-import retrofit2.Response
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity() , OnMapReadyCallback {
@@ -66,7 +58,7 @@ class MainActivity : BaseActivity() , OnMapReadyCallback {
         _mainViewModel.setUpNav()
         _mainViewModel.currentNav.observe(this, Observer { currentId ->
             if (currentId != null) {
-                val navController = findNavController(R.id.nav_host_fragment_activity_main)
+                val navController = findNavController(com.example.drugbank.R.id.nav_host_fragment_activity_main)
                 navController.navigate(Constant.getNavSeleted(currentId))
             }
         })
@@ -83,7 +75,7 @@ class MainActivity : BaseActivity() , OnMapReadyCallback {
     }
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
-        val hoChiMinhLatLng = LatLng(-34.0, 151.0)
+        val hoChiMinhLatLng = LatLng(20.5937, 78.9629)
         map.addMarker(MarkerOptions().position(hoChiMinhLatLng).title("Ho Chi Minh City"))
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(hoChiMinhLatLng, 15F))
     }

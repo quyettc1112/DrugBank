@@ -86,7 +86,6 @@ class ProductFragment : Fragment() {
                 _productViewModel.resetCheckCardValue()
                 _productViewModel.isCheckedCard3.value = true
                 //CallProductList()
-
             }
             setUpRecycleViewList()
         } else {
@@ -252,8 +251,6 @@ class ProductFragment : Fragment() {
             }
             var currentCheckedCheckbox: CheckBox? = null
 
-
-
             val materialCardViewFDA = view.findViewById<MaterialCardView>(R.id.materialCardView2_dialog)
             val checkBoxFDA = view.findViewById<CheckBox>(R.id.checkboxcard1_dia)
             materialCardViewFDA.setOnClickListener {
@@ -307,8 +304,6 @@ class ProductFragment : Fragment() {
                 }
             }
 
-
-
         }
     }
 
@@ -339,13 +334,6 @@ class ProductFragment : Fragment() {
             editor.apply()
 
 
-//            val currentFDA = requireActivity().getSharedPreferences(Constant.CURRENT_FDA, Context.MODE_PRIVATE)
-//            val isBackFromDetail = sharedPreferences.getInt(Constant.CURRENT_FDA_VALUE, 0)
-//            if (isBackFromDetail != currentIDClcik) {
-//                val editorFDA = currentFDA.edit()
-//                editorFDA.putInt(Constant.CURRENT_FDA_VALUE, currentIDClcik)
-//                editorFDA.apply()
-//            }
 
 
             navController.navigate(Constant.getNavSeleted(5))
