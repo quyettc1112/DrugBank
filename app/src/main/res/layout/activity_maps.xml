@@ -19,13 +19,124 @@
         app:showStartIcon="true"
         app:showStartText="true">
     </com.example.drugbank.base.customView.CustomToolbar>
+    <androidx.cardview.widget.CardView
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_marginStart="20dp"
+        app:cardCornerRadius="15dp"
+        android:layout_marginEnd="20dp"
+        android:layout_height="50dp">
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/autoComplete_fragment"
+            android:layout_width="match_parent"
+            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+            android:layout_height="match_parent">
+
+        </androidx.fragment.app.FragmentContainerView>
+
+    </androidx.cardview.widget.CardView>
+    <LinearLayout
+
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/common_google_signin_btn_text_light_normal"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="70dp">
+
+        <LinearLayout
+            android:id="@+id/layoutNhaThuoc"
+            android:background="@drawable/background_text_button_iconclick"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/baseline_medication_24"
+                android:id="@+id/medicine"
+                android:layout_gravity="center"
+                android:layout_width="30dp"
+                android:layout_height="30dp">
+            </ImageView>
+            <TextView
+                android:gravity="center"
+                android:text="Nhà Thuốc"
+                android:textSize="10dp"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content">
+
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutBenhVienc"
+            android:orientation="vertical"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/baseline_local_hospital_24"
+                android:id="@+id/hospital"
+                android:layout_gravity="center"
+                android:layout_width="30dp"
+                android:layout_height="30dp">
+            </ImageView>
+            <TextView
+                android:gravity="center"
+                android:text="Bệnh Viện"
+                android:textSize="10dp"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content">
+
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutATM"
+            android:orientation="vertical"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/baseline_atm_24"
+                android:id="@+id/ATM"
+                android:layout_gravity="center"
+                android:layout_width="30dp"
+                android:layout_height="30dp">
+            </ImageView>
+            <TextView
+                android:gravity="center"
+                android:text="ATM"
+                android:textSize="10dp"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content">
+
+            </TextView>
+        </LinearLayout>
+
+
+
+    </LinearLayout>
 
     <fragment
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:context=".ui.activity.map.MapsActivity" />
 
 </LinearLayout>
