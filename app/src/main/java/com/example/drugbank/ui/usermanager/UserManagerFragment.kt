@@ -398,6 +398,8 @@ class UserManagerFragment : Fragment() {
        // myDialog.window?.setBackgroundDrawable(ColorDrawable(requireContext().getColor(R.color.zxing_transparent)))
         myDialog.show()
 
+
+
         onButtonClickDialog(dialogBinding, et_fullname, etEmail, et_dateofbirth, male, myDialog)
     }
 

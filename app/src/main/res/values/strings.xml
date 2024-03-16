@@ -233,5 +233,12 @@ Ibandronate is a medicine that helps make bones stronger and less likely to brea
 
     <string name="API_KEy">AIzaSyBO9NPUBb7CW9a72f-96pj74fPZuz4uRrE</string>
 
+    <string name="headGn">288 Bis, Nguyễn Văn Cừ, phường An Hòa, quận Ninh Kiều, thành phố Cần Thơ</string>
+    <string name="diadiemkinhdoanh">288 Bis, Nguyễn Văn Cừ, phường An Hòa, quận Ninh Kiều, thành phố Cần Thơ</string>
+    <string name="tetlephone">(0292). 389 1433 - (0292). 3890802</string>
+    <string name="loaihinhkinhdoanh">Medicine manufacturing enterprise</string>
+    <string name="gmp">(1) 299/GCN-QLD (GMP); (2) 711//GCN-QLD (GMP)</string>
+
+
 
 </resources>
