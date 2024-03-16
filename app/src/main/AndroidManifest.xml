@@ -11,6 +11,7 @@
     <uses-permission android:name="com.google.android.gms.permission.INTERNAL_BROADCAST" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="com.google.android.providers.gsf.permisson.READ_GSERVICES" />
 
     <application
         android:name=".util.DrugBankApp"
@@ -39,7 +40,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBO9NPUBb7CW9a72f-96pj74fPZuz4uRrE" />
+            android:value="@string/API_KEy" />
 
         <activity
             android:name=".ui.activity.map.MapsActivity"
