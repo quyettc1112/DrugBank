@@ -1,25 +1,22 @@
 package com.example.drugbank.ui.drugstore
 
+import android.app.Dialog
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.location.Location
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
+
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import android.widget.ImageView
+import android.widget.TextView
 import com.example.drugbank.R
+import com.example.drugbank.base.customView.CustomToolbar
+import com.example.drugbank.common.Resource.Screen
 import com.example.drugbank.databinding.FragmentDrugStoreBinding
 import com.example.drugbank.ui.activity.map.MapsActivity
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+
 
 
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,8 +41,43 @@ class DrugStoreFragment : Fragment() {
            startActivity(intent)
        }
 
+
+       _binding.s1.setOnClickListener {
+           dialogStores(R.drawable.gn, "Công Ty Cổ Phần Dược Hậu Giang")
+       }
+
+       _binding.s2.setOnClickListener {
+           dialogStores(R.drawable.r, "Công Ty Cổ Phần Dược Phẩm Gia Nguyễn")
+       }
+
+       _binding.s3.setOnClickListener {
+           dialogStores(R.drawable.p, "Công Ty Cổ Phần Dược Phẩm Trung Ương I - Pharbaco")
+       }
+
+
+       _binding.s4.setOnClickListener {
+           dialogStores(R.drawable.dmc, "Công Ty Cổ Phần Xuất Nhập Khẩu y tế Domesco")
+       }
+
+
+
         return _binding.root
 
+    }
+
+    private fun dialogStores(imageResource: Int, companyName: String) {
+        val dialogBinding = layoutInflater.inflate(R.layout.dialog_drug_s1, null)
+        val myDialog = Dialog(requireContext())
+        myDialog.setContentView(dialogBinding)
+        myDialog.setCancelable(true)
+        dialogBinding.findViewById<ImageView>(R.id.im_company).setImageResource(imageResource)
+        dialogBinding.findViewById<TextView>(R.id.companyName).text = companyName
+        myDialog.window?.setLayout(Screen.width, Screen.height)
+        myDialog.show()
+
+        dialogBinding.findViewById<CustomToolbar>(R.id.customToolbar).onStartIconClick = {
+            myDialog.dismiss()
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -57,26 +89,6 @@ class DrugStoreFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
-//        if (mapFragment != null) {
-//            mapFragment.getMapAsync { googleMap ->
-//                map = googleMap
-//                val hoChiMinhLatLng = LatLng(10.762622, 106.660172 )
-//                map.addMarker(MarkerOptions().position(hoChiMinhLatLng).title("What"))
-//                map.animateCamera(CameraUpdateFactory.newLatLngZoom(hoChiMinhLatLng, 20F))
-//                Log.e("TAG", "Not Null")
-//            }
-//        } else {
-//            Log.e("TAG", "Map fragment is not found in the layout or it is not a SupportMapFragment")
-//        }
+
     }
-
-//    override fun onMapReady(googleMap: GoogleMap) {
-//        map = googleMap
-//        val hoChiMinhLatLng = LatLng(0.0, 0.0 )
-//        map.addMarker(MarkerOptions().position(hoChiMinhLatLng).title("What"))
-//        map.animateCamera(CameraUpdateFactory.newLatLngZoom(hoChiMinhLatLng, 20F))
-//    }
-
-
 }
