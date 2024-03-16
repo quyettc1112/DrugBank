@@ -50,8 +50,6 @@ class ProductFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _productViewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
-
-
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
