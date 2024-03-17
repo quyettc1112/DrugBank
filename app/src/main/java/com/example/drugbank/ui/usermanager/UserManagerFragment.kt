@@ -5,6 +5,8 @@ import android.app.Dialog
 import android.content.res.Resources
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.transition.AutoTransition
 import android.transition.TransitionManager
 import android.util.Log
@@ -383,8 +385,8 @@ class UserManagerFragment : Fragment() {
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_menu, rolelist)
         rolename.setAdapter(arrayAdapter)
         rolename.setText(user.roleName)
-        if (user.roleName =="SUPERADMIN") {
-            rolename.setText("SUPER ADMIN")
+        if (user.roleName =="SECRETARY") {
+            rolename.setText("SECRETARY")
         } else rolename.setText(user.roleName)
 
         val activeList = resources.getStringArray(R.array.Active)
@@ -554,40 +556,84 @@ class UserManagerFragment : Fragment() {
                 datePickerDialog.datePicker.maxDate = System.currentTimeMillis() - 1000
                 datePickerDialog.show()
             }
-
-
             // Settup Role
             var currentRole = 0;
-            val rolelist = resources.getStringArray(R.array.RoleName)
+            val rolelist = resources.getStringArray(R.array.RoleName_Create)
             val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_menu, rolelist)
             atc_roleListCombo_info.setAdapter(arrayAdapter)
             atc_roleListCombo_info.setOnItemClickListener {  _, _, position, _ ->
                 currentRole = when (rolelist[position]) {
-                    "USER" -> 3
-                    "ADMIN" -> 2
-                    "SUPER ADMIN" -> 1
+                    "ADMIN" -> 1
+                    "SECRETARY" -> 2
                     else -> {
-
                         -1 // Default role set to -1
                     }
                 }
             }
 
-            // Setup Active
-            var currentActive = ""
-            val activeList = resources.getStringArray(R.array.Active_user_adapter)
-            val arrayApderActive = ArrayAdapter(requireContext(), R.layout.dropdown_menu, activeList)
-            atc_ActiveList.setAdapter(arrayApderActive)
-            atc_ActiveList.setOnItemClickListener { parent, view, position, id ->
-                currentActive = activeList[position]
+            etEmail.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                    // Được gọi trước khi văn bản trong etEmail thay đổi
+                }
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    // Được gọi khi văn bản trong etEmail thay đổi
+                    val email = s.toString()
+                    if (!isEmailValid(email)) {
+                        // Nếu email không hợp lệ, xử lý tương ứng ở đây
+                        etEmail.error = "Incorrect Email"
+                    } else {
+                        // Nếu email hợp lệ, đảm bảo rằng không có thông báo lỗi được hiển thị
+                        etEmail.error = null
+                    }
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    // Được gọi sau khi văn bản trong etEmail thay đổi
+                }
+            })
+
+            etUsername.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                    // Được gọi khi văn bản trong etEmail thay đổi
+                    val etun = s.toString()
+                    if(etun.isNullOrEmpty() || etun.length == 0) {
+                        etUsername.error = "Not Null Value"
+                    } else {
+                        etUsername.error = null
+                    }
+                }
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    // Được gọi sau khi văn bản trong etEmail thay đổi
+                }
+            })
+
+            val email = etEmail.text.toString()
+            if (!isEmailValid(email)) {
+                // Nếu email không hợp lệ, hiển thị thông báo lỗi trực tiếp trên TextInputEditText
+                etEmail.error = "Email không hợp lệ"
+            } else {
+                // Nếu email hợp lệ, đảm bảo rằng không có thông báo lỗi được hiển thị
+                etEmail.error = null
             }
+            // Setup Active
+//            var currentActive = ""
+//            val activeList = resources.getStringArray(R.array.Active_user_adapter)
+//            val arrayApderActive = ArrayAdapter(requireContext(), R.layout.dropdown_menu, activeList)
+//            atc_ActiveList.setAdapter(arrayApderActive)
+//            atc_ActiveList.setOnItemClickListener { parent, view, position, id ->
+//                currentActive = activeList[position]
+//            }
             btn_register.setOnClickListener {
                 if (
                     !etUsername.text.isNullOrEmpty() &&
                     !etEmail.text.isNullOrEmpty() &&
                     !etPassword.text.isNullOrEmpty()&&
                     !etFullname.text.isNullOrEmpty()&&
-                    !currentActive.isNullOrEmpty() &&
                     currentGender != null &&
                     currentRole != null
                 ) {
@@ -623,9 +669,15 @@ class UserManagerFragment : Fragment() {
 
         }
     }
+    fun isEmailValid(email: String): Boolean {
+        val pattern = Regex("^\\w+@gmail\\.com$")
+        return pattern.matches(email)
+    }
 
     private fun CallRegisterUser(userAddDTO : AddUserRequestDTO){
-        userRepository.addUser(userAddDTO).enqueue(object : Callback<String>{
+        userRepository.addUser(
+            authorization = "Bearer ${tokenManager.getAccessToken()}"
+            ,userAddDTO).enqueue(object : Callback<String>{
             override fun onResponse(call: Call<String>, response: Response<String>) {
                 if (response.isSuccessful) {
                     val notifyDialog = NotifyDialog(
@@ -642,7 +694,7 @@ class UserManagerFragment : Fragment() {
                 else {
                     val error = ErrorDialog(
                         context = requireContext(),
-                        errorContent = response.errorBody()!!.string(),
+                        errorContent = response.code().toString(),
                         textButton = "Back"
                     )
                     error.show()

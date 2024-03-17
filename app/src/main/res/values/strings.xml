@@ -148,9 +148,13 @@ Ibandronate is a medicine that helps make bones stronger and less likely to brea
     <!--    Combobox-->
     <string-array name="RoleName">
         <item>ALL</item>
-        <item>USER</item>
         <item>ADMIN</item>
-        <item>SUPER ADMIN</item>
+        <item>SECRETARY</item>
+    </string-array>
+
+    <string-array name="RoleName_Create">
+        <item>ADMIN</item>
+        <item>SECRETARY</item>
     </string-array>
 
     <string-array name="aproval">
