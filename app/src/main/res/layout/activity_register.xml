@@ -61,7 +61,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:hint="Input Username"
+                        app:hintAnimationEnabled="false"
                         app:hintTextAppearance="@style/TextAppearance.Material3.BodyLarge"
                         app:startIconDrawable="@drawable/baseline_person_24">
 
@@ -94,12 +94,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:hint="Input Email"
+                        app:errorEnabled="true"
+                        android:hint="abc@gmail.com"
                         app:hintTextAppearance="@style/TextAppearance.Material3.BodyLarge"
                         app:startIconDrawable="@drawable/baseline_email_24">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etEmail"
+
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="text"
@@ -127,7 +129,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:hint="Input full name"
                         app:hintTextAppearance="@style/TextAppearance.Material3.BodyLarge"
                         app:startIconDrawable="@drawable/baseline_lock_person_24">
                         <com.google.android.material.textfield.TextInputEditText
@@ -159,7 +160,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:hint="Input Password"
                         app:hintTextAppearance="@style/TextAppearance.Material3.BodyLarge"
                         app:startIconDrawable="@drawable/baseline_lock_24">
 
@@ -304,7 +304,7 @@
                                 android:layout_height="40dp"
                                 android:inputType="none"
                                 android:padding="0dp"
-                                android:textSize="13dp"
+                                android:textSize="11dp"
                                 android:textStyle="bold">
 
                             </AutoCompleteTextView>
@@ -331,7 +331,7 @@
                         </TextView>
 
                         <com.google.android.material.textfield.TextInputLayout
-                            android:enabled="true"
+                            android:enabled="false"
                             android:id="@+id/tip_activeName"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                             android:layout_width="match_parent"
@@ -339,17 +339,16 @@
                             android:layout_marginStart="10dp"
                             app:boxBackgroundColor="@color/white"
                             app:startIconDrawable="@drawable/baseline_check_circle_outline_24"
-
                             >
-
                             <AutoCompleteTextView
                                 android:id="@+id/atc_ActiveList"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
-                                android:enabled="true"
+                                android:enabled="false"
+                                android:text="Active"
                                 android:inputType="none"
                                 android:padding="0dp"
-                                android:textSize="13dp"
+                                android:textSize="11dp"
                                 android:textStyle="bold">
 
                             </AutoCompleteTextView>
