@@ -54,7 +54,7 @@
                 android:inputType="none"
                 android:padding="0dp"
                 android:text="ALL"
-                android:textSize="12dp"
+                android:textSize="11dp"
                 android:textStyle="bold">
 
             </AutoCompleteTextView>

@@ -50,6 +50,7 @@ interface Admin_UserM_APIService {
 
     @POST("auth/register")
     fun registerUser(
+        @Header("Authorization") authorization: String,
         @Body user: AddUserRequestDTO
     ): Call<String>
 
