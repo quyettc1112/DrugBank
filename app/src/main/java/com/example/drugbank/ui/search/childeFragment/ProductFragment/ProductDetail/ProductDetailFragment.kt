@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.AppCompatImageView
@@ -160,7 +161,9 @@ class ProductDetailFragment : Fragment() {
     }
 
     private fun setUpUiStatic() {
+
         _binding.drugIExapnded?.let { drugExpanded ->
+
             drugExpanded.setUpExpansionToggle(_binding.layoutShowDrugIngredient, _binding.lineDrugIn, drugExpanded)
         }
 
@@ -184,30 +187,45 @@ class ProductDetailFragment : Fragment() {
             contrain.setUpExpansionToggle(_binding.layoutcontraindication, _binding.lineContraindicationl, contrain)
         }
     }
+    // Biến để lưu trữ dữ liệu height cho từng view
+    private val originalHeights = mutableMapOf<View, Int>()
 
     private fun AppCompatImageView.setUpExpansionToggle(targetLayout: View, lineLayout: View, imageView: AppCompatImageView) {
         var isExpanded = false
         this.setOnClickListener {
             isExpanded = !isExpanded
-            setExpandedStateAndToggleVisibility(targetLayout, lineLayout, isExpanded, imageView )
+            setExpandedStateAndToggleVisibility(targetLayout, lineLayout, isExpanded, imageView)
         }
     }
+
     private fun View.setExpandedStateAndToggleVisibility(targetLayout: View, lineLayout: View, isExpanded: Boolean, imageView: AppCompatImageView) {
+        var originalHeight = originalHeights[targetLayout] ?: 0
         if (isExpanded) {
             targetLayout.visibility = View.VISIBLE
-            val expandedHeight = targetLayout.minimumHeight
-            TransitionManager.beginDelayedTransition(_binding.root, AutoTransition())
-            val newHeight = expandedHeight
-            val layoutParams = targetLayout.layoutParams
-            layoutParams.height = newHeight
-            targetLayout.layoutParams = layoutParams
-            lineLayout.visibility = View.VISIBLE
-            imageView.setImageResource(R.drawable.baseline_arrow_drop_up_24)
+            targetLayout.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    targetLayout.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                    val expandedHeight = if (originalHeight != 0) originalHeight else targetLayout.height
+                    if (originalHeight == 0) {
+                        originalHeights[targetLayout] = expandedHeight
+                    }
+                    TransitionManager.beginDelayedTransition(_binding.root, AutoTransition())
+                    val newHeight = expandedHeight
+                    val layoutParams = targetLayout.layoutParams
+                    layoutParams.height = newHeight
+                    targetLayout.layoutParams = layoutParams
+                    lineLayout.visibility = View.VISIBLE
+                    imageView.setImageResource(R.drawable.baseline_arrow_drop_up_24)
+                }
+            })
         } else {
-            targetLayout.visibility = View.GONE
+            TransitionManager.beginDelayedTransition(_binding.root, AutoTransition())
+            // Đặt lại chiều cao của targetLayout thành chiều cao ban đầu
             val layoutParams = targetLayout.layoutParams
-            layoutParams.height = 0
+            layoutParams.height = originalHeight
             targetLayout.layoutParams = layoutParams
+
+            targetLayout.visibility = View.GONE
             lineLayout.visibility = View.GONE
             imageView.setImageResource(R.drawable.baseline_arrow_drop_down_24)
         }

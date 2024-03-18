@@ -246,24 +246,33 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:background="@drawable/background_table"
                         android:gravity="center"
                         android:minHeight="40dp"
                         android:text="ID"
                         android:textAlignment="center" />
+                    <LinearLayout
+                        android:layout_width="1dp"
+                        android:background="@color/black"
+                        android:layout_height="match_parent">
+
+                    </LinearLayout>
 
                     <TextView
                         android:gravity="center"
-                        android:background="@drawable/background_table"
                         android:textAlignment="center"
                         android:layout_width="0dp"
                         android:minHeight="40dp"
                         android:layout_weight="1"
                         android:text="Title" />
+                    <LinearLayout
+                        android:layout_width="1dp"
+                        android:background="@color/black"
+                        android:layout_height="match_parent">
+
+                    </LinearLayout>
 
                     <TextView
                         android:gravity="center"
-                        android:background="@drawable/background_table"
                         android:textAlignment="center"
                         android:layout_width="0dp"
                         android:minHeight="40dp"
@@ -272,35 +281,51 @@
 
 
                 </TableRow>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black"
+                    >
 
+                </LinearLayout>
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
                         android:id="@+id/cate_id"
                         android:gravity="center"
-                        android:background="@drawable/background_table"
                         android:textAlignment="center"
                         android:layout_width="0dp"
                         android:minHeight="40dp"
                         android:layout_weight="1"
                        />
+                    <LinearLayout
+                        android:layout_width="1dp"
+                        android:background="@color/black"
+                        android:layout_height="match_parent">
+
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/cate_titlee"
                         android:gravity="center"
-                        android:background="@drawable/background_table"
                         android:textAlignment="center"
                         android:layout_width="0dp"
                         android:minHeight="40dp"
                         android:layout_weight="1" />
+                    <LinearLayout
+                        android:layout_width="1dp"
+                        android:background="@color/black"
+                        android:layout_height="match_parent">
+
+                    </LinearLayout>
                     <TextView
                         android:id="@+id/cate_slug"
-                        android:gravity="center"
-                        android:background="@drawable/background_table"
-                        android:textAlignment="center"
+                        android:gravity="center|top"
+                        android:minHeight="50dp"
+                        android:layout_height="wrap_content"
+                        android:text="asdasdjh asdhja"
                         android:layout_width="0dp"
-                        android:minHeight="40dp"
                         android:layout_weight="1" />
                 </TableRow>
             </TableLayout>
@@ -312,7 +337,6 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="40dp">
-
                 <TextView
                     android:paddingTop="5dp"
                     android:layout_width="match_parent"
@@ -347,11 +371,9 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="16dp"
-                android:minHeight="450dp"
+                android:minHeight="200dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
-
                 <include layout="@layout/background_table_row_layout_header"></include>
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -414,7 +436,6 @@
                 android:orientation="vertical"
                 android:visibility="gone"
                 android:layout_width="match_parent"
-                android:minHeight="350dp"
                 android:layout_height="wrap_content">
                 <LinearLayout
                     android:layout_marginTop="8dp"
@@ -657,7 +678,6 @@
                 android:orientation="vertical"
                 android:visibility="gone"
                 android:layout_width="match_parent"
-                android:minHeight="400dp"
                 android:layout_height="wrap_content">
 
                 <include
@@ -729,167 +749,171 @@
                 android:orientation="vertical"
                 android:visibility="gone"
                 android:layout_width="match_parent"
-                android:minHeight="1000dp"
                 android:layout_height="wrap_content">
-                <LinearLayout
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:weightSum="10"
-                    android:orientation="horizontal"
+
+                <ScrollView
+                    android:fillViewport="true"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="16dp"
-                        android:layout_weight="6"
-                        android:text="Indication"
-                        android:textSize="16dp"
-                        android:textStyle="bold">
-                    </TextView>
-
+                    android:layout_height="match_parent">
                     <LinearLayout
-                        android:layout_width="1dp"
-                        android:background="@color/black"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent">
+                        <LinearLayout
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:weightSum="10"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="16dp"
+                                android:layout_weight="6"
+                                android:text="Indication"
+                                android:textSize="16dp"
+                                android:textStyle="bold">
+                            </TextView>
+
+                            <LinearLayout
+                                android:layout_width="1dp"
+                                android:background="@color/black"
+                                android:layout_height="match_parent">
+                            </LinearLayout>
+                            <TextView
+                                android:id="@+id/pharmar_indication"
+                                android:textSize="16dp"
+                                android:layout_weight="4"
+                                android:layout_marginStart="16dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+                            </TextView>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:weightSum="10"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_marginStart="16dp"
+                                android:textSize="16dp"
+                                android:textStyle="bold"
+                                android:layout_weight="6"
+                                android:text="Pharmacodynamic"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+                            </TextView>
+                            <LinearLayout
+                                android:layout_width="1dp"
+                                android:background="@color/black"
+                                android:layout_height="match_parent">
+                            </LinearLayout>
+                            <TextView
+                                android:id="@+id/pharmar_pharmar"
+                                android:textSize="16dp"
+                                android:layout_weight="4"
+                                android:layout_marginStart="16dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+                            </TextView>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:weightSum="10"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_marginStart="16dp"
+                                android:textSize="16dp"
+                                android:textStyle="bold"
+                                android:layout_weight="6"
+                                android:text="Mechanism Of Action"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+                            </TextView>
+                            <LinearLayout
+                                android:layout_width="1dp"
+                                android:background="@color/black"
+                                android:layout_height="match_parent">
+                            </LinearLayout>
+                            <TextView
+                                android:id="@+id/pharmar_mechinbism"
+                                android:textSize="16dp"
+                                android:layout_weight="4"
+                                android:layout_marginStart="16dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+                            </TextView>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:weightSum="10"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_marginStart="16dp"
+                                android:textSize="16dp"
+                                android:textStyle="bold"
+                                android:layout_weight="6"
+                                android:text="Asorption"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+                            </TextView>
+                            <LinearLayout
+                                android:layout_width="1dp"
+                                android:background="@color/black"
+                                android:layout_height="match_parent">
+                            </LinearLayout>
+                            <TextView
+                                android:id="@+id/pharmar_asorption"
+                                android:textSize="16dp"
+                                android:layout_weight="4"
+                                android:layout_marginStart="16dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+                            </TextView>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:weightSum="10"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="16dp"
+                                android:layout_weight="6"
+                                android:text="Toxicity"
+                                android:textSize="16dp"
+                                android:textStyle="bold"></TextView>
+
+                            <LinearLayout
+                                android:layout_width="1dp"
+                                android:background="@color/black"
+                                android:layout_height="match_parent">
+                            </LinearLayout>
+                            <TextView
+                                android:id="@+id/pharmar_toxicity"
+                                android:textSize="16dp"
+                                android:layout_weight="4"
+                                android:layout_marginStart="16dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+                            </TextView>
+                        </LinearLayout>
                     </LinearLayout>
-                    <TextView
-                        android:id="@+id/pharmar_indication"
-                        android:textSize="16dp"
-                        android:layout_weight="4"
-                        android:layout_marginStart="16dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-                    </TextView>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:weightSum="10"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_marginStart="16dp"
-                        android:textSize="16dp"
-                        android:textStyle="bold"
-                        android:layout_weight="6"
-                        android:text="Pharmacodynamic"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-                    </TextView>
-                    <LinearLayout
-                        android:layout_width="1dp"
-                        android:background="@color/black"
-                        android:layout_height="match_parent">
-                    </LinearLayout>
-                    <TextView
-                        android:id="@+id/pharmar_pharmar"
-                        android:textSize="16dp"
-                        android:layout_weight="4"
-                        android:layout_marginStart="16dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-                    </TextView>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:weightSum="10"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_marginStart="16dp"
-                        android:textSize="16dp"
-                        android:textStyle="bold"
-                        android:layout_weight="6"
-                        android:text="Mechanism Of Action"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-                    </TextView>
-                    <LinearLayout
-                        android:layout_width="1dp"
-                        android:background="@color/black"
-                        android:layout_height="match_parent">
-                    </LinearLayout>
-                    <TextView
-                        android:id="@+id/pharmar_mechinbism"
-                        android:textSize="16dp"
-                        android:layout_weight="4"
-                        android:layout_marginStart="16dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-                    </TextView>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:weightSum="10"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_marginStart="16dp"
-                        android:textSize="16dp"
-                        android:textStyle="bold"
-                        android:layout_weight="6"
-                        android:text="Asorption"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-                    </TextView>
-                    <LinearLayout
-                        android:layout_width="1dp"
-                        android:background="@color/black"
-                        android:layout_height="match_parent">
-                    </LinearLayout>
-                    <TextView
-                        android:id="@+id/pharmar_asorption"
-                        android:textSize="16dp"
-                        android:layout_weight="4"
-                        android:layout_marginStart="16dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-                    </TextView>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:weightSum="10"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="16dp"
-                        android:layout_weight="6"
-                        android:text="Toxicity"
-                        android:textSize="16dp"
-                        android:textStyle="bold"></TextView>
-
-                    <LinearLayout
-                        android:layout_width="1dp"
-                        android:background="@color/black"
-                        android:layout_height="match_parent">
-                    </LinearLayout>
-                    <TextView
-                        android:id="@+id/pharmar_toxicity"
-                        android:textSize="16dp"
-                        android:layout_weight="4"
-                        android:layout_marginStart="16dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-                    </TextView>
-                </LinearLayout>
-
-
-
+                </ScrollView>
 
             </LinearLayout>
             <LinearLayout
@@ -943,7 +967,6 @@
                 android:orientation="vertical"
                 android:visibility="gone"
                 android:layout_width="match_parent"
-                android:minHeight="300dp"
                 android:layout_height="wrap_content">
 
                 <LinearLayout
@@ -1065,7 +1088,6 @@
                 android:orientation="vertical"
                 android:visibility="gone"
                 android:layout_width="match_parent"
-                android:minHeight="200dp"
                 android:layout_height="wrap_content">
 
                 <LinearLayout
