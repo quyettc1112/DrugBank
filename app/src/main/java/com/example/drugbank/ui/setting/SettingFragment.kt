@@ -2,6 +2,7 @@ package com.example.drugbank.ui.setting
 
 import android.app.Activity
 import android.app.Activity.RESULT_OK
+import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.Intent
 import android.net.Uri
@@ -22,6 +23,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.AppCompatButton
+import androidx.lifecycle.Observer
 import com.example.drugbank.R
 import com.example.drugbank.base.dialog.ConfirmDialog
 import com.example.drugbank.base.dialog.ErrorDialog
@@ -29,6 +31,7 @@ import com.example.drugbank.common.Resource.Screen
 import com.example.drugbank.common.Token.TokenManager
 import com.example.drugbank.common.constant.Constant
 import com.example.drugbank.data.dto.UpdateUserRequestDTO
+import com.example.drugbank.data.model.User
 import com.example.drugbank.databinding.FragmentSettingBinding
 import com.example.drugbank.repository.API_User_Repository
 import com.example.drugbank.repository.Admin_UserM_Repository
@@ -47,6 +50,8 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
 import java.io.FileOutputStream
+import java.text.SimpleDateFormat
+import java.util.Calendar
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -79,6 +84,7 @@ class SettingFragment : Fragment() {
         _binding = FragmentSettingBinding.inflate(inflater, container, false)
         logout()
         tokenManager = TokenManager(requireContext())
+        CallGetUserByEmail()
         bindUserData()
         _binding!!.layoutSetting.setOnClickListener {
             showUserInfoDialog(currentUser)
@@ -219,15 +225,18 @@ class SettingFragment : Fragment() {
         })
     }
     private fun showUserInfoDialog(user: UserListResponse.User) {
+
+
+        Log.d("CheclValueDob", user.dayOfBirth.toString())
         val dialogBinding = layoutInflater.inflate(R.layout.dialog_user_info, null)
         val myDialog = Dialog(requireContext())
 
 
         val username = dialogBinding.findViewById<TextView>(R.id.tv_userName)
-        val id  = dialogBinding.findViewById<TextView>(R.id.tv_id)
+        val id   = dialogBinding.findViewById<TextView>(R.id.tv_id)
         val etEmail = dialogBinding.findViewById<TextInputEditText>(R.id.etEmail_userInfo)
         val et_fullname = dialogBinding.findViewById<TextInputEditText>(R.id.et_fullname)
-        val et_dateofbirth = dialogBinding.findViewById<EditText>(R.id.et_dateofbirth)
+        val et_dateofbirth = dialogBinding.findViewById<AppCompatButton>(R.id.btn_dob_uf)
         val ivUserAvatar = dialogBinding.findViewById<CircleImageView>(R.id.ivUserAvatar)
 
         val male = dialogBinding.findViewById<RadioButton>(R.id.rdo_btn_male)
@@ -240,6 +249,31 @@ class SettingFragment : Fragment() {
         etEmail.setText(user.email)
         et_fullname.setText(user.fullname)
         et_dateofbirth.setText(user.dayOfBirth)
+//        viewModel.dob.observe(viewLifecycleOwner, Observer { dobValue ->
+//            et_dateofbirth.setText(dobValue)
+//        })
+        et_dateofbirth.setOnClickListener { input ->
+            val datePickerDialog = DatePickerDialog(
+                requireContext(),
+                { _, year, month, dayOfMonth ->
+                    val calendar = Calendar.getInstance()
+                    calendar.set(year, month, dayOfMonth)
+                    val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+                    val formattedDate = dateFormat.format(calendar.time)
+                    et_dateofbirth.setText(formattedDate)
+                    viewModel.updateDOBValue(formattedDate)
+                },
+                Calendar.getInstance().get(Calendar.YEAR),
+                Calendar.getInstance().get(Calendar.MONTH),
+                Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+            )
+            datePickerDialog.setOnCancelListener { }
+            datePickerDialog.setOnDismissListener {}
+
+            datePickerDialog.datePicker.maxDate = System.currentTimeMillis() - 1000
+            datePickerDialog.show()
+        }
+
         Picasso.get()
             .load(user.avatar) // Assuming item.img is the URL string
             .placeholder(R.drawable.user_general) // Optional: Placeholder image while loading
@@ -253,8 +287,8 @@ class SettingFragment : Fragment() {
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_menu, rolelist)
         rolename.setAdapter(arrayAdapter)
         rolename.setText(user.roleName)
-        if (user.roleName =="SUPERADMIN") {
-            rolename.setText("SUPER ADMIN")
+        if (user.roleName =="SECRETARY") {
+            rolename.setText("SECRETARY")
         } else rolename.setText(user.roleName)
 
         val activeList = resources.getStringArray(R.array.Active)
@@ -267,6 +301,9 @@ class SettingFragment : Fragment() {
         myDialog.window?.setLayout(Screen.width, Screen.height)
         // myDialog.window?.setBackgroundDrawable(ColorDrawable(requireContext().getColor(R.color.zxing_transparent)))
         myDialog.show()
+
+
+
         onButtonClickDialog(dialogBinding, et_fullname, etEmail, et_dateofbirth, male, myDialog)
     }
 
@@ -274,7 +311,7 @@ class SettingFragment : Fragment() {
         dialogBinding: View,
         et_fullname: TextInputEditText,
         etEmail: TextInputEditText,
-        et_dateofbirth: EditText,
+        et_dateofbirth: AppCompatButton,
         male: RadioButton,
         myDialog: Dialog
     ) {
