@@ -225,12 +225,9 @@ class SettingFragment : Fragment() {
         })
     }
     private fun showUserInfoDialog(user: UserListResponse.User) {
-
-
         Log.d("CheclValueDob", user.dayOfBirth.toString())
         val dialogBinding = layoutInflater.inflate(R.layout.dialog_user_info, null)
         val myDialog = Dialog(requireContext())
-
 
         val username = dialogBinding.findViewById<TextView>(R.id.tv_userName)
         val id   = dialogBinding.findViewById<TextView>(R.id.tv_id)
