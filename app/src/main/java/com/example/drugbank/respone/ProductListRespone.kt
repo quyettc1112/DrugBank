@@ -31,7 +31,8 @@ data class ProductListRespone(
   @SerializedName("route") val route: String?,
   @SerializedName("image") val image: String?,
   @SerializedName("productAdministration") val productAdministration: ProductAdministration?,
-  
+
+
  )
 
  data class ProductAdministration(
