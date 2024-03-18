@@ -1,11 +1,12 @@
 package com.example.drugbank.di
 
 import com.example.drugbank.common.BaseAPI.BaseAPI
-import com.example.drugbank.repository.API_User_Service
-import com.example.drugbank.repository.Admin_DrugM_APIService
-import com.example.drugbank.repository.Admin_ProductDetail_Service
-import com.example.drugbank.repository.Admin_ProductM_APIService
-import com.example.drugbank.repository.Admin_UserM_APIService
+import com.example.drugbank.apiService.API_User_Service
+import com.example.drugbank.apiService.Admin_DrugM_APIService
+import com.example.drugbank.apiService.Admin_ProductDetail_Service
+import com.example.drugbank.apiService.Admin_ProductM_APIService
+import com.example.drugbank.apiService.Admin_Profile_APIService
+import com.example.drugbank.apiService.Admin_UserM_APIService
 import com.google.firebase.BuildConfig
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -120,5 +121,16 @@ object APIModule {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(API_User_Service::class.java)
+
+
+    @Provides
+    @Singleton
+    fun provideRetrofit_Profile(baseUrl: String, gson: Gson, client: OkHttpClient): Admin_Profile_APIService =
+        Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+            .create(Admin_Profile_APIService::class.java)
 
 }

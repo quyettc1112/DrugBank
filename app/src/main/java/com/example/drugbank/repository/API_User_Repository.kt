@@ -1,8 +1,8 @@
 package com.example.drugbank.repository
 
+import com.example.drugbank.apiService.API_User_Service
 import dagger.hilt.android.scopes.ActivityScoped
 import okhttp3.MultipartBody
-import retrofit2.http.Part
 import javax.inject.Inject
 
 @ActivityScoped
