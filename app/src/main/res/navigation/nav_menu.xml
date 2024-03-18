@@ -39,7 +39,11 @@
         android:id="@+id/drugStoreFragmentNav"
         android:name="com.example.drugbank.ui.drugstore.DrugStoreFragment"
         android:label="fragment_drug_store"
-        tools:layout="@layout/fragment_drug_store" />
+        tools:layout="@layout/fragment_drug_store" >
+        <action
+            android:id="@+id/action_drugStoreFragmentNav_to_recordDetailFragment"
+            app:destination="@id/recordDetailFragmentNav" />
+    </fragment>
     <fragment
         android:id="@+id/settingFragmentNav"
         android:name="com.example.drugbank.ui.setting.SettingFragment"
@@ -73,6 +77,15 @@
         android:name="com.example.drugbank.ui.search.childeFragment.ProductFragment.ProductDetail.ProductDetailFragment"
         android:label="fragment_product_detail"
         tools:layout="@layout/fragment_product_detail" />
+    <fragment
+        android:id="@+id/recordDetailFragmentNav"
+        android:name="com.example.drugbank.ui.record.RecordDetail.RecordDetailFragment"
+        android:label="fragment_record_detail"
+        tools:layout="@layout/fragment_record_detail" >
+        <action
+            android:id="@+id/action_recordDetailFragment_to_drugStoreFragmentNav"
+            app:destination="@id/drugStoreFragmentNav" />
+    </fragment>
 
 
 </navigation>
