@@ -23,6 +23,7 @@ class Constant {
         const val DRUGSTORE_NAV_ID = 1;
         const val SETTING_NAV_ID = 4;
         const val PRODUCT_DETAIL = 5
+        const val RECORD_DETAIL = 6
         const val LOGIN_NAV_ID = 99;
         const val DEFAULT_ERROR_MESSAGE: String = "An error occurred"
         const val DOCTOR_SECURITY_DOCTOR = "123"
@@ -37,6 +38,9 @@ class Constant {
 
         const val CURRENT_FDA = "CURRENT_FDA"
         const val CURRENT_FDA_VALUE = "CURRENT_FDA_VALUE"
+
+        const val CURRENT_PROFILE = "CURRENT_PROFILE"
+        const val CURRENT_PROFILE_ID = "CURRENT_PROFILE_ID"
 
 
         const val CURRENT_PRODUCT_ID = "CURRENT_PRODUCT_ID"
@@ -54,6 +58,7 @@ class Constant {
             myHashMap[SETTING_NAV_ID] = R.id.settingFragmentNav
             myHashMap[LOGIN_NAV_ID] = R.id.loginFragmentNav
             myHashMap[PRODUCT_DETAIL] = R.id.productDetailFragmentNav
+            myHashMap[RECORD_DETAIL] = R.id.recordDetailFragmentNav
             return myHashMap[selected] ?: -1
         }
 
@@ -132,18 +137,6 @@ class Constant {
             editor.putString(USER_TOKEN, token)
 
             editor.apply()
-        }
-
-        fun getDrugList(): ArrayList<String> {
-            val list = ArrayList<String>()
-
-           list.add("a")
-           list.add("a")
-           list.add("a")
-           list.add("a")
-           list.add("a")
-
-            return list
         }
 
 
