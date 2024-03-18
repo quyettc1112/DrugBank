@@ -24,7 +24,8 @@ class RecordViewModel @Inject constructor()  : ViewModel() {
     }
     init {
         totalElement.value = 0
-
+        currentSearchValue.value = ""
+        currentPage.value = 0
 
     }
     fun loadMoreRecord(list: List<ProfileListRespone.Content>) {
