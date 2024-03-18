@@ -1,5 +1,6 @@
 package com.example.drugbank.repository
 
+import com.example.drugbank.apiService.Admin_ProductDetail_Service
 import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
 

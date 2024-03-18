@@ -1,4 +1,4 @@
-package com.example.drugbank.repository
+package com.example.drugbank.apiService
 
 import com.example.drugbank.respone.ProductDetailRespone
 import dagger.hilt.android.scopes.ActivityScoped
