@@ -353,12 +353,11 @@ class UserManagerFragment : Fragment() {
         val dialogBinding = layoutInflater.inflate(R.layout.dialog_user_info, null)
         val myDialog = Dialog(requireContext())
 
-
         val username = dialogBinding.findViewById<TextView>(R.id.tv_userName)
         val id   = dialogBinding.findViewById<TextView>(R.id.tv_id)
         val etEmail = dialogBinding.findViewById<TextInputEditText>(R.id.etEmail_userInfo)
         val et_fullname = dialogBinding.findViewById<TextInputEditText>(R.id.et_fullname)
-        val et_dateofbirth = dialogBinding.findViewById<EditText>(R.id.et_dateofbirth)
+        val et_dateofbirth = dialogBinding.findViewById<AppCompatButton>(R.id.btn_dob_uf)
         val ivUserAvatar = dialogBinding.findViewById<CircleImageView>(R.id.ivUserAvatar)
 
         val male = dialogBinding.findViewById<RadioButton>(R.id.rdo_btn_male)
@@ -371,6 +370,31 @@ class UserManagerFragment : Fragment() {
         etEmail.setText(user.email)
         et_fullname.setText(user.fullname)
         et_dateofbirth.setText(user.dayOfBirth)
+//        _viewModel.dob.observe(viewLifecycleOwner, Observer { dobValue ->
+//            et_dateofbirth.setText(dobValue)
+//        })
+        et_dateofbirth.setOnClickListener { input ->
+            val datePickerDialog = DatePickerDialog(
+                requireContext(),
+                { _, year, month, dayOfMonth ->
+                    val calendar = Calendar.getInstance()
+                    calendar.set(year, month, dayOfMonth)
+
+                    val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+                    val formattedDate = dateFormat.format(calendar.time)
+                    et_dateofbirth.setText(formattedDate)
+                    _viewModel.updateDOB_UFValue(formattedDate)
+                },
+                Calendar.getInstance().get(Calendar.YEAR),
+                Calendar.getInstance().get(Calendar.MONTH),
+                Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+            )
+            datePickerDialog.setOnCancelListener { }
+            datePickerDialog.setOnDismissListener {}
+
+            datePickerDialog.datePicker.maxDate = System.currentTimeMillis() - 1000
+            datePickerDialog.show()
+        }
 
         Picasso.get()
             .load(user.avatar) // Assuming item.img is the URL string
@@ -400,8 +424,6 @@ class UserManagerFragment : Fragment() {
        // myDialog.window?.setBackgroundDrawable(ColorDrawable(requireContext().getColor(R.color.zxing_transparent)))
         myDialog.show()
 
-
-
         onButtonClickDialog(dialogBinding, et_fullname, etEmail, et_dateofbirth, male, myDialog)
     }
 
@@ -409,7 +431,7 @@ class UserManagerFragment : Fragment() {
         dialogBinding: View,
         et_fullname: TextInputEditText,
         etEmail: TextInputEditText,
-        et_dateofbirth: EditText,
+        et_dateofbirth: AppCompatButton,
         male: RadioButton,
         myDialog: Dialog
     ) {
