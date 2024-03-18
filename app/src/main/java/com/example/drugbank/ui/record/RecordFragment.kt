@@ -80,7 +80,7 @@ class RecordFragment : Fragment() {
                 val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                 val lastCompletelyVisibleItem = layoutManager.findLastCompletelyVisibleItemPosition()
                 val totalItemCount = layoutManager.itemCount
-                if (lastCompletelyVisibleItem == totalItemCount - 5) {
+                if (lastCompletelyVisibleItem == totalItemCount - 2) {
                     if (totalItemCount < viewModel.totalElement.value!!) {
                         viewModel.incrementCurrentPage()
                         CallProfileList()
