@@ -89,17 +89,19 @@ class RecordFragment : Fragment() {
             }
         })
         _recordAdapter.onItemClick = {
-//            val navController = requireActivity().findNavController(R.id.nav_host_fragment_activity_main)
-//            _productViewModel.current_ID_Item.value = it.id
-//            val sharedPreferences = requireActivity().getSharedPreferences(Constant.CURRENT_PRODUCT_ID, Context.MODE_PRIVATE)
-//            val editor = sharedPreferences.edit()
-//            editor.putInt(Constant.CURRENT_PRODUCT_ID_VALUE, it.id)
-//            editor.apply()
+            val navController = requireActivity().findNavController(R.id.nav_host_fragment_activity_main)
+            viewModel.current_ID_Item.value = it.profileId
+            val sharedPreferences = requireActivity().getSharedPreferences(Constant.CURRENT_PROFILE, Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            editor.putInt(Constant.CURRENT_PROFILE_ID, it.profileId!!)
+            editor.apply()
             Toast.makeText(requireContext(), "${it.profileId}", Toast.LENGTH_SHORT).show()
 
 
 
-         //   navController.navigate(Constant.getNavSeleted(5))
+
+
+            navController.navigate(Constant.getNavSeleted(Constant.RECORD_DETAIL))
         }
     }
 
