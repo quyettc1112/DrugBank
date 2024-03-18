@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.google.android.material.card.MaterialCardView
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="15dp"
+        app:strokeWidth="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+        <LinearLayout
+            android:weightSum="10"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_weight="6.5"
+                android:padding="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:background="@drawable/background_button_normal"
+                    android:id="@+id/iv_product_detail"
+                    android:src="@drawable/dafult_product_img"
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:padding="5dp"
+                    android:layout_height="match_parent">
+                </ImageView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_weight="3"
+                android:orientation="vertical"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp">
+                    <TextView
+                        android:id="@+id/tv_ProfileName"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Name: SDK 12553 asd asd"
+                        android:maxLines="2"
+                        android:textStyle="bold"
+                        android:textSize="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </TextView>
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Create On:"
+                        android:maxLines="2"
+                        android:textStyle="bold"
+                        android:textSize="14dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+                    </TextView>
+                    <TextView
+                        android:id="@+id/tv_profie_create"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginTop="5dp"
+                        android:text="2024-03-12 08:15:09.293"
+                        android:maxLines="2"
+                        android:textStyle="normal"
+                        android:textSize="14dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+                    </TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Status:"
+                        android:maxLines="2"
+                        android:textStyle="bold"
+                        android:textSize="14dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+                    </TextView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="100dp"
+                        app:cardCornerRadius="5dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:id="@+id/tv_profileStatus"
+                            android:background="@color/red_light"
+                            android:gravity="center"
+                            android:text="CLOSE"
+                            android:textSize="18dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/white"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                        </TextView>
+
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+</LinearLayout>
