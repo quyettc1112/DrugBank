@@ -17,6 +17,8 @@ class RecordViewModel @Inject constructor()  : ViewModel() {
     val currentSearchValue = MutableLiveData<String>()
     val totalElement = MutableLiveData<Int>()
 
+    val current_ID_Item = MutableLiveData<Int>()
+
     val isLoading: LiveData<Boolean>
         get() = _isLoading
     fun setLoading(isLoading: Boolean) {
