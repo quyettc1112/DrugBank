@@ -1,5 +1,6 @@
 package com.example.drugbank.ui.record
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
@@ -7,8 +8,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.drugbank.R
 import com.example.drugbank.common.Token.TokenManager
+import com.example.drugbank.common.constant.Constant
 import com.example.drugbank.databinding.FragmentRecordBinding
 import com.example.drugbank.repository.Admin_Profile_Repository
 import com.example.drugbank.respone.ProductListRespone
@@ -33,6 +39,8 @@ class RecordFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         tokenManager = TokenManager(requireContext())
+        viewModel = ViewModelProvider(this).get(RecordViewModel::class.java)
+
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,25 +48,97 @@ class RecordFragment : Fragment() {
     ): View? {
         _binding = FragmentRecordBinding.inflate(inflater, container, false)
         _recordAdapter = RecordAdapter(requireContext())
-        CallProfileList()
-        CallProfileDetail()
+        loadingUI()
+        //CallProfileList()
+       // CallProfileDetail()
+        setUpRecycleViewList()
 
-        _binding.rclListProfile.adapter = _recordAdapter
+        setUpSearchQueries()
+
+
         return _binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(RecordViewModel::class.java)
+    private fun loadingUI() {
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) {
+                _binding.pgIsLoading.visibility = View.VISIBLE
+            } else {
+                _binding.pgIsLoading.visibility = View.GONE
+            }
+        }
+    }
+
+    private fun setUpRecycleViewList() {
+        _binding.rclListProfile.adapter = _recordAdapter
+        viewModel.resetAllValue()
+        viewModel.setLoading(true)
+        CallProfileList()
+        _binding.rclListProfile.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val lastCompletelyVisibleItem = layoutManager.findLastCompletelyVisibleItemPosition()
+                val totalItemCount = layoutManager.itemCount
+                if (lastCompletelyVisibleItem == totalItemCount - 5) {
+                    if (totalItemCount < viewModel.totalElement.value!!) {
+                        viewModel.incrementCurrentPage()
+                        CallProfileList()
+                    }
+                }
+            }
+        })
+        _recordAdapter.onItemClick = {
+//            val navController = requireActivity().findNavController(R.id.nav_host_fragment_activity_main)
+//            _productViewModel.current_ID_Item.value = it.id
+//            val sharedPreferences = requireActivity().getSharedPreferences(Constant.CURRENT_PRODUCT_ID, Context.MODE_PRIVATE)
+//            val editor = sharedPreferences.edit()
+//            editor.putInt(Constant.CURRENT_PRODUCT_ID_VALUE, it.id)
+//            editor.apply()
+            Toast.makeText(requireContext(), "${it.profileId}", Toast.LENGTH_SHORT).show()
 
 
+
+         //   navController.navigate(Constant.getNavSeleted(5))
+        }
+    }
+
+    private fun setUpSearchQueries() {
+        val searchView = _binding.searchView
+        searchView.clearFocus()
+        searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (!query.isNullOrEmpty()) {
+                    viewModel.currentSearchValue.value = query
+                    viewModel.resetAllValue()
+                    CallProfileList()
+                }
+                return true
+            }
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (!newText.isNullOrEmpty()) {
+                    if (newText?.length!! % 2 == 0) {
+                        viewModel.currentSearchValue.value= newText
+                        viewModel.resetAllValue()
+                        CallProfileList()
+                    }
+                }
+                if (newText?.length == 0) {
+                    viewModel.resetSearchValue()
+                    viewModel.resetAllValue()
+                    CallProfileList()
+                }
+                return true
+            }
+        })
     }
     fun CallProfileList() {
+
         adminProfileRepository.getProfileList(
             authorization = "Bearer ${tokenManager.getAccessToken()}",
             pageSize = PAGE_SIZE,
-            pageNo = 0,
-            search = ""
+            pageNo = viewModel.currentPage.value!!,
+            search = viewModel.currentSearchValue.value.toString()
         ).enqueue(object : retrofit2.Callback<ProfileListRespone> {
             override fun onResponse(
                 call: Call<ProfileListRespone>,
@@ -82,14 +162,13 @@ class RecordFragment : Fragment() {
                     viewModel.loadMoreRecord(profileList)
                     viewModel.totalElement.value = profileListRespone?.totalElements
                     _recordAdapter.differ.submitList(viewModel.currentProfileList.value)
+                    viewModel.setLoading(false)
                 }
                 else  Log.d("CheckValueRespone", response.code().toString())
             }
-
             override fun onFailure(call: Call<ProfileListRespone>, t: Throwable) {
                 TODO("Not yet implemented")
             }
-
         })
     }
 
