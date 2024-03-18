@@ -347,6 +347,10 @@ class ProductDetailFragment : Fragment() {
             _binding.pharmarToxicity.text = productDetail.pharmacogenomic.toxicity.toString()
             _binding.pharmarMechinbism.text = productDetail.pharmacogenomic.mechanismOfAction.toString()
 
+
+            _binding.cRelation.text = productDetail.contraindication.relationship.toString()
+            _binding.cValue.text = productDetail.contraindication.value.toString()
+
         }
     }
 

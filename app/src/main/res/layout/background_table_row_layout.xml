@@ -38,7 +38,7 @@
             android:layout_weight="2.6"
             android:gravity="center"
             android:text="20"
-            android:textSize="16dp">
+            android:textSize="11dp">
 
         </TextView>
         <LinearLayout
@@ -56,7 +56,7 @@
             android:layout_weight="2.6"
             android:gravity="center"
             android:text="20"
-            android:textSize="16dp">
+            android:textSize="11dp">
 
         </TextView>
         <LinearLayout
@@ -73,7 +73,8 @@
             android:layout_weight="2.6"
             android:gravity="center"
             android:text="20"
-            android:textSize="16dp">
+            android:layout_marginBottom="5dp"
+            android:textSize="14dp">
         </TextView>
     </LinearLayout>
 
@@ -108,11 +109,14 @@
         </LinearLayout>
 
         <TextView
+            android:layout_gravity="center"
             android:id="@+id/drug_clinical"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:layout_weight="1"
-            android:textSize="16dp"
+            android:textSize="11dp"
             android:text="Giảm đau, Hạ sốt, Ít tác dụng phụ, Tương tác thuốc ít, Sử dụng trong thai kỳ"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
