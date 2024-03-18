@@ -30,6 +30,7 @@ class UserManagerViewModel @Inject constructor() : ViewModel() {
 
 
     val dob = MutableLiveData<String>()
+    val dob_userInfo = MutableLiveData<String>()
 
     private var _isLoading = MutableLiveData<Boolean>()
 
@@ -39,6 +40,7 @@ class UserManagerViewModel @Inject constructor() : ViewModel() {
         selectedGender.value = null
         selectedActive.value = null
         dob.value = dateFormat.format(calendar.time)
+        dob_userInfo.value = dateFormat.format(calendar.time)
 
         user_count.value = 0
         user_active.value = 0
@@ -59,6 +61,10 @@ class UserManagerViewModel @Inject constructor() : ViewModel() {
 
     fun updateDOBValue(string: String) {
         dob.value = string
+
+    }
+    fun updateDOB_UFValue(string: String) {
+        dob_userInfo.value = string
 
     }
 
