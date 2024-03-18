@@ -9,20 +9,23 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.drugbank.R
 import com.example.drugbank.common.Token.TokenManager
+import com.example.drugbank.databinding.FragmentRecordBinding
 import com.example.drugbank.repository.Admin_Profile_Repository
+import com.example.drugbank.respone.ProductListRespone
 import com.example.drugbank.respone.ProfileDetailRespone
 import com.example.drugbank.respone.ProfileListRespone
-import com.example.drugbank.ui.activity.main.MainActivity
+import com.example.drugbank.ui.search.childeFragment.ProductFragment.ProductAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
 import retrofit2.Response
 import javax.inject.Inject
-import javax.security.auth.callback.Callback
 
 @AndroidEntryPoint
 class RecordFragment : Fragment() {
     private lateinit var viewModel: RecordViewModel
     private lateinit var tokenManager: TokenManager
+    private lateinit var _recordAdapter: RecordAdapter
+    private lateinit var _binding: FragmentRecordBinding
 
     @Inject
     lateinit var adminProfileRepository : Admin_Profile_Repository
@@ -35,10 +38,13 @@ class RecordFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        _binding = FragmentRecordBinding.inflate(inflater, container, false)
+        _recordAdapter = RecordAdapter(requireContext())
         CallProfileList()
         CallProfileDetail()
 
-        return inflater.inflate(R.layout.fragment_record, container, false)
+        _binding.rclListProfile.adapter = _recordAdapter
+        return _binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -47,12 +53,10 @@ class RecordFragment : Fragment() {
 
 
     }
-
-
     fun CallProfileList() {
         adminProfileRepository.getProfileList(
             authorization = "Bearer ${tokenManager.getAccessToken()}",
-            pageSize = 10,
+            pageSize = PAGE_SIZE,
             pageNo = 0,
             search = ""
         ).enqueue(object : retrofit2.Callback<ProfileListRespone> {
@@ -61,7 +65,23 @@ class RecordFragment : Fragment() {
                 response: Response<ProfileListRespone>
             ) {
                 if (response.isSuccessful) {
-                    Log.d("CheckValueRespone", response.body().toString())
+                    val profileListRespone: ProfileListRespone? = response.body()
+                    val profileList: List<ProfileListRespone.Content> =
+                        profileListRespone?.content?.map { profile ->
+                            ProfileListRespone.Content(
+                                profileId = profile?.profileId,
+                                title = profile?.title.toString(),
+                                createdOn = profile?.createdOn.toString(),
+                                createdBy = profile?.createdBy.toString(),
+                                updatedBy = profile?.updatedBy.toString(),
+                                updatedOn = profile?.updatedOn.toString(),
+                                status = profile?.status.toString(),
+                                imageURL = profile?.createdOn.toString()
+                            )
+                        } ?: emptyList()
+                    viewModel.loadMoreRecord(profileList)
+                    viewModel.totalElement.value = profileListRespone?.totalElements
+                    _recordAdapter.differ.submitList(viewModel.currentProfileList.value)
                 }
                 else  Log.d("CheckValueRespone", response.code().toString())
             }
@@ -83,17 +103,18 @@ class RecordFragment : Fragment() {
                 response: Response<ProfileDetailRespone>
             ) {
                 if (response.isSuccessful) {
-                    Log.d("CheckValueResponeDetail", response.body().toString())
+                    Log.d("CheckValueResponeDetai", response.body().toString())
                 }
-                else  Log.d("CheckValueResponeDetail", response.code().toString())
+                else  Log.d("CheckValueResponeDetai", response.code().toString())
             }
-
             override fun onFailure(call: Call<ProfileDetailRespone>, t: Throwable) {
                 TODO("Not yet implemented")
             }
-
         })
 
+    }
+    companion object {
+        private const val PAGE_SIZE = 20
     }
 
 }
