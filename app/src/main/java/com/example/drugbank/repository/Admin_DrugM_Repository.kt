@@ -1,11 +1,9 @@
 package com.example.drugbank.repository
 
+import com.example.drugbank.apiService.Admin_DrugM_APIService
 import com.example.drugbank.data.dto.CreateDrugRequestDTO
 import com.example.drugbank.data.dto.UpdateDrugRequestDTO
 import dagger.hilt.android.scopes.ActivityScoped
-import retrofit2.http.Body
-import retrofit2.http.Header
-import retrofit2.http.Query
 import javax.inject.Inject
 
 @ActivityScoped
