@@ -9,7 +9,22 @@
     android:layout_marginBottom="60dp"
     tools:context=".ui.search.SearchFragment">
 
+    <com.example.drugbank.base.customView.CustomToolbar
+        android:id="@+id/toolblarCustome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:title="Profile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:showEndIcon="false"
+        app:showShadow="true"
+        android:translationZ="10dp"
+        app:showStartIcon="false"
+        app:showStartText="false"></com.example.drugbank.base.customView.CustomToolbar>
     <ScrollView
+        android:visibility="visible"
         android:fillViewport="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -28,7 +43,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:translationZ="10dp"
                 android:orientation="horizontal">
-                <androidx.constraintlayout.widget.ConstraintLayout
+             <!--   <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_marginTop="20dp"
                     android:layout_height="wrap_content">
@@ -58,7 +73,7 @@
                         app:layout_constraintTop_toTopOf="parent">
                     </ImageView>
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>-->
 
                 <LinearLayout
                     android:id="@+id/linearLayout6"
