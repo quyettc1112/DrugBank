@@ -66,7 +66,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         mapsViewModels = ViewModelProvider(this)[MapsViewModels::class.java]
 
-        Places.initialize(applicationContext, getString(R.string.API_KEy))
+        Places.initialize(applicationContext, getString(R.string.API_KEy_V2))
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -80,12 +80,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             startActivity(intent)
         }
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-
-
-
-
-
-
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
