@@ -55,8 +55,6 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -83,142 +81,162 @@
                 </TextView>
             </LinearLayout>
         </LinearLayout>
-        <TextView
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:layout_weight="6"
-            android:text="Product Info"
+
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </TextView>
+            android:layout_height="wrap_content">
+
+        </LinearLayout>
+
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:weightSum="10"
-                android:orientation="horizontal"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/background_button_normal"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:layout_marginTop="16dp"
                     android:layout_marginStart="16dp"
                     android:textSize="16dp"
                     android:textStyle="bold"
                     android:layout_weight="6"
-                    android:text="ID"
+                    android:text="Product Info"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                 </TextView>
                 <LinearLayout
-                    android:layout_width="1dp"
-                    android:background="@color/black"
-                    android:layout_height="match_parent">
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:weightSum="10"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_marginStart="10dp"
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        android:layout_weight="6"
+                        android:text="ID"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </TextView>
+                    <LinearLayout
+                        android:layout_width="1dp"
+                        android:background="@color/black"
+                        android:layout_height="match_parent">
+                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/product_id"
+                        android:textSize="16dp"
+                        android:layout_weight="4"
+                        android:layout_marginStart="16dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </TextView>
                 </LinearLayout>
-                <TextView
-                    android:id="@+id/product_id"
-                    android:textSize="16dp"
-                    android:layout_weight="4"
-                    android:layout_marginStart="16dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                </TextView>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:weightSum="10"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_marginStart="16dp"
-                    android:textSize="16dp"
-                    android:textStyle="bold"
-                    android:layout_weight="6"
-                    android:text="Labeller"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                </TextView>
                 <LinearLayout
-                    android:layout_width="1dp"
-                    android:background="@color/black"
-                    android:layout_height="match_parent">
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:weightSum="10"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginStart="16dp"
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        android:layout_weight="6"
+                        android:text="Labeller"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </TextView>
+                    <LinearLayout
+                        android:layout_width="1dp"
+                        android:background="@color/black"
+                        android:layout_height="match_parent">
+                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/product_Labeller"
+                        android:textSize="16dp"
+                        android:layout_weight="4"
+                        android:layout_marginStart="16dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </TextView>
                 </LinearLayout>
-                <TextView
-                    android:id="@+id/product_Labeller"
-                    android:textSize="16dp"
-                    android:layout_weight="4"
-                    android:layout_marginStart="16dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                </TextView>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:weightSum="10"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="16dp"
-                    android:layout_weight="6"
-                    android:text="Name"
-                    android:textSize="16dp"
-                    android:textStyle="bold"></TextView>
-
                 <LinearLayout
-                    android:layout_width="1dp"
-                    android:background="@color/black"
-                    android:layout_height="match_parent">
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:weightSum="10"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="6"
+                        android:text="Name"
+                        android:textSize="16dp"
+                        android:textStyle="bold"></TextView>
+
+                    <LinearLayout
+                        android:layout_width="1dp"
+                        android:background="@color/black"
+                        android:layout_height="match_parent">
+                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/prouductName_small"
+                        android:textSize="16dp"
+                        android:layout_weight="4"
+                        android:layout_marginStart="16dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </TextView>
                 </LinearLayout>
-                <TextView
-                    android:id="@+id/prouductName_small"
-                    android:textSize="16dp"
-                    android:layout_weight="4"
-                    android:layout_marginStart="16dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                </TextView>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:weightSum="10"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="16dp"
-                    android:layout_weight="6"
-                    android:text="Prescription Name"
-                    android:textSize="16dp"
-                    android:textStyle="bold"></TextView>
-
                 <LinearLayout
-                    android:layout_width="1dp"
-                    android:background="@color/black"
-                    android:layout_height="match_parent">
-                </LinearLayout>
-                <TextView
-                    android:id="@+id/productPrename"
-                    android:textSize="16dp"
-                    android:layout_weight="4"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:weightSum="10"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                </TextView>
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="6"
+                        android:text="Prescription Name"
+                        android:textSize="16dp"
+                        android:textStyle="bold"></TextView>
+
+                    <LinearLayout
+                        android:layout_width="1dp"
+                        android:background="@color/black"
+                        android:layout_height="match_parent">
+                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/productPrename"
+                        android:textSize="16dp"
+                        android:layout_weight="4"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    </TextView>
+                </LinearLayout>
+
             </LinearLayout>
+
 
 
 
@@ -437,6 +455,9 @@
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/layoutManufator"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/background_button_normal"
                 android:orientation="vertical"
                 android:visibility="gone"
                 android:layout_width="match_parent"
@@ -452,7 +473,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="10dp"
                         android:layout_weight="6.5"
                         android:text="Name"
                         android:textSize="16dp"
@@ -466,9 +487,10 @@
                     </LinearLayout>
                     <TextView
                         android:id="@+id/manufactor_name"
-                        android:textSize="16dp"
+                        android:textSize="12dp"
                         android:layout_weight="3.5"
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
                     </TextView>
@@ -482,7 +504,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="10dp"
                         android:textSize="16dp"
                         android:textStyle="bold"
                         android:layout_weight="6.5"
@@ -497,9 +519,10 @@
                     </LinearLayout>
                     <TextView
                         android:id="@+id/manufactor_company"
-                        android:textSize="16dp"
+                        android:textSize="12dp"
                         android:layout_weight="3.5"
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
                     </TextView>
@@ -513,7 +536,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="10dp"
                         android:textSize="16dp"
                         android:textStyle="bold"
                         android:layout_weight="6.5"
@@ -528,9 +551,10 @@
                     </LinearLayout>
                     <TextView
                         android:id="@+id/manufactor_score"
-                        android:textSize="16dp"
+                        android:textSize="12dp"
                         android:layout_weight="3.5"
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
                     </TextView>
@@ -543,7 +567,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="10dp"
                         android:textSize="16dp"
                         android:textStyle="bold"
                         android:layout_weight="6.5"
@@ -558,9 +582,10 @@
                     </LinearLayout>
                     <TextView
                         android:id="@+id/manufactor_source"
-                        android:textSize="16dp"
+                        android:textSize="12dp"
                         android:layout_weight="3.5"
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
                     </TextView>
@@ -577,7 +602,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="10dp"
                         android:layout_weight="6.5"
                         android:text="Country Id"
                         android:textSize="16dp"
@@ -590,9 +615,10 @@
                     </LinearLayout>
                     <TextView
                         android:id="@+id/manufactor_countryID"
-                        android:textSize="16dp"
+                        android:textSize="12dp"
                         android:layout_weight="3.5"
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
                     </TextView>
@@ -606,7 +632,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="10dp"
                         android:textSize="16dp"
                         android:textStyle="bold"
                         android:layout_weight="6.5"
@@ -621,9 +647,10 @@
                     </LinearLayout>
                     <TextView
                         android:id="@+id/manufactor_countryName"
-                        android:textSize="16dp"
+                        android:textSize="12dp"
                         android:layout_weight="3.5"
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
                     </TextView>
@@ -749,6 +776,9 @@
 
             </LinearLayout>
             <LinearLayout
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/background_button_normal"
                 android:id="@+id/layoutpharmacogenomic"
                 android:orientation="vertical"
                 android:visibility="gone"
@@ -774,7 +804,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_marginStart="16dp"
+                                android:layout_marginStart="10dp"
                                 android:layout_weight="6"
                                 android:text="Indication"
                                 android:textSize="16dp"
@@ -790,7 +820,8 @@
                                 android:id="@+id/pharmar_indication"
                                 android:textSize="12dp"
                                 android:layout_weight="4"
-                                android:layout_marginStart="16dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="5dp"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent">
                             </TextView>
@@ -803,7 +834,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                             <TextView
-                                android:layout_marginStart="16dp"
+                                android:layout_marginStart="10dp"
                                 android:textSize="16dp"
                                 android:textStyle="bold"
                                 android:layout_weight="6"
@@ -820,7 +851,8 @@
                                 android:id="@+id/pharmar_pharmar"
                                 android:textSize="12dp"
                                 android:layout_weight="4"
-                                android:layout_marginStart="16dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="5dp"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent">
                             </TextView>
@@ -833,7 +865,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                             <TextView
-                                android:layout_marginStart="16dp"
+                                android:layout_marginStart="10dp"
                                 android:textSize="16dp"
                                 android:textStyle="bold"
                                 android:layout_weight="6"
@@ -850,7 +882,8 @@
                                 android:id="@+id/pharmar_mechinbism"
                                 android:textSize="12dp"
                                 android:layout_weight="4"
-                                android:layout_marginStart="16dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="5dp"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent">
                             </TextView>
@@ -863,7 +896,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                             <TextView
-                                android:layout_marginStart="16dp"
+                                android:layout_marginStart="10dp"
                                 android:textSize="16dp"
                                 android:textStyle="bold"
                                 android:layout_weight="6"
@@ -880,7 +913,8 @@
                                 android:id="@+id/pharmar_asorption"
                                 android:textSize="12dp"
                                 android:layout_weight="4"
-                                android:layout_marginStart="16dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="5dp"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent">
                             </TextView>
@@ -896,7 +930,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_marginStart="16dp"
+                                android:layout_marginStart="10dp"
                                 android:layout_weight="6"
                                 android:text="Toxicity"
                                 android:textSize="16dp"
@@ -911,7 +945,8 @@
                                 android:id="@+id/pharmar_toxicity"
                                 android:textSize="12dp"
                                 android:layout_weight="4"
-                                android:layout_marginStart="16dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="5dp"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent">
                             </TextView>
@@ -969,6 +1004,9 @@
             <LinearLayout
                 android:id="@+id/layoutproductAllergyDetail"
                 android:orientation="vertical"
+                android:background="@drawable/background_button_normal"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
                 android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -981,7 +1019,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="10dp"
                         android:textSize="16dp"
                         android:textStyle="bold"
                         android:layout_weight="6"
@@ -998,7 +1036,8 @@
                         android:id="@+id/aad_detail"
                         android:textSize="12dp"
                         android:layout_weight="4"
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
                     </TextView>
@@ -1015,7 +1054,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="10dp"
                         android:layout_weight="6"
                         android:text="Summary"
                         android:textSize="16dp"
@@ -1088,6 +1127,9 @@
 
             </LinearLayout>
             <LinearLayout
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/background_button_normal"
                 android:id="@+id/layoutcontraindication"
                 android:orientation="vertical"
                 android:visibility="gone"
@@ -1102,7 +1144,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="10dp"
                         android:textSize="16dp"
                         android:textStyle="bold"
                         android:layout_weight="6"
@@ -1119,7 +1161,8 @@
                         android:id="@+id/c_relation"
                         android:textSize="12dp"
                         android:layout_weight="4"
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="5dp"
                         android:text="string"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
@@ -1137,7 +1180,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="10dp"
                         android:layout_weight="6"
                         android:text="Value"
                         android:textSize="16dp"
@@ -1152,7 +1195,8 @@
                         android:id="@+id/c_value"
                         android:textSize="12dp"
                         android:layout_weight="4"
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="5dp"
                         android:text="string"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
