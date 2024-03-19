@@ -136,7 +136,8 @@
                         android:id="@+id/product_id"
                         android:textSize="16dp"
                         android:layout_weight="4"
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
                     </TextView>
@@ -149,7 +150,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="10dp"
                         android:textSize="16dp"
                         android:textStyle="bold"
                         android:layout_weight="6"
@@ -166,7 +167,8 @@
                         android:id="@+id/product_Labeller"
                         android:textSize="16dp"
                         android:layout_weight="4"
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
                     </TextView>
@@ -182,7 +184,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="10dp"
                         android:layout_weight="6"
                         android:text="Name"
                         android:textSize="16dp"
@@ -197,7 +199,8 @@
                         android:id="@+id/prouductName_small"
                         android:textSize="16dp"
                         android:layout_weight="4"
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
                     </TextView>
@@ -213,7 +216,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="10dp"
                         android:layout_weight="6"
                         android:text="Prescription Name"
                         android:textSize="16dp"
