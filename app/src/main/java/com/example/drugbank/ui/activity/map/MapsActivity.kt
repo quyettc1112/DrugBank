@@ -59,6 +59,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mapsViewModels: MapsViewModels
   //  private lateinit var backUpCurrentLocation: LatLng
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -149,21 +151,41 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         })
     }
+
+    data class LocationData(val name: String, val lat: Double, val lng: Double)
+    private val locationCache: HashMap<String, MutableList<LocationData>> = hashMapOf()
     private fun placeNearBy(currentLocation: LatLng, mMap: GoogleMap) {
-        val url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json" +
-                "?location=" + "${currentLocation.latitude}" + "," + "${currentLocation.longitude}" +
-                "&radius=5000" +
-              //  "&types=pharmarcy" +
-         "&types=" + "${mapsViewModels.nearBy.value}" +
-                "&sensor=true" +
-                "&key=" + "${resources.getString(R.string.API_KEy)}"
-        val placeTask = PlaceTask(mMap)
-        placeTask.execute(url)
+        val types = mapsViewModels.nearBy.value.toString()
+        val cachedData = locationCache[types]
 
-        // PlaceTask class should handle network calls and update UI on main thread
-
-
+        if (cachedData != null) {
+            cachedData.forEach { locationData ->
+                //showMarker(locationData, mMap)
+            }
+        } else {
+            // Nếu không có dữ liệu cache, gọi API và lưu dữ liệu vào cache
+            val url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json" +
+                    "?location=${currentLocation.latitude},${currentLocation.longitude}" +
+                    "&radius=10000" +
+                    "&types=$types" +
+                    "&sensor=true" +
+                    "&key=${resources.getString(R.string.API_KEy)}"
+            val placeTask = PlaceTask(mMap)
+            placeTask.execute(url)
+        }
     }
+
+    private fun showMarker(locationData: LocationData, mMap: GoogleMap) {
+        val locationLatLng = LatLng(locationData.lat, locationData.lng)
+        mMap.addMarker(
+            MarkerOptions()
+                .position(locationLatLng)
+                .title(locationData.name)
+                .snippet(locationData.name)
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+        )
+    }
+
 
     class PlaceTask(private val mMap: GoogleMap) : AsyncTask<String, Void, String>() {
         override fun doInBackground(vararg params: String): String {
@@ -182,14 +204,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 extractLocationData(resultObject)
             }
         }
-
         private fun extractLocationData(resultObject: JsonObject?) {
             val geometryObject = resultObject?.getAsJsonObject("geometry")
             val locationObject = geometryObject?.getAsJsonObject("location")
             val lat = locationObject?.get("lat")?.asDouble
             val lng = locationObject?.get("lng")?.asDouble
             val name = resultObject?.get("name")?.asString
-            // Sử dụng lat và lng cho các thao tác tiếp theo, ví dụ:
+            val typesArray = resultObject?.get("types")?.asJsonArray
+
+            val typeName = typesArray?.get(0)?.asString
             if (lat != null && lng != null) {
                 val locationLatLng = LatLng(lat, lng)
                 mMap.addMarker(
@@ -199,14 +222,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                         .snippet(name)
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
                 )
+                if (typeName == "drugstore") {
+                    
+                }
             }
         }
     }
-
-
-
-
-
     private fun isLocationPermissionGranted(): Boolean {
         return ContextCompat.checkSelfPermission(
             this,
@@ -303,4 +324,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         private const val MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
         private const val DEFAULT_ZOOM = 15
     }
+
+
 }
