@@ -46,7 +46,7 @@
         android:layout_height="70dp">
 
         <LinearLayout
-            android:id="@+id/layoutNhaThuoc"
+            android:id="@+id/layoutDrugStore"
             android:background="@drawable/background_text_button_iconclick"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
@@ -74,7 +74,34 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/layoutBenhVienc"
+            android:id="@+id/layoutPharmarcy"
+            android:orientation="vertical"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/baseline_local_pharmacy_24"
+                android:id="@+id/pharmar"
+                android:layout_gravity="center"
+                android:layout_width="30dp"
+                android:layout_height="30dp">
+            </ImageView>
+            <TextView
+                android:gravity="center"
+                android:text="Tiệm Thuốc"
+                android:textSize="10dp"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content">
+
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutHospital"
             android:orientation="vertical"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
@@ -93,33 +120,6 @@
             <TextView
                 android:gravity="center"
                 android:text="Bệnh Viện"
-                android:textSize="10dp"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content">
-
-            </TextView>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layoutATM"
-            android:orientation="vertical"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-            <ImageView
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:src="@drawable/baseline_atm_24"
-                android:id="@+id/ATM"
-                android:layout_gravity="center"
-                android:layout_width="30dp"
-                android:layout_height="30dp">
-            </ImageView>
-            <TextView
-                android:gravity="center"
-                android:text="ATM"
                 android:textSize="10dp"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content">
