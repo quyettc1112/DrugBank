@@ -95,31 +95,35 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             showCurrentLocation()
             findPlace()
            // placeNearBy()
-            binding.hospital.setOnClickListener {
+            binding.layoutDrugStore.setOnClickListener {
                 mMap.clear()
-                binding.layoutATM.setBackgroundResource(0)
-                binding.layoutNhaThuoc.setBackgroundResource(0)
-                binding.layoutBenhVienc.setBackgroundResource(R.drawable.background_text_button_iconclick)
+                binding.layoutHospital.setBackgroundResource(0)
+                binding.layoutPharmarcy.setBackgroundResource(0)
+                binding.layoutDrugStore.setBackgroundResource(R.drawable.background_text_button_iconclick)
+                mapsViewModels.nearBy.value = "drugstore"
+                showCurrentLocation()
+            }
+
+            binding.layoutPharmarcy.setOnClickListener {
+                mMap.clear()
+                binding.layoutHospital.setBackgroundResource(0)
+                binding.layoutDrugStore.setBackgroundResource(0)
+                binding.layoutPharmarcy.setBackgroundResource(R.drawable.background_text_button_iconclick)
+                mapsViewModels.nearBy.value = "pharmacy"
+                showCurrentLocation()
+            }
+
+            binding.layoutHospital.setOnClickListener {
+                mMap.clear()
+                binding.layoutDrugStore.setBackgroundResource(0)
+                binding.layoutPharmarcy.setBackgroundResource(0)
+                binding.layoutHospital.setBackgroundResource(R.drawable.background_text_button_iconclick)
                 mapsViewModels.nearBy.value = "hospital"
                 showCurrentLocation()
             }
 
-            binding.ATM.setOnClickListener {
-                mMap.clear()
-                binding.layoutBenhVienc.setBackgroundResource(0)
-                binding.layoutNhaThuoc.setBackgroundResource(0)
-                binding.layoutATM.setBackgroundResource(R.drawable.background_text_button_iconclick)
-                mapsViewModels.nearBy.value = "atm"
-                showCurrentLocation()
-            }
-            binding.medicine.setOnClickListener {
-                mMap.clear()
-                binding.layoutATM.setBackgroundResource(0)
-                binding.layoutBenhVienc.setBackgroundResource(0)
-                binding.layoutNhaThuoc.setBackgroundResource(R.drawable.background_text_button_iconclick)
-                mapsViewModels.nearBy.value = "drugstore"
-                showCurrentLocation()
-            }
+
+
 
         } else {
             requestLocationPermission()
@@ -132,7 +136,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         autocompleteSupportFragment.setPlaceFields(listOf(Field.ID, Field.ADDRESS, Field.LAT_LNG))
         autocompleteSupportFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onError(p0: Status) {
-                Toast.makeText(this@MapsActivity, "Some Error", Toast.LENGTH_SHORT).show()
+             //   Toast.makeText(this@MapsActivity, "Some Error", Toast.LENGTH_SHORT).show()
             }
 
             override fun onPlaceSelected(place: Place) {
@@ -152,53 +156,73 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         })
     }
 
-    data class LocationData(val name: String, val lat: Double, val lng: Double)
-    private val locationCache: HashMap<String, MutableList<LocationData>> = hashMapOf()
+//    data class Drugstore(val name: String, val location: LatLng)
+//    private val drugstoreCache = HashMap<String, List<Drugstore>>()
     private fun placeNearBy(currentLocation: LatLng, mMap: GoogleMap) {
         val types = mapsViewModels.nearBy.value.toString()
-        val cachedData = locationCache[types]
-
-        if (cachedData != null) {
-            cachedData.forEach { locationData ->
-                //showMarker(locationData, mMap)
+        val cachedDrugstores = drugstoreCache[types]
+        if (cachedDrugstores != null) {
+            Log.d("CheclkVlauecache", "Not null")
+            for (drugstore in cachedDrugstores) {
+                showMarker(drugstore, mMap) // Call the existing showMarker function
             }
         } else {
             // Nếu không có dữ liệu cache, gọi API và lưu dữ liệu vào cache
+            Log.d("CheckType", types.toString())
             val url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json" +
                     "?location=${currentLocation.latitude},${currentLocation.longitude}" +
-                    "&radius=10000" +
+                    "&radius=2500" +
                     "&types=$types" +
                     "&sensor=true" +
-                    "&key=${resources.getString(R.string.API_KEy)}"
+                    "&key=${resources.getString(R.string.API_KEy_V2)}"
             val placeTask = PlaceTask(mMap)
             placeTask.execute(url)
+            if (types == "drugstore") {
+                drugstoreCache[types] = emptyList()
+                drugstoreCache[types] = placeTask.getCachedDrugstores()
+            }
+
+            if (types == "pharmacy") {
+                drugstoreCache[types] = emptyList()
+                drugstoreCache[types] = placeTask.getCachedPharmarcity()
+            }
+
+            if (types == "hospital") {
+                drugstoreCache[types] = emptyList()
+                drugstoreCache[types] = placeTask.getCachedHospital()
+            }
         }
     }
 
-    private fun showMarker(locationData: LocationData, mMap: GoogleMap) {
-        val locationLatLng = LatLng(locationData.lat, locationData.lng)
+    private fun showMarker(drugstore: LocationData, mMap: GoogleMap) {
+        val locationLatLng = LatLng(drugstore.location.latitude, drugstore.location.longitude)
         mMap.addMarker(
             MarkerOptions()
                 .position(locationLatLng)
-                .title(locationData.name)
-                .snippet(locationData.name)
+                .title(drugstore.name)
+                .snippet(drugstore.name)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
         )
     }
 
-
+    data class LocationData(val name: String, val location: LatLng)
+    private val drugstoreCache = HashMap<String, List<LocationData>>()
     class PlaceTask(private val mMap: GoogleMap) : AsyncTask<String, Void, String>() {
+        val cachedDrugstoresList = mutableListOf<LocationData>()
+        val cachedPharmaList = mutableListOf<LocationData>()
+        val cachedHospitalList = mutableListOf<LocationData>()
         override fun doInBackground(vararg params: String): String {
             val url = params[0]
             val response = URL(url).readText()
+            Log.d("ResponseLength", response.length.toString())
             return response
         }
-
         override fun onPostExecute(result: String) {
             super.onPostExecute(result)
-
             val jsonObject = JsonParser.parseString(result).asJsonObject
             val resultsArray = jsonObject.getAsJsonArray("results")
+
+            Log.d("CheckTypeArray", resultsArray.count().toString())
             for (resultElement in resultsArray) {
                 val resultObject = resultElement.asJsonObject
                 extractLocationData(resultObject)
@@ -211,7 +235,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             val lng = locationObject?.get("lng")?.asDouble
             val name = resultObject?.get("name")?.asString
             val typesArray = resultObject?.get("types")?.asJsonArray
-
             val typeName = typesArray?.get(0)?.asString
             if (lat != null && lng != null) {
                 val locationLatLng = LatLng(lat, lng)
@@ -223,10 +246,29 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
                 )
                 if (typeName == "drugstore") {
-                    
+                    cachedDrugstoresList.add(LocationData(name!!, locationLatLng))
+                }
+                if (typeName == "pharmacy") {
+                    cachedPharmaList.add(LocationData(name!!, locationLatLng))
+                }
+                if (typeName == "hospital") {
+                    cachedHospitalList.add(LocationData(name!!, locationLatLng))
                 }
             }
         }
+        public fun getCachedDrugstores(): MutableList<LocationData> {
+            return cachedDrugstoresList
+        }
+
+        public fun getCachedPharmarcity(): MutableList<LocationData> {
+            return cachedPharmaList
+        }
+
+        public fun getCachedHospital(): MutableList<LocationData> {
+            return cachedHospitalList
+        }
+
+
     }
     private fun isLocationPermissionGranted(): Boolean {
         return ContextCompat.checkSelfPermission(
@@ -262,7 +304,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                             startActivity(intent)
                         }
                         override fun positiveAction() {
-
                             val uri = Uri.fromParts("package", packageName, null)
                             intentToSeeting.data = uri
                             startActivity(intentToSeeting)
