@@ -332,8 +332,6 @@ class ProductFragment : Fragment() {
             editor.apply()
 
 
-
-
             navController.navigate(Constant.getNavSeleted(5))
         }
     }
