@@ -27,7 +27,6 @@ class RecordDetailFragment : Fragment() {
         _binding.toolblarCustome.onStartIconClick = {
             val navController = requireActivity().findNavController(R.id.nav_host_fragment_activity_main)
             navController.navigate(Constant.getNavSeleted(Constant.RECORD_NAV_ID))
-
         }
 
 
