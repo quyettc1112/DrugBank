@@ -95,11 +95,7 @@ class RecordFragment : Fragment() {
             val editor = sharedPreferences.edit()
             editor.putInt(Constant.CURRENT_PROFILE_ID, it.profileId!!)
             editor.apply()
-            Toast.makeText(requireContext(), "${it.profileId}", Toast.LENGTH_SHORT).show()
-
-
-
-
+           // Toast.makeText(requireContext(), "${it.profileId}", Toast.LENGTH_SHORT).show()
 
             navController.navigate(Constant.getNavSeleted(Constant.RECORD_DETAIL))
         }
@@ -174,26 +170,7 @@ class RecordFragment : Fragment() {
         })
     }
 
-    fun CallProfileDetail() {
-        adminProfileRepository.getProfileDetail(
-            authorization = "Bearer ${tokenManager.getAccessToken()}",
-            id = 1
-        ).enqueue(object : retrofit2.Callback<ProfileDetailRespone> {
-            override fun onResponse(
-                call: Call<ProfileDetailRespone>,
-                response: Response<ProfileDetailRespone>
-            ) {
-                if (response.isSuccessful) {
-                    Log.d("CheckValueResponeDetai", response.body().toString())
-                }
-                else  Log.d("CheckValueResponeDetai", response.code().toString())
-            }
-            override fun onFailure(call: Call<ProfileDetailRespone>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
-        })
 
-    }
     companion object {
         private const val PAGE_SIZE = 20
     }
