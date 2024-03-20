@@ -131,7 +131,7 @@ class SplashActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<UserListResponse.User>, t: Throwable) {
-                TODO("Not yet implemented")
+                Log.d("CheckUser","")
             }
         })
     }
