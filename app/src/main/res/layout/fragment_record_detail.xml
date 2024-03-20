@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_marginBottom="60dp"
     tools:context=".ui.record.RecordDetail.RecordDetailFragment">
 
 
@@ -275,8 +276,9 @@
             </LinearLayout>
 w
             <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="700dp">
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/parentRecycleView"
                     android:layout_marginStart="16dp"
@@ -285,7 +287,7 @@ w
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:layout_width="match_parent"
                     tools:listitem="@layout/base_profiledetailist"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent">
                 </androidx.recyclerview.widget.RecyclerView>
             </LinearLayout>
 
