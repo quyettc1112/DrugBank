@@ -3,21 +3,19 @@ package com.example.drugbank.ui.record.RecordDetail
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.drugbank.R
 import com.example.drugbank.base.dialog.ErrorDialog
 import com.example.drugbank.common.Token.TokenManager
 import com.example.drugbank.common.constant.Constant
-import com.example.drugbank.databinding.FragmentRecordBinding
 import com.example.drugbank.databinding.FragmentRecordDetailBinding
 import com.example.drugbank.repository.Admin_Profile_Repository
-import com.example.drugbank.respone.ProductDetailRespone
 import com.example.drugbank.respone.ProfileDetailRespone
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,6 +30,10 @@ class RecordDetailFragment : Fragment() {
     private lateinit var viewModel: RecordDetailViewModel
     private lateinit var _binding: FragmentRecordDetailBinding
     private lateinit var tokenManager: TokenManager
+
+    private lateinit var parentAdapter: ParentAdapter
+
+
 
     private var profileID: Int = 0
 
@@ -49,14 +51,24 @@ class RecordDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
        _binding = FragmentRecordDetailBinding.inflate(inflater, container, false)
+
         onBackClick()
         loadingUI()
         setUpCallprofileDetail()
+
+        _binding.parentRecycleView.let {
+            it.setHasFixedSize(true)
+            it.layoutManager = LinearLayoutManager(requireContext())
+        }
+
+
+
 
 
 
         return  _binding.root
     }
+
 
 
     private fun loadingUI() {
@@ -100,6 +112,9 @@ class RecordDetailFragment : Fragment() {
                     val profileInformation: ProfileDetailRespone.ProfileInformation? =
                         productDetailRespone?.profileInformation
                     profileInformation(profileInformation)
+                    parentAdapter = ParentAdapter((productDetailRespone?.profileDetailList))
+                    _binding.parentRecycleView.adapter = parentAdapter
+
                 }
                 else  {
                     val errorDialog = ErrorDialog(
@@ -145,6 +160,11 @@ class RecordDetailFragment : Fragment() {
                 .into(_binding.ivProfileDetail)
 
         }
+
+
+    }
+
+    fun profileDetailListInfor () {
 
 
     }
