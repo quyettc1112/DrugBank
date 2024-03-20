@@ -363,8 +363,7 @@ class ProductDetailFragment : Fragment() {
 
     private fun backToSearch() {
         _binding.customToolbar.onStartIconClick = {
-            val navController = requireActivity().findNavController(R.id.nav_host_fragment_activity_main)
-            navController.navigate(Constant.getNavSeleted(Constant.SEARCH_NAV_ID))
+            requireActivity().onBackPressed()
         }
     }
 
