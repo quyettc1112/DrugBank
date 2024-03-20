@@ -17,6 +17,7 @@ import com.example.drugbank.common.constant.Constant
 import com.example.drugbank.databinding.FragmentRecordDetailBinding
 import com.example.drugbank.repository.Admin_Profile_Repository
 import com.example.drugbank.respone.ProfileDetailRespone
+import com.example.drugbank.ui.activity.main.MainActivity
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
@@ -31,9 +32,7 @@ class RecordDetailFragment : Fragment() {
     private lateinit var _binding: FragmentRecordDetailBinding
     private lateinit var tokenManager: TokenManager
 
-    private lateinit var parentAdapter: ParentAdapter
-
-
+    private lateinit var profileDetailApapter: ProfileDetailAdapter
 
     private var profileID: Int = 0
 
@@ -112,8 +111,9 @@ class RecordDetailFragment : Fragment() {
                     val profileInformation: ProfileDetailRespone.ProfileInformation? =
                         productDetailRespone?.profileInformation
                     profileInformation(profileInformation)
-                    parentAdapter = ParentAdapter((productDetailRespone?.profileDetailList))
-                    _binding.parentRecycleView.adapter = parentAdapter
+//                    parentAdapter = ParentAdapter((productDetailRespone?.profileDetailList))
+//                    _binding.parentRecycleView.adapter = parentAdapter
+                    profileDetailInfo(productDetailRespone)
 
                 }
                 else  {
@@ -130,6 +130,20 @@ class RecordDetailFragment : Fragment() {
                 TODO("Not yet implemented")
             }
         })
+
+    }
+
+    private fun profileDetailInfo(productDetailRespone: ProfileDetailRespone?) {
+        profileDetailApapter =
+            ProfileDetailAdapter(productDetailRespone?.profileDetailList, requireContext(),
+                requireActivity() as MainActivity
+            )
+        _binding.parentRecycleView.adapter = profileDetailApapter
+
+        profileDetailApapter.onItemClick = {
+
+
+        }
 
     }
 
