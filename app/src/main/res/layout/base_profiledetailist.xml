@@ -12,6 +12,7 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardViewInfo"
             android:layout_width="match_parent"
             app:strokeColor="@color/gray_600"
             app:strokeWidth="2dp"
@@ -30,7 +31,9 @@
                     android:src="@drawable/defultdrug_base"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"></ImageView>
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </ImageView>
 
                 <TextView
 
@@ -47,13 +50,12 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                 </TextView>
-
                 <TextView
                     android:id="@+id/status_profileDetial"
                     android:background="@color/red_light"
                     android:gravity="center"
                     android:text="REJECT"
-                    android:padding="10dp"
+                    android:padding="2dp"
                     android:textSize="18dp"
                     android:textStyle="bold"
                     android:textColor="@color/white"
@@ -63,7 +65,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView2"
                     app:layout_constraintTop_toBottomOf="@+id/name_profileDetail">
-
                 </TextView>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -72,17 +73,14 @@
         </com.google.android.material.card.MaterialCardView>
 
         <LinearLayout
+            android:background="@drawable/background_button_normal"
+            android:padding="5dp"
             android:id="@+id/layout_includeProfileDetail"
-            android:visibility="visible"
+            android:visibility="gone"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="100dp">
-            <TextView
-                android:text="Helo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </TextView>
+            android:layout_height="wrap_content">
+           <include android:id="@+id/layout" layout="@layout/fragment_product_detail_v2"></include>
         </LinearLayout>
 
 
