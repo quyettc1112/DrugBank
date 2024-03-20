@@ -89,7 +89,7 @@ class LoginActivity : BaseActivity() {
                         _Token = Token(accessToken, refreshToken)
                         val tokenManager = TokenManager(this@LoginActivity)
                         tokenManager.saveAccessToken(_Token.accessToken)
-                        IntentToHomePage()
+
                         CallGetUserByEmail(tokenManager, loginDTO.email)
                         if (_binding.checkBox.isChecked) {
                             savesSharePreference(loginDTO, tokenManager.getAccessToken().toString())
@@ -143,16 +143,21 @@ class LoginActivity : BaseActivity() {
                 response: Response<UserListResponse.User>
             ) {
                 if (response.isSuccessful) {
+                    Log.d("What", "true")
                     val userRespone: UserListResponse.User? = response.body()
                     Constant.saveCurrentUser(this@LoginActivity, userRespone!!)
+                    IntentToHomePage()
                 }
                 else {
-                    Log.d("CheckUser", response.code().toString())
+                    Log.d("What", "No")
+                    val errorDialog = ErrorDialog(this@LoginActivity, errorContent =  response.code().toString(), textButton = "Back")
+                    errorDialog.show()
                 }
             }
 
             override fun onFailure(call: Call<UserListResponse.User>, t: Throwable) {
-                TODO("Not yet implemented")
+                val errorDialog = ErrorDialog(this@LoginActivity, errorContent =  t.message.toString(), textButton = "Back")
+                errorDialog.show()
             }
         })
     }
