@@ -66,7 +66,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         mapsViewModels = ViewModelProvider(this)[MapsViewModels::class.java]
 
-        Places.initialize(applicationContext, getString(R.string.API_KEy_V2))
+        Places.initialize(applicationContext, getString(R.string.API_KEy_V3))
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -165,26 +165,25 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             Log.d("CheckType", types.toString())
             val url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json" +
                     "?location=${currentLocation.latitude},${currentLocation.longitude}" +
-                    "&radius=2500" +
+                    "&radius=2000" +
                     "&types=$types" +
-                    "&sensor=true" +
-                    "&key=${resources.getString(R.string.API_KEy_V2)}"
+                    "&key=${resources.getString(R.string.API_KEy_V3)}"
             val placeTask = PlaceTask(mMap)
             placeTask.execute(url)
-            if (types == "drugstore") {
-                drugstoreCache[types] = emptyList()
-                drugstoreCache[types] = placeTask.getCachedDrugstores()
-            }
-
-            if (types == "pharmacy") {
-                drugstoreCache[types] = emptyList()
-                drugstoreCache[types] = placeTask.getCachedPharmarcity()
-            }
-
-            if (types == "hospital") {
-                drugstoreCache[types] = emptyList()
-                drugstoreCache[types] = placeTask.getCachedHospital()
-            }
+//            if (types == "drugstore") {
+//                drugstoreCache[types] = emptyList()
+//                drugstoreCache[types] = placeTask.getCachedDrugstores()
+//            }
+//
+//            if (types == "pharmacy") {
+//                drugstoreCache[types] = emptyList()
+//                drugstoreCache[types] = placeTask.getCachedPharmarcity()
+//            }
+//
+//            if (types == "hospital") {
+//                drugstoreCache[types] = emptyList()
+//                drugstoreCache[types] = placeTask.getCachedHospital()
+//            }
         }
     }
 

@@ -1,5 +1,6 @@
 package com.example.drugbank.ui.record.RecordDetail
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,17 +27,14 @@ class ParentAdapter(private val parentItemList: List<ProfileDetailRespone.Profil
         return parentItemList?.size!!
     }
 
+
     override fun onBindViewHolder(holder: ParentRecyclerView, position: Int) {
         val parentItem = parentItemList?.get(position)
         if (parentItem != null) {
             holder.ststus.text = parentItem.status
         }
         holder.layoutIncude.setOnClickListener {
-            if(it.visibility == View.GONE) {
-                it.visibility = View.VISIBLE
 
-            } else
-            it.visibility = View.GONE
         }
     }
 
