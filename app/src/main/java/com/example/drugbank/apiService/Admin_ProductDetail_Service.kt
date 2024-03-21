@@ -17,6 +17,12 @@ interface Admin_ProductDetail_Service {
         @Path("id") id: Int
     ): Call<ProductDetailRespone>
 
+    @GET("admin/products")
+    fun getProductDetailInRecord(
+        @Header("Authorization") authorization: String,
+        @Query("id") id: Int
+    ): Call<ProductDetailRespone>
+
     @DELETE("admin/approval-products")
     fun deleteProduuct(
         @Header("Authorization") authorization: String,
