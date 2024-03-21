@@ -24,6 +24,7 @@ import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.drugbank.R
@@ -33,6 +34,7 @@ import com.example.drugbank.base.dialog.NotifyDialog
 import com.example.drugbank.common.BaseAPI.RetrofitClient
 import com.example.drugbank.common.Resource.Screen
 import com.example.drugbank.common.Token.TokenManager
+import com.example.drugbank.common.constant.Constant
 import com.example.drugbank.data.dto.AddUserRequestDTO
 import com.example.drugbank.data.dto.UpdateUserRequestDTO
 import com.example.drugbank.data.model.User
@@ -61,12 +63,16 @@ class UserManagerFragment : Fragment() {
 
     lateinit var _viewModel: UserManagerViewModel
     lateinit var  tokenManager: TokenManager
-
+    private lateinit var currentUser: UserListResponse.User
 
     @Inject
     lateinit var userRepository: Admin_UserM_Repository
 
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        currentUser = Constant.getCurrentUser(requireContext())!!
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -75,13 +81,28 @@ class UserManagerFragment : Fragment() {
         _binding = FragmentSavedBinding.inflate(inflater, container, false)
         _viewModel = ViewModelProvider(this).get(UserManagerViewModel::class.java)
 
-        val bottomSheetDialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
-        val view = layoutInflater.inflate(R.layout.layout_bottom_sheet, null)
-        showBottomSheet(bottomSheetDialog, view)
-        onAddNewClick()
-        setUpUiStatic()
-        _viewModel.setLoading(true)
-        loadingUI()
+        if (currentUser.roleName == "ADMIN") {
+            val bottomSheetDialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
+            val view = layoutInflater.inflate(R.layout.layout_bottom_sheet, null)
+            showBottomSheet(bottomSheetDialog, view)
+            onAddNewClick()
+            setUpUiStatic()
+            _viewModel.setLoading(true)
+            loadingUI()
+        } else {
+            val notifyDialog = NotifyDialog(
+                requireContext(),
+                title = "You Have No Permission",
+                message = "You have No Permission to access this page",
+                textButton = "Back")
+            notifyDialog.show()
+
+
+
+
+        }
+
+
 
         return _binding.root
     }

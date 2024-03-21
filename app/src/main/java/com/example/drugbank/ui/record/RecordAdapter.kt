@@ -19,23 +19,18 @@ class RecordAdapter( val context: Context): RecyclerView.Adapter<RecordAdapter.M
     inner class MainViewHolder(val itemBinding: BaseProfileListBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
         fun bindItem(item: ProfileListRespone.Content) {
-            Picasso.get()
-                .load(item?.imageURL) // Assuming item.img is the URL string
-                .placeholder(R.drawable.defultdrug_base) // Optional: Placeholder image while loading
-                .error(R.drawable.defultdrug_base) // Optional: Error image to display on load failure
-                .into(itemBinding.ivProductDetail)
-//            if (item.imageURL != null) {
-//                Glide.with(context) // Context
-//                    .load(item.imageURL) // URL
-//                    .placeholder(R.drawable.defultdrug_base) // Placeholder image
-//                    .error(R.drawable.defultdrug_base) // Error image
-//                    .into(itemBinding.ivProductDetail) // ImageView to load the image into
-//            } else {
-//                // Nếu URL là null, sử dụng ảnh mặc định
-//                itemBinding.ivProductDetail.setImageResource(R.drawable.defultdrug_base)
-//            }
 
-           // itemBinding.ivProductDetail.setImageURI(item.imageURL)
+            if (item.imageURL.toString().isNullOrEmpty()) {
+                itemBinding.ivProductDetail.setImageResource(R.drawable.defultdrug_base)
+
+            } else {
+                Picasso.get()
+                    .load(item?.imageURL) // Assuming item.img is the URL string
+                    .placeholder(R.drawable.defultdrug_base) // Optional: Placeholder image while loading
+                    .error(R.drawable.defultdrug_base) // Optional: Error image to display on load failure
+                    .into(itemBinding.ivProductDetail)
+            }
+
 
             itemBinding.tvProfileName.text = "Name: ${item.title}"
             itemBinding.tvProfieCreate.text = item.createdOn
@@ -48,8 +43,6 @@ class RecordAdapter( val context: Context): RecyclerView.Adapter<RecordAdapter.M
                 itemBinding.tvProfileStatus.text = item.status
                 itemBinding.tvProfileStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.icon_color_bottom_normal))
             }
-
-
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
