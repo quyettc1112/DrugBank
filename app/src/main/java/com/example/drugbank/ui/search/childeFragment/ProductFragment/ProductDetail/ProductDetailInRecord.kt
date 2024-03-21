@@ -3,12 +3,10 @@ package com.example.drugbank.ui.search.childeFragment.ProductFragment.ProductDet
 import android.content.Context
 import android.content.res.Resources
 import android.net.Uri
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.transition.AutoTransition
 import android.transition.TransitionManager
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +14,8 @@ import android.view.ViewTreeObserver
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.drugbank.R
 import com.example.drugbank.base.dialog.ConfirmDialog
@@ -42,10 +42,9 @@ import java.io.FileOutputStream
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ProductDetailFragment : Fragment() {
+class ProductDetailInRecord : Fragment() {
 
-
-    private lateinit var _binding : FragmentProductDetailBinding
+    private lateinit var _binding: FragmentProductDetailBinding
     private var productID: Int = 0
     private lateinit var tokenManager: TokenManager
     private lateinit var _productDetailViewModel: ProductDetailViewModel
@@ -74,7 +73,10 @@ class ProductDetailFragment : Fragment() {
         _binding = FragmentProductDetailBinding.inflate(inflater, container, false)
         _productDetailViewModel = ViewModelProvider(this).get(ProductDetailViewModel::class.java)
         backToSearch()
-        val sharedPreferences = requireActivity().getSharedPreferences(Constant.CURRENT_PRODUCT_ID, Context.MODE_PRIVATE)
+        val sharedPreferences = requireActivity().getSharedPreferences(
+            Constant.CURRENT_PRODUCT_ID,
+            Context.MODE_PRIVATE
+        )
         productID = sharedPreferences.getInt(Constant.CURRENT_PRODUCT_ID_VALUE, 0)
         tokenManager = TokenManager(requireContext())
         _productDetailViewModel.setLoading(true)
@@ -92,14 +94,14 @@ class ProductDetailFragment : Fragment() {
     }
 
 
-
-    private val contract = registerForActivityResult(ActivityResultContracts.GetContent()) { result ->
-        if (result != null) {
-            upLoadImage(result)
-        } else {
-            Toast.makeText(requireContext(), "No image selected", Toast.LENGTH_SHORT).show()
+    private val contract =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { result ->
+            if (result != null) {
+                upLoadImage(result)
+            } else {
+                Toast.makeText(requireContext(), "No image selected", Toast.LENGTH_SHORT).show()
+            }
         }
-    }
 
     private fun upLoadImage(imageUri: Uri) {
         val filesDir = requireContext().applicationContext.filesDir
@@ -131,7 +133,8 @@ class ProductDetailFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<ProductListRespone.Content?>, t: Throwable) {
-                Toast.makeText(requireContext(), "Upload failed: ${t.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Upload failed: ${t.message}", Toast.LENGTH_SHORT)
+                    .show()
             }
 
         })
@@ -165,39 +168,66 @@ class ProductDetailFragment : Fragment() {
     }
 
 
-
-
     private fun setUpUiStatic() {
 
         _binding.drugIExapnded?.let { drugExpanded ->
 
-            drugExpanded.setUpExpansionToggle(_binding.layoutShowDrugIngredient, _binding.lineDrugIn, drugExpanded)
+            drugExpanded.setUpExpansionToggle(
+                _binding.layoutShowDrugIngredient,
+                _binding.lineDrugIn,
+                drugExpanded
+            )
         }
 
         _binding.manufatoerExapnded?.let { manufacturerExpanded ->
-            manufacturerExpanded.setUpExpansionToggle(_binding.layoutManufator, _binding.lineManufactor, manufacturerExpanded)
+            manufacturerExpanded.setUpExpansionToggle(
+                _binding.layoutManufator,
+                _binding.lineManufactor,
+                manufacturerExpanded
+            )
         }
 
         _binding.authoritiesExapnded?.let { authorExpane ->
-            authorExpane.setUpExpansionToggle(_binding.layoutAuthorites, _binding.lineAuthorities, authorExpane)
+            authorExpane.setUpExpansionToggle(
+                _binding.layoutAuthorites,
+                _binding.lineAuthorities,
+                authorExpane
+            )
         }
 
         _binding.pharmacogenomicExapnded?.let { phacrmarExpa ->
-            phacrmarExpa.setUpExpansionToggle(_binding.layoutpharmacogenomic, _binding.linePharmacogenomic, phacrmarExpa)
+            phacrmarExpa.setUpExpansionToggle(
+                _binding.layoutpharmacogenomic,
+                _binding.linePharmacogenomic,
+                phacrmarExpa
+            )
         }
 
-        _binding.productAllergyDetailExapnded?.let {pAllegry ->
-            pAllegry.setUpExpansionToggle(_binding.layoutproductAllergyDetail, _binding.lineProductAllergyDetail, pAllegry)
+        _binding.productAllergyDetailExapnded?.let { pAllegry ->
+            pAllegry.setUpExpansionToggle(
+                _binding.layoutproductAllergyDetail,
+                _binding.lineProductAllergyDetail,
+                pAllegry
+            )
         }
 
         _binding.contraindicationExapnded?.let { contrain ->
-            contrain.setUpExpansionToggle(_binding.layoutcontraindication, _binding.lineContraindicationl, contrain)
+            contrain.setUpExpansionToggle(
+                _binding.layoutcontraindication,
+                _binding.lineContraindicationl,
+                contrain
+            )
         }
     }
+
     // Biến để lưu trữ dữ liệu height cho từng view
     private val originalHeights = mutableMapOf<View, Int>()
 
-    private fun AppCompatImageView.setUpExpansionToggle(targetLayout: View, lineLayout: View, imageView: AppCompatImageView) {
+    private fun AppCompatImageView.setUpExpansionToggle(
+        targetLayout: View,
+        lineLayout: View,
+        imageView: AppCompatImageView
+    ) {
         var isExpanded = false
         this.setOnClickListener {
             isExpanded = !isExpanded
@@ -205,14 +235,21 @@ class ProductDetailFragment : Fragment() {
         }
     }
 
-    private fun View.setExpandedStateAndToggleVisibility(targetLayout: View, lineLayout: View, isExpanded: Boolean, imageView: AppCompatImageView) {
+    private fun View.setExpandedStateAndToggleVisibility(
+        targetLayout: View,
+        lineLayout: View,
+        isExpanded: Boolean,
+        imageView: AppCompatImageView
+    ) {
         var originalHeight = originalHeights[targetLayout] ?: 0
         if (isExpanded) {
             targetLayout.visibility = View.VISIBLE
-            targetLayout.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+            targetLayout.viewTreeObserver.addOnGlobalLayoutListener(object :
+                ViewTreeObserver.OnGlobalLayoutListener {
                 override fun onGlobalLayout() {
                     targetLayout.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                    val expandedHeight = if (originalHeight != 0) originalHeight else targetLayout.height
+                    val expandedHeight =
+                        if (originalHeight != 0) originalHeight else targetLayout.height
                     if (originalHeight == 0) {
                         originalHeights[targetLayout] = expandedHeight
                     }
@@ -237,6 +274,7 @@ class ProductDetailFragment : Fragment() {
             imageView.setImageResource(R.drawable.baseline_arrow_drop_down_24)
         }
     }
+
     fun Int.dpToPx(): Int = (this * Resources.getSystem().displayMetrics.density).toInt()
     private fun loadingUI() {
         _productDetailViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
@@ -260,13 +298,13 @@ class ProductDetailFragment : Fragment() {
                     _productDetailViewModel.setLoading(false)
                     val notifyDialog = NotifyDialog(
                         requireContext(),
-                        title =  "Delete Product",
+                        title = "Delete Product",
                         message = "Delete Success",
                         textButton = "Back"
                     )
                     notifyDialog.show()
 
-                } else{
+                } else {
                     val errorDialog = ErrorDialog(
                         requireContext(),
                         textButton = "Back",
@@ -283,11 +321,11 @@ class ProductDetailFragment : Fragment() {
 
     }
 
-    private fun CallProductDetail(id: Int){
+    private fun CallProductDetail(id: Int) {
         adminProductDetailRepository.getProductDetail(
             authorization = "Bearer ${tokenManager.getAccessToken()}",
             id = id
-        ).enqueue(object: Callback<ProductDetailRespone>{
+        ).enqueue(object : Callback<ProductDetailRespone> {
             override fun onResponse(
                 call: Call<ProductDetailRespone>,
                 response: Response<ProductDetailRespone>
@@ -304,22 +342,33 @@ class ProductDetailFragment : Fragment() {
                         .placeholder(R.drawable.dafult_product_img) // Optional: Placeholder image while loading
                         .error(R.drawable.loading) // Optional: Error image to display on load failure
                         .into(_binding.ivProductDetail)
-                    productTableAdapter = ProductTableAdapter(productDetailRespone!!.drugIngredients.toList())
+                    productTableAdapter =
+                        ProductTableAdapter(productDetailRespone!!.drugIngredients.toList())
                     _binding.rvDrugIngredients.adapter = productTableAdapter
                     Log.d("CheckDrugIn", productDetail!!.drugIngredients.toList().toString())
 
-                    producDetail_Authorites_Adapter = ProductDetail_Authorites_Adapter(productDetailRespone!!.authorities.toList())
+                    producDetail_Authorites_Adapter =
+                        ProductDetail_Authorites_Adapter(productDetailRespone!!.authorities.toList())
                     _binding.rvAuthorities.adapter = producDetail_Authorites_Adapter
 
                     _productDetailViewModel.setLoading(false)
                 } else {
-                    val errorDialog = ErrorDialog(requireContext(), textButton = "Back", errorContent = "Error " + response.code().toString())
+                    val errorDialog = ErrorDialog(
+                        requireContext(),
+                        textButton = "Back",
+                        errorContent = "Error " + response.code().toString()
+                    )
                     errorDialog.show()
                 }
             }
+
             override fun onFailure(call: Call<ProductDetailRespone>, t: Throwable) {
                 _productDetailViewModel.setLoading(false)
-                val errorDialog = ErrorDialog(requireContext(), textButton = "Back", errorContent = "Error " + t.message.toString())
+                val errorDialog = ErrorDialog(
+                    requireContext(),
+                    textButton = "Back",
+                    errorContent = "Error " + t.message.toString()
+                )
                 errorDialog.show()
             }
         })
@@ -346,6 +395,7 @@ class ProductDetailFragment : Fragment() {
             _binding.manufactorCountryName.text = productDetail.manufactor?.countryName
         }
     }
+
     private fun bindDataPharmarcogenomic(productDetail: ProductDetailRespone?) {
         if (productDetail!!.pharmacogenomic != null) {
             _binding.pharmarPharmar.text = productDetail.pharmacogenomic?.pharmacodynamic
@@ -373,9 +423,4 @@ class ProductDetailFragment : Fragment() {
             requireActivity().onBackPressed()
         }
     }
-
-
-
-
-
 }

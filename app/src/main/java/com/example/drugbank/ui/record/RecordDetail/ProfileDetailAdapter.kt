@@ -42,14 +42,22 @@ class ProfileDetailAdapter(private val parentItemList: List<ProfileDetailRespone
                     .error(R.drawable.defultdrug_base) // Optional: Error image to display on load failure
                     .into(itemBinding.imageView2)
 
-            }
+                Picasso.get()
+                    .load(item!!.productResponseDTO?.image.toString()) // Assuming item.img is the URL string
+                    .placeholder(R.drawable.defultdrug_base) // Optional: Placeholder image while loading
+                    .error(R.drawable.defultdrug_base) // Optional: Error image to display on load failure
+                    .into(itemBinding.layout.ivProductDetail)
 
+            }
 
             itemBinding.layout.productName.text = item?.productResponseDTO?.name.toString()
             itemBinding.layout.productId.text = item?.productResponseDTO?.id.toString()
             itemBinding.layout.productLabeller.text = item?.productResponseDTO?.name.toString()
             itemBinding.layout.prouductNameSmall.text = item?.productResponseDTO?.name.toString()
             itemBinding.layout.productPrename.text = item?.productResponseDTO?.prescriptionName.toString()
+
+
+
 
         }
     }

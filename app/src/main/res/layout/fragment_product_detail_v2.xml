@@ -319,9 +319,8 @@
         android:text="View Product"
         android:foreground="@drawable/effect"
         android:textColor="@color/white"
-        android:layout_marginTop="16dp"
         android:textStyle="bold"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:layout_gravity="center"
         android:layout_width="150dp"
         android:layout_height="wrap_content">

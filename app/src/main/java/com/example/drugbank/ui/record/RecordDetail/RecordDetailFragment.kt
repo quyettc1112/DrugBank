@@ -59,12 +59,6 @@ class RecordDetailFragment : Fragment() {
             it.setHasFixedSize(true)
             it.layoutManager = LinearLayoutManager(requireContext())
         }
-
-
-
-
-
-
         return  _binding.root
     }
 
@@ -111,8 +105,6 @@ class RecordDetailFragment : Fragment() {
                     val profileInformation: ProfileDetailRespone.ProfileInformation? =
                         productDetailRespone?.profileInformation
                     profileInformation(profileInformation)
-//                    parentAdapter = ParentAdapter((productDetailRespone?.profileDetailList))
-//                    _binding.parentRecycleView.adapter = parentAdapter
                     profileDetailInfo(productDetailRespone)
 
                 }

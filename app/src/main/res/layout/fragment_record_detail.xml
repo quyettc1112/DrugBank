@@ -279,16 +279,16 @@ w
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="700dp">
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/parentRecycleView"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginTop="16dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:layout_width="match_parent"
-                    tools:listitem="@layout/base_profiledetailist"
-                    android:layout_height="match_parent">
-                </androidx.recyclerview.widget.RecyclerView>
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/base_profiledetailist"></androidx.recyclerview.widget.RecyclerView>
             </LinearLayout>
 
 
