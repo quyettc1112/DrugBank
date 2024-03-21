@@ -23,6 +23,7 @@ class Constant {
         const val DRUGSTORE_NAV_ID = 1;
         const val SETTING_NAV_ID = 4;
         const val PRODUCT_DETAIL = 5
+        const val PD_IN_RECORD = 7
         const val RECORD_DETAIL = 6
         const val LOGIN_NAV_ID = 99;
         const val DEFAULT_ERROR_MESSAGE: String = "An error occurred"
@@ -59,6 +60,7 @@ class Constant {
             myHashMap[LOGIN_NAV_ID] = R.id.loginFragmentNav
             myHashMap[PRODUCT_DETAIL] = R.id.productDetailFragmentNav
             myHashMap[RECORD_DETAIL] = R.id.recordDetailFragmentNav
+            myHashMap[PD_IN_RECORD] = R.id.PDInRecordFragment_nav
             return myHashMap[selected] ?: -1
         }
 
