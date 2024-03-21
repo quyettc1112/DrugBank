@@ -169,13 +169,6 @@ class LoginActivity : BaseActivity() {
 
     }
 
-    private fun openRegisterActivity() {
-        _binding.btnRegister.setOnClickListener {
-            // Toast.makeText(this, "Check Click", Toast.LENGTH_SHORT).show()
-            var intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
-        }
-    }
 
     private fun onBackHandle() {
         val callback: OnBackPressedCallback =
