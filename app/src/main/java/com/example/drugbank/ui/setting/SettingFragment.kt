@@ -154,6 +154,7 @@ class SettingFragment : Fragment() {
         _binding!!.logout.setOnClickListener {
             Constant.removeAllSavedValues(requireContext())
             Constant.removeAllCurrentUser(requireContext())
+            Constant.removeAllAdmintration(requireContext())
             val intent = Intent(requireContext(), LoginActivity::class.java)
             startActivity(intent)
             requireActivity().finish()

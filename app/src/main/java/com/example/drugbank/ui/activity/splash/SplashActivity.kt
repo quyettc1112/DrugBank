@@ -151,7 +151,6 @@ class SplashActivity : AppCompatActivity() {
                 finish()
             }
 
-
             BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE ->
                 displayMessage("Biometric authentication is currently unavailable")
 
@@ -202,7 +201,7 @@ class SplashActivity : AppCompatActivity() {
 
         promptInfo = BiometricPrompt.PromptInfo.Builder()
             .setTitle("Authen with Biometric")
-            .setDescription("Position your face within the frame.")
+            .setDescription("")
             .setConfirmationRequired(true)
             //.setNegativeButtonText("Cancel")
             .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_WEAK

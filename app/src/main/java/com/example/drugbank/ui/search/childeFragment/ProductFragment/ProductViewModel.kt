@@ -27,6 +27,8 @@ class ProductViewModel @Inject constructor() : ViewModel()  {
     val isCheckedCard2 = MutableLiveData<Boolean>()
     val isCheckedCard3 = MutableLiveData<Boolean>()
 
+    val administration = MutableLiveData<Int>()
+
     val isNextClick = MutableLiveData<Boolean>()
 
     init {
