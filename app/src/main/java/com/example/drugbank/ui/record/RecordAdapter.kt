@@ -1,6 +1,7 @@
 package com.example.drugbank.ui.record
 
 import android.content.Context
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -18,6 +19,24 @@ class RecordAdapter( val context: Context): RecyclerView.Adapter<RecordAdapter.M
     inner class MainViewHolder(val itemBinding: BaseProfileListBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
         fun bindItem(item: ProfileListRespone.Content) {
+            Picasso.get()
+                .load(item?.imageURL) // Assuming item.img is the URL string
+                .placeholder(R.drawable.defultdrug_base) // Optional: Placeholder image while loading
+                .error(R.drawable.defultdrug_base) // Optional: Error image to display on load failure
+                .into(itemBinding.ivProductDetail)
+//            if (item.imageURL != null) {
+//                Glide.with(context) // Context
+//                    .load(item.imageURL) // URL
+//                    .placeholder(R.drawable.defultdrug_base) // Placeholder image
+//                    .error(R.drawable.defultdrug_base) // Error image
+//                    .into(itemBinding.ivProductDetail) // ImageView to load the image into
+//            } else {
+//                // Nếu URL là null, sử dụng ảnh mặc định
+//                itemBinding.ivProductDetail.setImageResource(R.drawable.defultdrug_base)
+//            }
+
+           // itemBinding.ivProductDetail.setImageURI(item.imageURL)
+
             itemBinding.tvProfileName.text = "Name: ${item.title}"
             itemBinding.tvProfieCreate.text = item.createdOn
 
@@ -30,11 +49,6 @@ class RecordAdapter( val context: Context): RecyclerView.Adapter<RecordAdapter.M
                 itemBinding.tvProfileStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.icon_color_bottom_normal))
             }
 
-            Picasso.get()
-                .load(item?.imageURL) // Assuming item.img is the URL string
-                .placeholder(R.drawable.loadingsim) // Optional: Placeholder image while loading
-                .error(R.drawable.dafult_product_img) // Optional: Error image to display on load failure
-                .into(itemBinding.ivProductDetail)
 
         }
     }

@@ -21,14 +21,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <ImageView
+                    android:id="@+id/iv_product_detail"
+                    android:src="@drawable/dafult_product_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                </ImageView>
+            <!--    <ImageView
                     android:background="@drawable/background_button_normal"
                     android:id="@+id/iv_product_detail"
                     android:src="@drawable/dafult_product_img"
-                    android:layout_gravity="center"
                     android:layout_width="match_parent"
                     android:padding="5dp"
                     android:layout_height="match_parent">
-                </ImageView>
+                </ImageView>-->
             </LinearLayout>
             <LinearLayout
                 android:layout_weight="3"

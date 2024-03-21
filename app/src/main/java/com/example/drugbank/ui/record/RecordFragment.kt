@@ -13,6 +13,8 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.drugbank.R
+import com.example.drugbank.base.dialog.ErrorDialog
+import com.example.drugbank.base.dialog.NotifyDialog
 import com.example.drugbank.common.Token.TokenManager
 import com.example.drugbank.common.constant.Constant
 import com.example.drugbank.databinding.FragmentRecordBinding
@@ -20,6 +22,7 @@ import com.example.drugbank.repository.Admin_Profile_Repository
 import com.example.drugbank.respone.ProductListRespone
 import com.example.drugbank.respone.ProfileDetailRespone
 import com.example.drugbank.respone.ProfileListRespone
+import com.example.drugbank.respone.UserListResponse
 import com.example.drugbank.ui.search.childeFragment.ProductFragment.ProductAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
@@ -32,6 +35,7 @@ class RecordFragment : Fragment() {
     private lateinit var tokenManager: TokenManager
     private lateinit var _recordAdapter: RecordAdapter
     private lateinit var _binding: FragmentRecordBinding
+    private lateinit var currentUser: UserListResponse.User
 
     @Inject
     lateinit var adminProfileRepository : Admin_Profile_Repository
@@ -40,6 +44,7 @@ class RecordFragment : Fragment() {
         super.onCreate(savedInstanceState)
         tokenManager = TokenManager(requireContext())
         viewModel = ViewModelProvider(this).get(RecordViewModel::class.java)
+        currentUser = Constant.getCurrentUser(requireContext())!!
 
     }
     override fun onCreateView(
@@ -52,6 +57,7 @@ class RecordFragment : Fragment() {
         //CallProfileList()
        // CallProfileDetail()
         setUpRecycleViewList()
+
 
         setUpSearchQueries()
 
@@ -154,18 +160,41 @@ class RecordFragment : Fragment() {
                                 updatedBy = profile?.updatedBy.toString(),
                                 updatedOn = profile?.updatedOn.toString(),
                                 status = profile?.status.toString(),
-                                imageURL = profile?.createdOn.toString()
+                                imageURL = profile?.imageURL.toString()
                             )
                         } ?: emptyList()
-                    viewModel.loadMoreRecord(profileList)
-                    viewModel.totalElement.value = profileListRespone?.totalElements
-                    _recordAdapter.differ.submitList(viewModel.currentProfileList.value)
+
+                    if (profileList.isEmpty() && currentUser.roleName == "SECRETARY") {
+                        val notifyDialog = NotifyDialog(
+                            requireContext(),
+                            title = "List Is Empty",
+                            message = "You have no Profile Product yet",
+                            textButton = "Back")
+                        notifyDialog.show()
+                    } else {
+                        viewModel.loadMoreRecord(profileList)
+                        viewModel.totalElement.value = profileListRespone?.totalElements
+                        _recordAdapter.differ.submitList(viewModel.currentProfileList.value)
+                    }
+
                     viewModel.setLoading(false)
                 }
-                else  Log.d("CheckValueRespone", response.code().toString())
+                else  {
+                    val errorDialog = ErrorDialog(
+                        requireContext(),
+                        textButton = "Back",
+                        errorContent = "Error: ${response.code()}"
+                    )
+                    errorDialog.show()
+                }
             }
             override fun onFailure(call: Call<ProfileListRespone>, t: Throwable) {
-                TODO("Not yet implemented")
+                val errorDialog = ErrorDialog(
+                    requireContext(),
+                    textButton = "Back",
+                    errorContent = "Error: ${t.message}"
+                )
+                errorDialog.show()
             }
         })
     }

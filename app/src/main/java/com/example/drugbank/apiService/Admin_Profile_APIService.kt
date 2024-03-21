@@ -5,6 +5,7 @@ import com.example.drugbank.respone.ProfileListRespone
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface Admin_Profile_APIService {
@@ -17,10 +18,10 @@ interface Admin_Profile_APIService {
         @Query("search") search: String
     ): Call<ProfileListRespone>
 
-    @GET("admin/profile-products-details")
+    @GET("admin/profile-products/{id}")
     fun getProfileDetail(
         @Header("Authorization") authorization: String,
-        @Query("id") id: Int,
+        @Path("id") id: Int,
     ): Call<ProfileDetailRespone>
 
 }

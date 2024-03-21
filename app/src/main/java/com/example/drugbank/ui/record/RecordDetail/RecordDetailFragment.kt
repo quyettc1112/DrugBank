@@ -164,13 +164,13 @@ class RecordDetailFragment : Fragment() {
         }
 
         if (profileInformation?.imageURL.isNullOrEmpty()) {
-            _binding.ivProfileDetail.setImageResource(R.drawable.dafult_product_img)
+            _binding.ivProfileDetail.setImageResource(R.drawable.defultdrug_base)
 
         } else {
             Picasso.get()
                 .load(profileInformation?.imageURL) // Assuming item.img is the URL string
-                .placeholder(R.drawable.loadingsim) // Optional: Placeholder image while loading
-                .error(R.drawable.dafult_product_img) // Optional: Error image to display on load failure
+                .placeholder(R.drawable.defultdrug_base) // Optional: Placeholder image while loading
+                .error(R.drawable.defultdrug_base) // Optional: Error image to display on load failure
                 .into(_binding.ivProfileDetail)
 
         }

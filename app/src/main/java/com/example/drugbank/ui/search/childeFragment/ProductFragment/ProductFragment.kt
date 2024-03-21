@@ -28,6 +28,7 @@ import com.example.drugbank.databinding.LayoutChoseCountryBinding
 import com.example.drugbank.repository.Admin_ProductM_Repository
 import com.example.drugbank.respone.DrugMListRespone
 import com.example.drugbank.respone.ProductListRespone
+import com.example.drugbank.respone.UserListResponse
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.card.MaterialCardView
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,6 +45,7 @@ class ProductFragment : Fragment() {
     lateinit var  tokenManager: TokenManager
     lateinit var _productViewModel: ProductViewModel
     private var currentIDClcik: Int = 0
+
     @Inject
     lateinit var adminProductRepository: Admin_ProductM_Repository
 

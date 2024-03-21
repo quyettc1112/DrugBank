@@ -23,6 +23,7 @@ import com.example.drugbank.base.dialog.ConfirmDialog
 import com.example.drugbank.base.dialog.ErrorDialog
 import com.example.drugbank.common.Resource.Screen
 import com.example.drugbank.common.Token.TokenManager
+import com.example.drugbank.common.constant.Constant
 import com.example.drugbank.data.dto.CreateDrugRequestDTO
 import com.example.drugbank.data.dto.UpdateUserRequestDTO
 import com.example.drugbank.data.model.Drug
@@ -30,6 +31,7 @@ import com.example.drugbank.databinding.CustomToolbarBinding
 import com.example.drugbank.databinding.FragmentDrugBinding
 import com.example.drugbank.repository.Admin_DrugM_Repository
 import com.example.drugbank.respone.DrugMListRespone
+import com.example.drugbank.respone.UserListResponse
 import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
@@ -45,7 +47,7 @@ class DrugFragment : Fragment() {
     lateinit var _adapter: DrugAdapter
     lateinit var  tokenManager: TokenManager
     lateinit var _drugViewModel: DrugViewModel
-
+    private lateinit var currentUser: UserListResponse.User
 
     @Inject
     lateinit var adminDrugmRepository: Admin_DrugM_Repository
@@ -53,7 +55,7 @@ class DrugFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _drugViewModel = ViewModelProvider(this).get(DrugViewModel::class.java)
-
+        currentUser = Constant.getCurrentUser(requireContext())!!
 
     }
 
@@ -225,9 +227,14 @@ class DrugFragment : Fragment() {
             val imageResource = if (it.active) R.drawable.background_drug_active else R.drawable.background_drug_deactive
             dialogBinding.findViewById<ImageView>(R.id.iv_drugactive).setImageResource(imageResource)
 
-            if (it.active == false) {
-                dialogBinding.findViewById<AppCompatButton>(R.id.btn_deleteDrug).visibility = View.GONE
-            } else dialogBinding.findViewById<AppCompatButton>(R.id.btn_deleteDrug).visibility = View.VISIBLE
+
+
+            if (currentUser.roleName == "ADMIN") {
+                if (it.active == false) {
+                    dialogBinding.findViewById<AppCompatButton>(R.id.btn_deleteDrug).visibility = View.GONE
+                } else dialogBinding.findViewById<AppCompatButton>(R.id.btn_deleteDrug).visibility = View.VISIBLE
+
+            } else  dialogBinding.findViewById<AppCompatButton>(R.id.btn_deleteDrug).visibility = View.GONE
 
             dialogBinding.findViewById<AppCompatButton>(R.id.btn_deleteDrug).setOnClickListener {view ->
                 val confirmDialog = ConfirmDialog(

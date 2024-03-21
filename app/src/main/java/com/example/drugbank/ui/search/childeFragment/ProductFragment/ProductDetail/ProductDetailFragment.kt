@@ -49,9 +49,9 @@ class ProductDetailFragment : Fragment() {
     private var productID: Int = 0
     private lateinit var tokenManager: TokenManager
     private lateinit var _productDetailViewModel: ProductDetailViewModel
-
     private lateinit var productTableAdapter: ProductTableAdapter
     private lateinit var producDetail_Authorites_Adapter: ProductDetail_Authorites_Adapter
+    private lateinit var currentUser: UserListResponse.User
 
     @Inject
     lateinit var adminProductDetailRepository: Admin_ProductDetail_Repository
@@ -59,6 +59,13 @@ class ProductDetailFragment : Fragment() {
 
     @Inject
     lateinit var apiUserRepository: API_User_Repository
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        currentUser = Constant.getCurrentUser(requireContext())!!
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -131,34 +138,34 @@ class ProductDetailFragment : Fragment() {
     }
 
     private fun CallDeleteProduct() {
-        _binding.acbtnProductDelete.setOnClickListener {
-            val confirmDialog = ConfirmDialog(
-                requireContext(),
-                object : ConfirmDialog.ConfirmCallback {
-                    override fun negativeAction() {}
-                    override fun positiveAction() {
-                        CallDeleteProduct(productID)
-                    }
-                },
-                title = "Confirm",
-                message = "Delete Product",
-                positiveButtonTitle = "Yes",
-                negativeButtonTitle = "No"
-            )
-            confirmDialog.show()
-            confirmDialog.setOnDismissListener {
-                val navController =
-                    requireActivity().findNavController(R.id.nav_host_fragment_activity_main)
-                navController.navigate(Constant.getNavSeleted(Constant.SEARCH_NAV_ID))
+        if (currentUser.roleName == "ADMIN") {
+            _binding.acbtnProductDelete.setOnClickListener {
+                val confirmDialog = ConfirmDialog(
+                    requireContext(),
+                    object : ConfirmDialog.ConfirmCallback {
+                        override fun negativeAction() {}
+                        override fun positiveAction() {
+                            CallDeleteProduct(productID)
+                        }
+                    },
+                    title = "Confirm",
+                    message = "Delete Product",
+                    positiveButtonTitle = "Yes",
+                    negativeButtonTitle = "No"
+                )
+                confirmDialog.show()
+                confirmDialog.setOnDismissListener {
+                    val navController =
+                        requireActivity().findNavController(R.id.nav_host_fragment_activity_main)
+                    navController.navigate(Constant.getNavSeleted(Constant.SEARCH_NAV_ID))
+                }
             }
-        }
-    }
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        } else _binding.acbtnProductDelete.visibility = View.GONE
 
     }
+
+
+
 
     private fun setUpUiStatic() {
 
