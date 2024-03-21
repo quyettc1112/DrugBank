@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_recordFragmentnav_to_loginFragment"
             app:destination="@id/loginFragmentNav" />
+        <action
+            android:id="@+id/action_recordFragmentnav_to_recordDetailFragmentNav"
+            app:destination="@id/recordDetailFragmentNav" />
     </fragment>
     <fragment
         android:id="@+id/user_managerFragmentNav"
@@ -40,9 +43,7 @@
         android:name="com.example.drugbank.ui.drugstore.DrugStoreFragment"
         android:label="fragment_drug_store"
         tools:layout="@layout/fragment_drug_store" >
-        <action
-            android:id="@+id/action_drugStoreFragmentNav_to_recordDetailFragment"
-            app:destination="@id/recordDetailFragmentNav" />
+
     </fragment>
     <fragment
         android:id="@+id/settingFragmentNav"
@@ -82,9 +83,20 @@
         android:name="com.example.drugbank.ui.record.RecordDetail.RecordDetailFragment"
         android:label="fragment_record_detail"
         tools:layout="@layout/fragment_record_detail" >
+
+
         <action
-            android:id="@+id/action_recordDetailFragment_to_drugStoreFragmentNav"
-            app:destination="@id/drugStoreFragmentNav" />
+            android:id="@+id/action_recordDetailFragmentNav_to_PDInRecordFragment"
+            app:destination="@id/PDInRecordFragment_nav" />
+    </fragment>
+    <fragment
+        android:id="@+id/PDInRecordFragment_nav"
+        android:name="com.example.drugbank.ui.search.childeFragment.ProductFragment.PDInRecord.PDInRecordFragment"
+        android:label="fragment_p_d_in_record"
+        tools:layout="@layout/fragment_p_d_in_record" >
+        <action
+            android:id="@+id/action_PDInRecordFragment_to_recordDetailFragmentNav2"
+            app:destination="@id/recordDetailFragmentNav" />
     </fragment>
 
 
