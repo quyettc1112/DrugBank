@@ -27,12 +27,10 @@ class ProfileDetailAdapter(private val parentItemList: List<ProfileDetailRespone
         RecyclerView.ViewHolder(itemBinding.root) {
         fun bindItem(item: ProfileDetailRespone.ProfileDetail?) {
             itemBinding.statusProfileDetial.text = item?.status.toString()
-            if (item?.status == "REJECTED") {
+            if (item?.status == "REJECTED" || item?.status == "REJECTED BY SYSTEM") {
                 itemBinding.statusProfileDetial.setBackgroundColor(ContextCompat.getColor(context, R.color.red_light))
             } else  itemBinding.statusProfileDetial.setBackgroundColor(ContextCompat.getColor(context, R.color.i_blue))
-
             itemBinding.nameProfileDetail.text = item?.productResponseDTO?.name.toString()
-
             if (item?.productResponseDTO?.image.toString().isNullOrEmpty()) {
                 itemBinding.imageView2.setImageResource(R.drawable.defultdrug_base)
             } else {
@@ -90,7 +88,7 @@ class ProfileDetailAdapter(private val parentItemList: List<ProfileDetailRespone
                     val editor = sharedPreferences.edit()
                     editor.putInt(Constant.CURRENT_PRODUCT_ID_VALUE, Item.productResponseDTO?.id!!)
                     editor.apply()
-                    navController.navigate(Constant.getNavSeleted(5))
+                    navController.navigate(Constant.getNavSeleted(Constant.PD_IN_RECORD))
                 }
             }
         }

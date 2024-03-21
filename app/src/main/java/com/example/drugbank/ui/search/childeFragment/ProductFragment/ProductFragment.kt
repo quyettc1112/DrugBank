@@ -68,6 +68,8 @@ class ProductFragment : Fragment() {
         val isBackFromDetail = sharedPreferences.getInt(Constant.CURRENT_FDA_VALUE, 0)
 
         if (isBackFromDetail != 0) {
+            RESET_VIEWMODEL_VALUE()
+            _productViewModel.resetAllValue()
             _binding.layoutIncludeHolder.visibility = View.GONE
             if (isBackFromDetail == 1) {
                 _productViewModel.resetCheckCardValue()
@@ -117,7 +119,6 @@ class ProductFragment : Fragment() {
         fun updateSaveButtonState() {
             // Nếu không có card nào được chọn, vô hiệu hóa nút save. Nếu không, kích hoạt nút đó.
             includedLayout.saveFDA.isEnabled = selectedCardId != null
-
             if (selectedCardId == null) {
                 includedLayout.saveFDA.visibility = View.GONE
             } else includedLayout.saveFDA.visibility = View.VISIBLE
@@ -329,6 +330,7 @@ class ProductFragment : Fragment() {
     private fun setUpRecycleViewList() {
         _binding.rvItemUserHome.adapter = _productAdapter
         RESET_VIEWMODEL_VALUE()
+        _productViewModel.resetAllValue()
         CallProductList()
         _binding.rvItemUserHome.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -420,116 +422,6 @@ class ProductFragment : Fragment() {
 
     }
 
-    private fun CallProductList_DAV() {
-        adminProductRepository.getProductListDAV(
-            authorization = "Bearer ${tokenManager.getAccessToken()}",
-            pageNo = _productViewModel.currentPage.value!!,
-            pageSize = PAGE_SIZE,
-            sortField = _productViewModel.currentSorField.value.toString(),
-            sortOrder = _productViewModel.currentSortBy.value.toString(),
-            search = _productViewModel.currentSearchValue.value.toString()
-        ).enqueue(object : Callback<ProductListRespone> {
-            override fun onResponse(
-                call: Call<ProductListRespone>,
-                response: Response<ProductListRespone>
-            ) {
-                if (response.isSuccessful) {
-                    val productRespone: ProductListRespone? = response.body()
-                    val productList: List<ProductListRespone.Content> =
-                        productRespone?.content?.map { product ->
-                            ProductListRespone.Content(
-                                id = product.id,
-                                category = product.category,
-                                name = product.name,
-                                labeller = product.labeller,
-                                company = product.company,
-                                prescriptionName = product.prescriptionName,
-                                route = product.route.toString(),
-                                createdOn = product.createdOn.toString(),
-                                image = product.image,
-                                productAdministration = product.productAdministration
-                            )
-                        } ?: emptyList()
-                    _productViewModel.loafMoreProductList(productList)
-                    _productViewModel.totalElement.value = productRespone?.totalElements
-                    _productAdapter.differ.submitList(_productViewModel.currentProductList.value)
-
-                    _productViewModel.setLoading(false)
-                } else {
-                    val errorDialog = ErrorDialog(
-                        requireContext(),
-                        errorContent = "${response.code()} , {${response.errorBody()}}",
-                        textButton = "Back"
-                    )
-                    errorDialog.show()
-                }
-            }
-
-            override fun onFailure(call: Call<ProductListRespone>, t: Throwable) {
-                val errorDialog = ErrorDialog(
-                    requireContext(),
-                    errorContent = "${t.cause} , {${t.message}}",
-                    textButton = "Back"
-                )
-                errorDialog.show()
-            }
-        })
-    }
-    private fun CallProductList_ANSM() {
-        adminProductRepository.getProductListANSM(
-            authorization = "Bearer ${tokenManager.getAccessToken()}",
-            pageNo = _productViewModel.currentPage.value!!,
-            pageSize = PAGE_SIZE,
-            sortField = _productViewModel.currentSorField.value.toString(),
-            sortOrder = _productViewModel.currentSortBy.value.toString(),
-            search = _productViewModel.currentSearchValue.value.toString()
-        ).enqueue(object : Callback<ProductListRespone> {
-            override fun onResponse(
-                call: Call<ProductListRespone>,
-                response: Response<ProductListRespone>
-            ) {
-                if (response.isSuccessful) {
-                    val productRespone: ProductListRespone? = response.body()
-                    val productList: List<ProductListRespone.Content> =
-                        productRespone?.content?.map { product ->
-                            ProductListRespone.Content(
-                                id = product.id,
-                                category = product.category,
-                                name = product.name,
-                                labeller = product.labeller,
-                                company = product.company,
-                                prescriptionName = product.prescriptionName,
-                                route = product.route.toString(),
-                                createdOn = product.createdOn.toString(),
-                                image = product.image,
-                                productAdministration = product.productAdministration
-                            )
-                        } ?: emptyList()
-                    _productViewModel.loafMoreProductList(productList)
-                    _productViewModel.totalElement.value = productRespone?.totalElements
-                    _productAdapter.differ.submitList(_productViewModel.currentProductList.value)
-
-                    _productViewModel.setLoading(false)
-                } else {
-                    val errorDialog = ErrorDialog(
-                        requireContext(),
-                        errorContent = "${response.code()} , {${response.errorBody()}}",
-                        textButton = "Back"
-                    )
-                    errorDialog.show()
-                }
-            }
-
-            override fun onFailure(call: Call<ProductListRespone>, t: Throwable) {
-                val errorDialog = ErrorDialog(
-                    requireContext(),
-                    errorContent = "${t.cause} , {${t.message}}",
-                    textButton = "Back"
-                )
-                errorDialog.show()
-            }
-        })
-    }
     private fun CallProductList_NoFIll() {
         adminProductRepository.getProductList(
             authorization = "Bearer ${tokenManager.getAccessToken()}",
@@ -586,61 +478,7 @@ class ProductFragment : Fragment() {
         })
     }
 
-    private fun CallProductList_FDA() {
-        adminProductRepository.getProductListFDA(
-            authorization = "Bearer ${tokenManager.getAccessToken()}",
-            pageNo = _productViewModel.currentPage.value!!,
-            pageSize = PAGE_SIZE,
-            sortField = _productViewModel.currentSorField.value.toString(),
-            sortOrder = _productViewModel.currentSortBy.value.toString(),
-            search = _productViewModel.currentSearchValue.value.toString()
-        ).enqueue(object : Callback<ProductListRespone> {
-            override fun onResponse(
-                call: Call<ProductListRespone>,
-                response: Response<ProductListRespone>
-            ) {
-                if (response.isSuccessful) {
-                    val productRespone: ProductListRespone? = response.body()
-                    val productList: List<ProductListRespone.Content> =
-                        productRespone?.content?.map { product ->
-                            ProductListRespone.Content(
-                                id = product.id,
-                                category = product.category,
-                                name = product.name,
-                                labeller = product.labeller,
-                                company = product.company,
-                                prescriptionName = product.prescriptionName,
-                                route = product.route.toString(),
-                                createdOn = product.createdOn.toString(),
-                                image = product.image,
-                                productAdministration = product.productAdministration
-                            )
-                        } ?: emptyList()
-                    _productViewModel.loafMoreProductList(productList)
-                    _productViewModel.totalElement.value = productRespone?.totalElements
-                    _productAdapter.differ.submitList(_productViewModel.currentProductList.value)
 
-                    _productViewModel.setLoading(false)
-                } else {
-                    val errorDialog = ErrorDialog(
-                        requireContext(),
-                        errorContent = "${response.code()} , {${response.errorBody()}}",
-                        textButton = "Back"
-                    )
-                    errorDialog.show()
-                }
-            }
-
-            override fun onFailure(call: Call<ProductListRespone>, t: Throwable) {
-                val errorDialog = ErrorDialog(
-                    requireContext(),
-                    errorContent = "${t.cause} , {${t.message}}",
-                    textButton = "Back"
-                )
-                errorDialog.show()
-            }
-        })
-    }
 
     companion object {
         private const val PAGE_SIZE = 20
@@ -656,13 +494,6 @@ class ProductFragment : Fragment() {
         RESET_VIEWMODEL_VALUE()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-
-
-
-
-    }
 
 
 

@@ -277,7 +277,12 @@ class ProductDetailFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                TODO("Not yet implemented")
+                val errorDialog = ErrorDialog(
+                    requireContext(),
+                    textButton = "Back",
+                    errorContent = "${t.message}"
+                )
+                errorDialog.show()
             }
         })
 
@@ -299,11 +304,16 @@ class ProductDetailFragment : Fragment() {
                     bindDataManufactor(productDetail)
                     bindDataPharmarcogenomic(productDetail)
                     bindDataAroductAllergyDetail(productDetail)
-                    Picasso.get()
-                        .load(productDetailRespone?.image) // Assuming item.img is the URL string
-                        .placeholder(R.drawable.dafult_product_img) // Optional: Placeholder image while loading
-                        .error(R.drawable.loading) // Optional: Error image to display on load failure
-                        .into(_binding.ivProductDetail)
+                    if (productDetailRespone?.image.toString().isNullOrEmpty()) {
+                        _binding.ivProductDetail.setImageResource(R.drawable.defultdrug_base)
+                    } else {
+                        Picasso.get()
+                            .load(productDetailRespone?.image) // Assuming item.img is the URL string
+                            .placeholder(R.drawable.defultdrug_base) // Optional: Placeholder image while loading
+                            .error(R.drawable.defultdrug_base) // Optional: Error image to display on load failure
+                            .into(_binding.ivProductDetail)
+                    }
+
                     productTableAdapter = ProductTableAdapter(productDetailRespone!!.drugIngredients.toList())
                     _binding.rvDrugIngredients.adapter = productTableAdapter
                     Log.d("CheckDrugIn", productDetail!!.drugIngredients.toList().toString())
@@ -370,7 +380,8 @@ class ProductDetailFragment : Fragment() {
 
     private fun backToSearch() {
         _binding.customToolbar.onStartIconClick = {
-            requireActivity().onBackPressed()
+            val navController = requireActivity().findNavController(R.id.nav_host_fragment_activity_main)
+            navController.navigate(Constant.getNavSeleted(Constant.SEARCH_NAV_ID))
         }
     }
 
