@@ -1,12 +1,14 @@
-package com.example.drugbank.ui.search.childeFragment.ProductFragment.ProductDetail
+package com.example.drugbank.ui.search.childeFragment.ProductFragment.PDInRecord
 
 import android.content.Context
 import android.content.res.Resources
 import android.net.Uri
+import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.transition.AutoTransition
 import android.transition.TransitionManager
 import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,8 +16,6 @@ import android.view.ViewTreeObserver
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.AppCompatImageView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.drugbank.R
 import com.example.drugbank.base.dialog.ConfirmDialog
@@ -23,12 +23,16 @@ import com.example.drugbank.base.dialog.ErrorDialog
 import com.example.drugbank.base.dialog.NotifyDialog
 import com.example.drugbank.common.Token.TokenManager
 import com.example.drugbank.common.constant.Constant
+import com.example.drugbank.databinding.FragmentPDInRecordBinding
 import com.example.drugbank.databinding.FragmentProductDetailBinding
 import com.example.drugbank.repository.API_User_Repository
 import com.example.drugbank.repository.Admin_ProductDetail_Repository
 import com.example.drugbank.respone.ProductDetailRespone
 import com.example.drugbank.respone.ProductListRespone
 import com.example.drugbank.respone.UserListResponse
+import com.example.drugbank.ui.search.childeFragment.ProductFragment.ProductDetail.ProductDetailViewModel
+import com.example.drugbank.ui.search.childeFragment.ProductFragment.ProductDetail.ProductDetail_Authorites_Adapter
+import com.example.drugbank.ui.search.childeFragment.ProductFragment.ProductDetail.ProductTableAdapter
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -42,9 +46,10 @@ import java.io.FileOutputStream
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ProductDetailInRecord : Fragment() {
+class PDInRecordFragment : Fragment() {
 
-    private lateinit var _binding: FragmentProductDetailBinding
+
+    private lateinit var _binding: FragmentPDInRecordBinding
     private var productID: Int = 0
     private lateinit var tokenManager: TokenManager
     private lateinit var _productDetailViewModel: ProductDetailViewModel
@@ -70,7 +75,7 @@ class ProductDetailInRecord : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentProductDetailBinding.inflate(inflater, container, false)
+        _binding = FragmentPDInRecordBinding.inflate(inflater, container, false)
         _productDetailViewModel = ViewModelProvider(this).get(ProductDetailViewModel::class.java)
         backToSearch()
         val sharedPreferences = requireActivity().getSharedPreferences(
@@ -322,7 +327,7 @@ class ProductDetailInRecord : Fragment() {
     }
 
     private fun CallProductDetail(id: Int) {
-        adminProductDetailRepository.getProductDetail(
+        adminProductDetailRepository.getProductDetailInRecord(
             authorization = "Bearer ${tokenManager.getAccessToken()}",
             id = id
         ).enqueue(object : Callback<ProductDetailRespone> {
@@ -337,11 +342,22 @@ class ProductDetailInRecord : Fragment() {
                     bindDataManufactor(productDetail)
                     bindDataPharmarcogenomic(productDetail)
                     bindDataAroductAllergyDetail(productDetail)
-                    Picasso.get()
-                        .load(productDetailRespone?.image) // Assuming item.img is the URL string
-                        .placeholder(R.drawable.dafult_product_img) // Optional: Placeholder image while loading
-                        .error(R.drawable.loading) // Optional: Error image to display on load failure
-                        .into(_binding.ivProductDetail)
+
+                    if (productDetailRespone?.image.toString().isNullOrEmpty()) {
+                        _binding.ivProductDetail.setImageResource(R.drawable.defultdrug_base)
+
+                    } else {
+                        Picasso.get()
+                            .load(productDetailRespone?.image) // Assuming item.img is the URL string
+                            .placeholder(R.drawable.defultdrug_base) // Optional: Placeholder image while loading
+                            .error(R.drawable.defultdrug_base) // Optional: Error image to display on load failure
+                            .into(_binding.ivProductDetail)
+
+                    }
+
+
+
+
                     productTableAdapter =
                         ProductTableAdapter(productDetailRespone!!.drugIngredients.toList())
                     _binding.rvDrugIngredients.adapter = productTableAdapter
@@ -423,4 +439,5 @@ class ProductDetailInRecord : Fragment() {
             requireActivity().onBackPressed()
         }
     }
+
 }
