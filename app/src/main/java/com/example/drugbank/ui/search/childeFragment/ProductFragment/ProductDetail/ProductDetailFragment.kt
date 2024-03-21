@@ -308,56 +308,58 @@ class ProductDetailFragment : Fragment() {
 
                     _productDetailViewModel.setLoading(false)
                 } else {
-                    Log.d("CheckRsul", "${response.code()}, ${response.toString()}")
+                    val errorDialog = ErrorDialog(requireContext(), textButton = "Back", errorContent = "Error " + response.code().toString())
+                    errorDialog.show()
                 }
             }
             override fun onFailure(call: Call<ProductDetailRespone>, t: Throwable) {
                 _productDetailViewModel.setLoading(false)
-                Log.d("CheckRsul T", "${t.message}")
+                val errorDialog = ErrorDialog(requireContext(), textButton = "Back", errorContent = "Error " + t.message.toString())
+                errorDialog.show()
             }
         })
     }
 
     private fun bindDataProductInfo(productResponse: ProductDetailRespone?) {
         _binding.productId.text = productResponse!!.id.toString()
-        _binding.productName.text = productResponse!!.name.toString()
-        _binding.productPrename.text = productResponse!!.prescriptionName.toString()
-        _binding.prouductNameSmall.text = productResponse!!.name.toString()
-        _binding.productLabeller.text = productResponse!!.labeller.toString()
+        _binding.productName.text = productResponse!!.name
+        _binding.productPrename.text = productResponse!!.prescriptionName
+        _binding.prouductNameSmall.text = productResponse!!.name
+        _binding.productLabeller.text = productResponse!!.labeller
         _binding.cateId.text = productResponse!!.category.id.toString()
-        _binding.cateTitlee.text = productResponse!!.category.title.toString()
-        _binding.cateSlug.text = productResponse!!.category.slug.toString()
+        _binding.cateTitlee.text = productResponse!!.category.title
+        _binding.cateSlug.text = productResponse!!.category.slug
     }
 
     private fun bindDataManufactor(productDetail: ProductDetailRespone?) {
         if (productDetail!!.manufactor != null) {
-            _binding.manufactorName.text = productDetail.manufactor.name.toString()
-            _binding.manufactorCompany.text = productDetail.manufactor.company.toString()
-            _binding.manufactorScore.text = productDetail.manufactor.score.toString()
-            _binding.manufactorSource.text = productDetail.manufactor.source.toString()
-            _binding.manufactorCountryID.text = productDetail.manufactor.countryId.toString()
-            _binding.manufactorCountryName.text = productDetail.manufactor.countryName.toString()
+            _binding.manufactorName.text = productDetail.manufactor?.name
+            _binding.manufactorCompany.text = productDetail.manufactor?.company
+            _binding.manufactorScore.text = productDetail.manufactor?.score.toString()
+            _binding.manufactorSource.text = productDetail.manufactor?.source
+            _binding.manufactorCountryID.text = productDetail.manufactor?.countryId.toString()
+            _binding.manufactorCountryName.text = productDetail.manufactor?.countryName
         }
     }
     private fun bindDataPharmarcogenomic(productDetail: ProductDetailRespone?) {
         if (productDetail!!.pharmacogenomic != null) {
-            _binding.pharmarPharmar.text = productDetail.pharmacogenomic.pharmacodynamic.toString()
-            _binding.pharmarAsorption.text = productDetail.pharmacogenomic.asorption.toString()
-            _binding.pharmarIndication.text = productDetail.pharmacogenomic.indication.toString()
-            _binding.pharmarToxicity.text = productDetail.pharmacogenomic.toxicity.toString()
-            _binding.pharmarMechinbism.text = productDetail.pharmacogenomic.mechanismOfAction.toString()
+            _binding.pharmarPharmar.text = productDetail.pharmacogenomic?.pharmacodynamic
+            _binding.pharmarAsorption.text = productDetail.pharmacogenomic?.asorption
+            _binding.pharmarIndication.text = productDetail.pharmacogenomic?.indication
+            _binding.pharmarToxicity.text = productDetail.pharmacogenomic?.toxicity
+            _binding.pharmarMechinbism.text = productDetail.pharmacogenomic?.mechanismOfAction
 
 
-            _binding.cRelation.text = productDetail.contraindication.relationship.toString()
-            _binding.cValue.text = productDetail.contraindication.value.toString()
+            _binding.cRelation.text = productDetail.contraindication?.relationship
+            _binding.cValue.text = productDetail.contraindication?.value
 
         }
     }
 
     private fun bindDataAroductAllergyDetail(productDetail: ProductDetailRespone?) {
         if (productDetail!!.productAllergyDetail != null) {
-            _binding.aadDetail.text = productDetail.productAllergyDetail.detail.toString()
-            _binding.aadSumary.text = productDetail.productAllergyDetail.summary.toString()
+            _binding.aadDetail.text = productDetail.productAllergyDetail?.detail
+            _binding.aadSumary.text = productDetail.productAllergyDetail?.summary
         }
     }
 

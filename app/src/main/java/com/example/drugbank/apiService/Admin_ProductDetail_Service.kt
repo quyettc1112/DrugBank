@@ -6,14 +6,15 @@ import retrofit2.Call
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 
 interface Admin_ProductDetail_Service {
-    @GET("admin/approval-products-detail")
+    @GET("admin/approval-products/{id}")
     fun getProductDetail(
         @Header("Authorization") authorization: String,
-        @Query("id") id: Int,
+        @Path("id") id: Int
     ): Call<ProductDetailRespone>
 
     @DELETE("admin/approval-products")

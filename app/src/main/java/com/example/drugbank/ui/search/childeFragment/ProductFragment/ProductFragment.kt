@@ -86,6 +86,8 @@ class ProductFragment : Fragment() {
                 _productViewModel.administration.value = 3
             }
             setUpRecycleViewList()
+            showBottomSheet()
+            setUpSearchQueries()
         } else {
             uiChooseFDA()
         }
@@ -406,10 +408,12 @@ class ProductFragment : Fragment() {
             CallProductList_NoFIll()
             _binding.imvFlag.setBackgroundResource(R.drawable.dav)
             _binding.textFlag.setText("DAV")
-        } else {
-            CallProductList_NoFIll()
-            _binding.imvFlag.setBackgroundResource(R.drawable.avatar_1)
         }
+//
+//        else {
+//            CallProductList_NoFIll()
+//            _binding.imvFlag.setBackgroundResource(R.drawable.avatar_1)
+//        }
 
 
     }
@@ -525,7 +529,6 @@ class ProductFragment : Fragment() {
         })
     }
     private fun CallProductList_NoFIll() {
-        RESET_VIEWMODEL_VALUE()
         adminProductRepository.getProductList(
             authorization = "Bearer ${tokenManager.getAccessToken()}",
             pageNo = _productViewModel.currentPage.value!!,
@@ -559,7 +562,6 @@ class ProductFragment : Fragment() {
                     _productViewModel.loafMoreProductList(productList)
                     _productViewModel.totalElement.value = productRespone?.totalElements
                     _productAdapter.differ.submitList(_productViewModel.currentProductList.value)
-
                     _productViewModel.setLoading(false)
                 } else {
                     val errorDialog = ErrorDialog(
