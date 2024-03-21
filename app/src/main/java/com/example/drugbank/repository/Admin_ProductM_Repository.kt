@@ -15,8 +15,9 @@ class Admin_ProductM_Repository @Inject constructor(
         pageSize: Int,
         sortField: String,
         sortOrder: String,
-        search: String
-    ) = adminProductmRepository.getProductList(authorization, pageNo, pageSize, sortField, sortOrder, search)
+        search: String,
+        administration: Int
+    ) = adminProductmRepository.getProductList(authorization, pageNo, pageSize, sortField, sortOrder, search, administration)
 
     fun getProductListFDA(
         authorization: String,

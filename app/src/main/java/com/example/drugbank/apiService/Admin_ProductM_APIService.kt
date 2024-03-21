@@ -18,6 +18,7 @@ interface Admin_ProductM_APIService {
         @Query("sortField") sortField: String,
         @Query("sortOrder") sortOrder: String,
         @Query("search") search: String,
+        @Query("administration") administration : Int,
         ): Call<ProductListRespone>
 
 
