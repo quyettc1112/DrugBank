@@ -120,6 +120,15 @@ class Constant {
             editor.apply()
         }
 
+        fun removeAllAdmintration(context: Context) {
+            val sharedPreferences = context.getSharedPreferences(CURRENT_FDA, Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            sharedPreferences.all.keys.forEach { key ->
+                editor.remove(key)
+            }
+            editor.apply()
+        }
+
         fun removeAllCurrentUser(context: Context) {
             val sharedPreferences = context.getSharedPreferences(CURRENT_USER, Context.MODE_PRIVATE)
             val editor = sharedPreferences.edit()

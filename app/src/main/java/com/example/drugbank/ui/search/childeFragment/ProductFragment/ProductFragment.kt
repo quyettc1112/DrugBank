@@ -70,20 +70,20 @@ class ProductFragment : Fragment() {
             if (isBackFromDetail == 1) {
                 _productViewModel.resetCheckCardValue()
                 _productViewModel.isCheckedCard1.value = true
-               // CallProductList()
+                _productViewModel.administration.value = 1
             }
 
             if (isBackFromDetail == 2) {
                 _productViewModel.resetCheckCardValue()
                 _productViewModel.isCheckedCard2.value = true
-               // CallProductList()
+                _productViewModel.administration.value = 2
 
             }
 
             if (isBackFromDetail == 3) {
                 _productViewModel.resetCheckCardValue()
                 _productViewModel.isCheckedCard3.value = true
-                //CallProductList()
+                _productViewModel.administration.value = 3
             }
             setUpRecycleViewList()
         } else {
@@ -110,6 +110,14 @@ class ProductFragment : Fragment() {
         val includedLayout = _binding.layoutChoose
         var selectedCardId: Int? = null // Biến để lưu ID của card được chọn
 
+        fun updateSaveButtonState() {
+            // Nếu không có card nào được chọn, vô hiệu hóa nút save. Nếu không, kích hoạt nút đó.
+            includedLayout.saveFDA.isEnabled = selectedCardId != null
+
+            if (selectedCardId == null) {
+                includedLayout.saveFDA.visibility = View.GONE
+            } else includedLayout.saveFDA.visibility = View.VISIBLE
+        }
         includedLayout.materialCardView2.setOnClickListener {
             if (selectedCardId != R.id.materialCardView2) { // Kiểm tra xem card hiện tại đã được chọn chưa
                 selectedCardId = R.id.materialCardView2 // Đặt ID của card được chọn
@@ -120,6 +128,7 @@ class ProductFragment : Fragment() {
                 includedLayout.checkboxcard1.visibility = View.GONE // Ẩn checkbox
                 _productViewModel.resetAllValue()
             }
+            updateSaveButtonState()
         }
         includedLayout.materialCardView3.setOnClickListener {
             if (selectedCardId != R.id.materialCardView3) {
@@ -131,6 +140,7 @@ class ProductFragment : Fragment() {
                 includedLayout.checkboxcard2.visibility = View.GONE
                 _productViewModel.resetAllValue()
             }
+            updateSaveButtonState()
         }
         includedLayout.materialCardView4.setOnClickListener {
             if (selectedCardId != R.id.materialCardView4) {
@@ -142,8 +152,10 @@ class ProductFragment : Fragment() {
                 includedLayout.checkboxcard3.visibility = View.GONE
                 _productViewModel.resetAllValue()
             }
+            updateSaveButtonState()
         }
 
+        updateSaveButtonState()
         includedLayout.saveFDA.setOnClickListener {
             _binding.layoutIncludeHolder.visibility = View.GONE
 
@@ -176,6 +188,8 @@ class ProductFragment : Fragment() {
         includedLayout.checkboxcard3.visibility = View.GONE
         includedLayout.checkboxcard3.isChecked = false
 
+
+
         // Bật card và checkbox tương ứng với card được chọn
         when (selectedId) {
             R.id.materialCardView2 -> {
@@ -185,6 +199,7 @@ class ProductFragment : Fragment() {
                 _productViewModel.resetCheckCardValue()
                 _productViewModel.isCheckedCard1.value = true
                 currentIDClcik = 1
+                _productViewModel.administration.value = 1
             }
             R.id.materialCardView3 -> {
                 includedLayout.materialCardView3.isChecked = true
@@ -193,6 +208,7 @@ class ProductFragment : Fragment() {
                 _productViewModel.resetCheckCardValue()
                 _productViewModel.isCheckedCard2.value = true
                 currentIDClcik = 2
+                _productViewModel.administration.value = 2
             }
             R.id.materialCardView4 -> {
                 includedLayout.materialCardView4.isChecked = true
@@ -201,6 +217,7 @@ class ProductFragment : Fragment() {
                 _productViewModel.resetCheckCardValue()
                 _productViewModel.isCheckedCard3.value = true
                 currentIDClcik = 3
+                _productViewModel.administration.value = 2
             }
         }
     }
@@ -378,21 +395,22 @@ class ProductFragment : Fragment() {
 
     private fun CallProductList() {
         if (_productViewModel.isCheckedCard1.value == true) {
-            CallProductList_FDA()
+            CallProductList_NoFIll()
             _binding.imvFlag.setBackgroundResource(R.drawable.fda)
             _binding.textFlag.setText("FDA")
         } else if (_productViewModel.isCheckedCard2.value == true){
-            CallProductList_ANSM()
+            CallProductList_NoFIll()
             _binding.imvFlag.setBackgroundResource(R.drawable.ansm)
             _binding.textFlag.setText("ANSM")
         } else if (_productViewModel.isCheckedCard3.value == true) {
-            CallProductList_DAV()
+            CallProductList_NoFIll()
             _binding.imvFlag.setBackgroundResource(R.drawable.dav)
             _binding.textFlag.setText("DAV")
         } else {
             CallProductList_NoFIll()
             _binding.imvFlag.setBackgroundResource(R.drawable.avatar_1)
         }
+
 
     }
 
@@ -514,7 +532,8 @@ class ProductFragment : Fragment() {
             pageSize = PAGE_SIZE,
             sortField = _productViewModel.currentSorField.value.toString(),
             sortOrder = _productViewModel.currentSortBy.value.toString(),
-            search = _productViewModel.currentSearchValue.value.toString()
+            search = _productViewModel.currentSearchValue.value.toString(),
+            administration = _productViewModel.administration.value!!
         ).enqueue(object : Callback<ProductListRespone> {
             override fun onResponse(
                 call: Call<ProductListRespone>,
