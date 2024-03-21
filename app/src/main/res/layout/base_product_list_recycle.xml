@@ -14,15 +14,17 @@
         android:layout_height="190dp">
 
         <LinearLayout
-            android:layout_weight="7"
+            android:layout_weight="6.5"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <ImageView
+                android:background="@drawable/background_button_normal"
+                android:padding="5dp"
                 android:id="@+id/iv_imgProduct"
+                android:layout_gravity="center"
                 android:src="@drawable/dafult_product_img"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
+                android:layout_height="160dp">
             </ImageView>
 
 
@@ -33,13 +35,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="10dp"
-            android:layout_weight="3">
+            android:layout_marginEnd="5dp"
+            android:layout_weight="3.5">
 
             <TextView
                 android:id="@+id/tv_productname"
                 android:layout_marginTop="5dp"
                 android:textStyle="bold"
                 android:textSize="20dp"
+
                 android:maxLines="1"
                 android:text="Paracetamol - 150mg"
                 android:layout_width="wrap_content"
@@ -52,10 +56,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp">
                 <TextView
-                    android:gravity="center"
-                    android:layout_weight="4"
+                    android:gravity="left|center"
+                    android:layout_weight="4.2"
                     android:text="Category "
-                    android:textSize="13dp"
+                    android:textSize="12dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -70,11 +74,11 @@
                 <TextView
                     android:id="@+id/tv_category"
                     android:gravity="left|center"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="5dp"
                     android:maxLines="2"
-                    android:textSize="13dp"
+                    android:textSize="10dp"
                     android:text="Analgesic, Bruh, Blah, Durg"
-                    android:layout_weight="2"
+                    android:layout_weight="1.8"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -90,10 +94,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp">
                 <TextView
-                    android:gravity="center"
-                    android:layout_weight="4"
+                    android:gravity="center|left"
+                    android:layout_weight="4.2"
                     android:text="Prescription Name"
-                    android:textSize="13dp"
+                    android:textSize="12dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -107,11 +111,11 @@
                 <TextView
                     android:id="@+id/tv_prescripsionname"
                     android:gravity="left|center"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="5dp"
                     android:maxLines="2"
-                    android:textSize="13dp"
+                    android:textSize="10dp"
                     android:text="Acetaminophen"
-                    android:layout_weight="2"
+                    android:layout_weight="1.8"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -125,10 +129,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp">
                 <TextView
-                    android:gravity="center"
-                    android:layout_weight="4"
+                    android:gravity="center|left"
+                    android:layout_weight="4.2"
                     android:text="Route"
-                    android:textSize="13dp"
+                    android:textSize="12dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -142,11 +146,11 @@
                 <TextView
                     android:gravity="left|center"
                     android:id="@+id/tv_route"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="5dp"
                     android:maxLines="3"
-                    android:textSize="13dp"
+                    android:textSize="10dp"
                     android:text="Oral, Rectal, Intravenous  Injection, Oral Dissolving Tablets"
-                    android:layout_weight="2"
+                    android:layout_weight="1.8"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 

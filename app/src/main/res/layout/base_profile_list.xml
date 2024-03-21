@@ -21,7 +21,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <ImageView
+                    android:background="@drawable/background_button_normal"
                     android:id="@+id/iv_product_detail"
+                    android:padding="5dp"
                     android:src="@drawable/dafult_product_img"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
