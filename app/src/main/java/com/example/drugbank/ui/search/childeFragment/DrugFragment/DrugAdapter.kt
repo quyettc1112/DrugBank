@@ -20,7 +20,7 @@ class DrugAdapter(): RecyclerView.Adapter<DrugAdapter.MainViewHolder>() {
             itemBinding.tvDrugname.text = drug.name
             itemBinding.tvSimpleDescription.text = drug.simpleDescription
             itemBinding.tvType.text = "Type:" + drug.type
-            itemBinding.tvApprovalStatus.text = "ApprovalStatus: " + drug.approvalStatus
+           // itemBinding.tvApprovalStatus.text = "ApprovalStatus: " + drug.approvalStatus
             itemBinding.ivDrugactive.setImageResource(if (drug.active) R.drawable.background_drug_active else R.drawable.background_drug_deactive)
         }
     }
