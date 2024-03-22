@@ -222,7 +222,7 @@ class ProductFragment : Fragment() {
                 _productViewModel.resetCheckCardValue()
                 _productViewModel.isCheckedCard3.value = true
                 currentIDClcik = 3
-                _productViewModel.administration.value = 2
+                _productViewModel.administration.value = 3
             }
         }
     }
@@ -308,18 +308,21 @@ class ProductFragment : Fragment() {
                     RESET_VIEWMODEL_VALUE()
                     _productViewModel.isCheckedCard1.value = true
                     currentIDClcik = 1
+                    _productViewModel.administration.value = 1
                     CallProductList()
                 } else if (currentCheckedCheckbox == checkBoxANSM) {
                     _productViewModel.resetCheckCardValue()
                     RESET_VIEWMODEL_VALUE()
                     _productViewModel.isCheckedCard2.value = true
                     currentIDClcik = 2
+                    _productViewModel.administration.value = 2
                     CallProductList()
                 } else if (currentCheckedCheckbox == checkBoxDAV) {
                     _productViewModel.resetCheckCardValue()
                     RESET_VIEWMODEL_VALUE()
                     _productViewModel.isCheckedCard3.value = true
                     currentIDClcik = 3
+                    _productViewModel.administration.value = 3
                     CallProductList()
                 }
             }
@@ -413,12 +416,6 @@ class ProductFragment : Fragment() {
             _binding.imvFlag.setBackgroundResource(R.drawable.dav)
             _binding.textFlag.setText("DAV")
         }
-//
-//        else {
-//            CallProductList_NoFIll()
-//            _binding.imvFlag.setBackgroundResource(R.drawable.avatar_1)
-//        }
-
 
     }
 
