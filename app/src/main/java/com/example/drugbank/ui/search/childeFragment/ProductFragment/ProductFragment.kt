@@ -491,6 +491,10 @@ class ProductFragment : Fragment() {
         RESET_VIEWMODEL_VALUE()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
 
 
 

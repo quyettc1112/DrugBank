@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.navigation.findNavController
@@ -53,6 +54,9 @@ class ProductDetailFragment : Fragment() {
     private lateinit var producDetail_Authorites_Adapter: ProductDetail_Authorites_Adapter
     private lateinit var currentUser: UserListResponse.User
 
+
+    private lateinit var callback: OnBackPressedCallback
+
     @Inject
     lateinit var adminProductDetailRepository: Admin_ProductDetail_Repository
 
@@ -64,6 +68,14 @@ class ProductDetailFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         currentUser = Constant.getCurrentUser(requireContext())!!
+
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val navController = requireActivity().findNavController(R.id.nav_host_fragment_activity_main)
+                navController.navigate(Constant.getNavSeleted(Constant.SEARCH_NAV_ID))
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
 
@@ -384,6 +396,7 @@ class ProductDetailFragment : Fragment() {
             navController.navigate(Constant.getNavSeleted(Constant.SEARCH_NAV_ID))
         }
     }
+
 
 
 
